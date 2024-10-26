@@ -1,0 +1,10 @@
+func main() {
+ var a;
+ a = true + 5;
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

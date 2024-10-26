@@ -1,0 +1,17 @@
+func foo(x) {
+  var y;
+  y = 5;
+  print(x);
+}
+
+func main() {
+  var y;
+  y = 10;
+  foo(y);
+}
+
+/*
+*OUT*
+10
+*OUT*
+*/

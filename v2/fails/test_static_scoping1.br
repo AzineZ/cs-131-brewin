@@ -1,0 +1,14 @@
+func main() {
+ foo();
+ print(a);
+}
+
+func foo() {
+ a = 5;
+}
+
+/*
+*OUT*
+ErrorType.NAME_ERROR
+*OUT*
+*/
