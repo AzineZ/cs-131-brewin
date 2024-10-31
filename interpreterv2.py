@@ -28,6 +28,10 @@ class Interpreter(InterpreterBase):
                          '==': lambda x, y: x == y,
                          '!=': lambda x, y: x != y,
                         }
+        self.nil_ops = {
+                        '==': lambda x, y: x == y,
+                        '!=': lambda x, y: x != y,
+                        }
 
     def report_error(self, item, error_type):
         error_messages = {
@@ -177,6 +181,8 @@ class Interpreter(InterpreterBase):
                 operation = self.int_ops.get(arg_type)
             elif isinstance(op1, bool) and isinstance(op2, bool) and arg_type in self.bool_ops:
                 operation = self.bool_ops.get(arg_type)
+            elif op1 == None and op2 == None and arg_type in self.nil_ops:
+                operation = self.bool_ops.get(arg_type)
             
             if operation:
                 return operation(op1, op2)
@@ -191,9 +197,9 @@ def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """func main() {
              var x;
              var y;
-             x = 2 != print("lalala");
+             x = nil != print("lalala");
              y = 5;
-             print("The sum is: ", x);
+             print("The sum is: ", x == (y < 3));
           }"""
 
     interpreter = Interpreter()
