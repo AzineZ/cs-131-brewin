@@ -8,6 +8,7 @@ class Interpreter(InterpreterBase):
 
         self.var_to_val = {}
         self.non_var_value_type = {'int', 'string', 'bool'}
+        self.arithmetic_ops = {'+', '-', '*', '/'}
         self.int_ops = {'+': lambda x, y: x + y,
                         '-': lambda x, y: x - y,
                         '*': lambda x, y: x * y,
@@ -152,8 +153,11 @@ class Interpreter(InterpreterBase):
                 self.report_error(None, "mismatched_type")
             
             # Additional check for string type if concatenation is intended
-            if arg_type == '+' and isinstance(op1, str) and isinstance(op2, str):
-                return op1 + op2  # Perform string concatenation
+            if isinstance(op1, str) and isinstance(op2, str) and arg_type in self.arithmetic_ops:
+                if arg_type == '+':
+                    return op1 + op2  # Perform string concatenation
+                self.report_error(None, "mismatched_type")
+
             operation = self.int_ops.get(arg_type)
             if operation:
                 return operation(op1, op2)
@@ -167,7 +171,7 @@ def main():  # COMMENT THIS ONCE FINISH TESTING
              var y;
              y = -4;
              x = inputi("Enter a number: ");
-             print("The sum is: ", "Hello" + " " + "world" + "!");
+             print("The sum is: ", "Hello " < "World");
           }"""
 
     interpreter = Interpreter()
