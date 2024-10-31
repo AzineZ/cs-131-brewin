@@ -23,9 +23,11 @@ class Interpreter(InterpreterBase):
                         '>': lambda x, y: x > y,
                         '>=': lambda x, y: x >= y
                         }
-        self.bool_ops = {
-
-        }
+        self.bool_ops = {'||': lambda x, y: x or y,
+                         '&&': lambda x, y: x and y,
+                         '==': lambda x, y: x == y,
+                         '!=': lambda x, y: x != y,
+                        }
 
     def report_error(self, item, error_type):
         error_messages = {
@@ -154,7 +156,7 @@ class Interpreter(InterpreterBase):
                 self.report_error(None, "mismatched_type")
             return not op1
         
-        elif arg_type in self.int_ops or arg_type in self.string_ops:
+        elif arg_type in self.int_ops or arg_type in self.string_ops or arg_type in self.bool_ops:
             op1 = self.do_expression(arg.get('op1'))
             op2 = self.do_expression(arg.get('op2'))
 
@@ -166,9 +168,15 @@ class Interpreter(InterpreterBase):
                               
                 self.report_error(None, "mismatched_type")
             
-            # Check for string type if concatenation is intended
-            if isinstance(op1, str) and isinstance(op2, str) and arg_type in self.string_ops or isinstance(op1, int) and isinstance(op2, int) and arg_type in self.int_ops:
+            # Check binary arg_type
+            if isinstance(op1, str) and isinstance(op2, str) and arg_type in self.string_ops:
+                operation = self.string_ops.get(arg_type)
+            elif isinstance(op1, int) and isinstance(op2, int) and arg_type in self.int_ops:
                 operation = self.int_ops.get(arg_type)
+            elif isinstance(op1, bool) and isinstance(op2, bool) and arg_type in self.bool_ops:
+                operation = self.bool_ops.get(arg_type)
+            
+            if operation:
                 return operation(op1, op2)
             else:
                 self.report_error(None, "mismatched_type")
@@ -181,9 +189,9 @@ def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """func main() {
              var x;
              var y;
-             y = 2;
+             y = true;
              x = inputi("Enter a number: ");
-             print("The sum is: ", -y);
+             print("The sum is: ", y == false);
           }"""
 
     interpreter = Interpreter()
