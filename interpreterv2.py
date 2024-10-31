@@ -124,6 +124,10 @@ class Interpreter(InterpreterBase):
                 self.report_error(var_name, "var_not_defined")
             return self.var_to_val[var_name]
         
+        elif arg_type == 'neg':
+            op1 = self.do_expression(arg.get('op1'))
+            return -op1
+        
         elif arg_type == '+' or arg_type == '-' or arg_type == '*' or arg_type == '/':
             op1 = self.do_expression(arg.get('op1'))
             op2 = self.do_expression(arg.get('op2'))
@@ -149,9 +153,9 @@ def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """func main() {
              var x;
              var y;
-             y = 2;
+             y = -2;
              x = inputi("Enter a number: ");
-             print("The sum is: ", x / y);
+             print("The sum is: ", y - x);
           }"""
 
     interpreter = Interpreter()
