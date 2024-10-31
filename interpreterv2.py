@@ -198,8 +198,7 @@ def main():  # COMMENT THIS ONCE FINISH TESTING
              var x;
              var y;
              x = nil != print("lalala");
-             y = 5;
-             print("The sum is: ", x == (y < 3));
+             print(false || true);
           }"""
 
     interpreter = Interpreter()
