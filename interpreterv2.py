@@ -87,15 +87,17 @@ class Interpreter(InterpreterBase):
     def do_func_call(self, statement_node, origin):
         func_name = statement_node.get('name')
         # Check for valid function names
-        if func_name not in ['print', 'inputi']:
+        if func_name not in ['print', 'inputi', "inputs"]:
             self.report_error(func_name, "func_not_defined")
         # Check for valid function calls
-        if func_name == 'print' and origin == 'expression' or func_name == 'inputi' and origin == 'statement':
+        if func_name == 'inputi' and origin == 'statement':
             self.report_error(func_name, "invalid_func_call")
 
         func_args = statement_node.get('args')
         if func_name == 'print':
             self.do_print(func_args)
+            if origin == 'expression':
+                return None                     #Return nil if print is called from an expression
         elif func_name == 'inputi':
             return self.do_inputi(func_args)
 
@@ -168,7 +170,7 @@ class Interpreter(InterpreterBase):
                               
                 self.report_error(None, "mismatched_type")
             
-            # Check binary arg_type
+            # Check binary arg_type with operands of the same type
             if isinstance(op1, str) and isinstance(op2, str) and arg_type in self.string_ops:
                 operation = self.string_ops.get(arg_type)
             elif isinstance(op1, int) and isinstance(op2, int) and arg_type in self.int_ops:
@@ -189,9 +191,9 @@ def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """func main() {
              var x;
              var y;
-             y = true;
-             x = inputi("Enter a number: ");
-             print("The sum is: ", y == false);
+             x = 2 != print("lalala");
+             y = 5;
+             print("The sum is: ", x);
           }"""
 
     interpreter = Interpreter()
