@@ -8,7 +8,10 @@ class Interpreter(InterpreterBase):
 
         self.var_to_val = {}
         self.non_var_value_type = {'int', 'string', 'bool'}
-        self.arithmetic_ops = {'+', '-', '*', '/'}
+        self.string_ops = {'+': lambda x, y: x + y,
+                           '==': lambda x, y: x == y,
+                           '!=': lambda x, y: x != y
+                        }
         self.int_ops = {'+': lambda x, y: x + y,
                         '-': lambda x, y: x - y,
                         '*': lambda x, y: x * y,
@@ -31,7 +34,7 @@ class Interpreter(InterpreterBase):
             "invalid_params_to_inputi": "No inputi() function found that takes > 1 parameter"
         }
         if error_type == "mismatched_type":
-            super().error(ErrorType.TYPE_ERROR, "Incompatible types for arithmetic operation")
+            super().error(ErrorType.TYPE_ERROR, "Incompatible types for the operation")
         else:
             super().error(ErrorType.NAME_ERROR, error_messages.get(error_type))
 
@@ -140,7 +143,7 @@ class Interpreter(InterpreterBase):
             op1 = self.do_expression(arg.get('op1'))
             return -op1
         
-        elif arg_type in self.int_ops:
+        elif arg_type in self.int_ops or arg_type in self.string_ops:
             op1 = self.do_expression(arg.get('op1'))
             op2 = self.do_expression(arg.get('op2'))
 
@@ -152,15 +155,13 @@ class Interpreter(InterpreterBase):
                               
                 self.report_error(None, "mismatched_type")
             
-            # Additional check for string type if concatenation is intended
-            if isinstance(op1, str) and isinstance(op2, str) and arg_type in self.arithmetic_ops:
-                if arg_type == '+':
-                    return op1 + op2  # Perform string concatenation
+            # Check for string type if concatenation is intended
+            if isinstance(op1, str) and isinstance(op2, str) and arg_type in self.string_ops or isinstance(op1, int) and isinstance(op2, int) and arg_type in self.int_ops:
+                operation = self.int_ops.get(arg_type)
+                return operation(op1, op2)
+            else:
                 self.report_error(None, "mismatched_type")
 
-            operation = self.int_ops.get(arg_type)
-            if operation:
-                return operation(op1, op2)
         elif arg_type == 'fcall':
             return self.do_func_call(arg, 'expression')
 
@@ -171,7 +172,7 @@ def main():  # COMMENT THIS ONCE FINISH TESTING
              var y;
              y = -4;
              x = inputi("Enter a number: ");
-             print("The sum is: ", "Hello " < "World");
+             print("The sum is: ", x + "World");
           }"""
 
     interpreter = Interpreter()
