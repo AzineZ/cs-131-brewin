@@ -8,6 +8,17 @@ class Interpreter(InterpreterBase):
 
         self.var_to_val = {}
         self.non_var_value_type = {'int', 'string', 'bool'}
+        self.int_ops = {'+': lambda x, y: x + y,
+                        '-': lambda x, y: x - y,
+                        '*': lambda x, y: x * y,
+                        '/': lambda x, y: x // y,
+                        '==': lambda x, y: x == y,
+                        '!=': lambda x, y: x != y,
+                        '<': lambda x, y: x < y,
+                        '<=': lambda x, y: x <= y,
+                        '>': lambda x, y: x > y,
+                        '>=': lambda x, y: x >= y
+                        }
 
     def report_error(self, item, error_type):
         error_messages = {
@@ -128,23 +139,24 @@ class Interpreter(InterpreterBase):
             op1 = self.do_expression(arg.get('op1'))
             return -op1
         
-        elif arg_type == '+' or arg_type == '-' or arg_type == '*' or arg_type == '/':
+        elif arg_type in self.int_ops:
             op1 = self.do_expression(arg.get('op1'))
             op2 = self.do_expression(arg.get('op2'))
 
             # Check if both operands are of the same type
-            if type(op1) != type(op2):                              #Check if we need to check for string type for concat
+            if type(op1) != type(op2):
+                #Check the cases of == and != with different data types
+                if arg_type == '==' or arg_type == '!=':
+                    return False if arg_type == '==' else True
+                              
                 self.report_error(None, "mismatched_type")
-
-            if arg_type == '+':
-                return op1 + op2
-            elif arg_type == '-':
-                return op1 - op2
-            elif arg_type == '*':
-                return op1 * op2
-            elif arg_type == '/':
-                return op1 // op2
-            #return op1 + op2 if arg_type == '+' else op1 - op2
+            
+            # Additional check for string type if concatenation is intended
+            if arg_type == '+' and isinstance(op1, str) and isinstance(op2, str):
+                return op1 + op2  # Perform string concatenation
+            operation = self.int_ops.get(arg_type)
+            if operation:
+                return operation(op1, op2)
         elif arg_type == 'fcall':
             return self.do_func_call(arg, 'expression')
 
@@ -153,9 +165,9 @@ def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """func main() {
              var x;
              var y;
-             y = -2;
+             y = -4;
              x = inputi("Enter a number: ");
-             print("The sum is: ", y - x);
+             print("The sum is: ", "Hello" + " " + "world" + "!");
           }"""
 
     interpreter = Interpreter()
