@@ -7,6 +7,7 @@ class Interpreter(InterpreterBase):
         super().__init__(console_output, inp)   # call InterpreterBase's constructor
 
         self.var_to_val = {}
+        self.non_var_value_type = {'int', 'string', 'bool'}
 
     def report_error(self, item, error_type):
         error_messages = {
@@ -83,15 +84,23 @@ class Interpreter(InterpreterBase):
         # arguments for print can be a string, an int, an expression, a variable
         for arg in args:
             arg_type = arg.elem_type
-            if arg_type == 'string' or arg_type == 'int':
-                content += str(arg.get('val'))
+            value = ''
+            if arg_type in self.non_var_value_type:
+                value = arg.get('val')
             elif arg_type == 'var':
                 var_name = arg.get('name')
                 if var_name not in self.var_to_val:
                     self.report_error(var_name, "var_not_defined")
-                content += str(self.var_to_val[var_name])
-            elif arg_type == '+' or arg_type == '-':
-                content += str(self.do_expression(arg))
+                value = self.var_to_val[var_name]
+            else:
+                value = self.do_expression(arg)
+
+            # Check if the value is a boolean and convert to lowercase if True or False
+            if isinstance(value, bool):
+                content += str(value).lower()
+            else:
+                content += str(value)
+
         super().output(content)
 
     def do_inputi(self, arg):
@@ -105,21 +114,33 @@ class Interpreter(InterpreterBase):
 
     def do_expression(self, arg):
         arg_type = arg.elem_type
-        if arg_type == 'int' or arg_type == 'string':
+        if arg_type in self.non_var_value_type:
             return arg.get('val')
+        
         elif arg_type == 'var':
             var_name = arg.get('name')
             # Check if variable exists
             if var_name not in self.var_to_val:
                 self.report_error(var_name, "var_not_defined")
             return self.var_to_val[var_name]
-        elif arg_type == '+' or arg_type == '-':
+        
+        elif arg_type == '+' or arg_type == '-' or arg_type == '*' or arg_type == '/':
             op1 = self.do_expression(arg.get('op1'))
             op2 = self.do_expression(arg.get('op2'))
+
             # Check if both operands are of the same type
-            if type(op1) != type(op2):
+            if type(op1) != type(op2):                              #Check if we need to check for string type for concat
                 self.report_error(None, "mismatched_type")
-            return op1 + op2 if arg_type == '+' else op1 - op2
+
+            if arg_type == '+':
+                return op1 + op2
+            elif arg_type == '-':
+                return op1 - op2
+            elif arg_type == '*':
+                return op1 * op2
+            elif arg_type == '/':
+                return op1 // op2
+            #return op1 + op2 if arg_type == '+' else op1 - op2
         elif arg_type == 'fcall':
             return self.do_func_call(arg, 'expression')
 
@@ -128,12 +149,14 @@ def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """func main() {
              var x;
              var y;
-             y = 3;
-             x = (5 + 6) - inputi("Enter a number: ");
-             print("The sum is: ", x + y);
+             y = 2;
+             x = inputi("Enter a number: ");
+             print("The sum is: ", x / y);
           }"""
 
     interpreter = Interpreter()
     interpreter.run(program)
 
 main()
+
+# x = inputi("Enter a number: ");
