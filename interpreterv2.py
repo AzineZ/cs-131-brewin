@@ -23,6 +23,9 @@ class Interpreter(InterpreterBase):
                         '>': lambda x, y: x > y,
                         '>=': lambda x, y: x >= y
                         }
+        self.bool_ops = {
+
+        }
 
     def report_error(self, item, error_type):
         error_messages = {
@@ -141,7 +144,15 @@ class Interpreter(InterpreterBase):
         
         elif arg_type == 'neg':
             op1 = self.do_expression(arg.get('op1'))
+            if not isinstance(op1, int):
+                self.report_error(None, "mismatched_type")
             return -op1
+        
+        elif arg_type == '!':
+            op1 = self.do_expression(arg.get('op1'))
+            if not isinstance(op1, bool):
+                self.report_error(None, "mismatched_type")
+            return not op1
         
         elif arg_type in self.int_ops or arg_type in self.string_ops:
             op1 = self.do_expression(arg.get('op1'))
@@ -170,9 +181,9 @@ def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """func main() {
              var x;
              var y;
-             y = -4;
+             y = 2;
              x = inputi("Enter a number: ");
-             print("The sum is: ", x + "World");
+             print("The sum is: ", -y);
           }"""
 
     interpreter = Interpreter()
