@@ -7,12 +7,11 @@ class Interpreter(InterpreterBase):
     def __init__(self, console_output=True, inp=None, trace_output=False):
         super().__init__(console_output, inp)   # call InterpreterBase's constructor
 
-        #self.var_to_val = {}
         self.env_stack = []
 
-        #Fix this when we implement scoping
-        unique_env = EnvironmentManager()
-        self.env_stack.append(unique_env)
+        #Comment this when we implement scoping
+        # unique_env = EnvironmentManager()
+        # self.env_stack.append(unique_env)
 
         self.non_var_value_type = {'int', 'string', 'bool'}
         self.string_ops = {'+': lambda x, y: x + y,
@@ -44,7 +43,7 @@ class Interpreter(InterpreterBase):
         error_messages = {
             "main_not_found": "No main() function was found",
             "var_defined": f"Variable {item} defined more than once!",
-            "var_not_defined": f"Variable {item} does not exist!",
+            "var_not_defined": f"Variable {item} does not exist or is out of scope!",
             "func_not_defined": f"The {item} function has not been defined!",
             "invalid_func_call": f"The {item} function is called in an invalid manner!",
             "invalid_params_to_inputi": "No inputi() function found that takes > 1 parameter"
@@ -56,6 +55,20 @@ class Interpreter(InterpreterBase):
         else:
             super().error(ErrorType.NAME_ERROR, error_messages.get(error_type))
 
+    def check_var_in_env_stack(self, var_name):
+        for i in range(len(self.env_stack) - 1, -1, -1):
+            var_found = self.env_stack[i].get(var_name)
+            if var_found:
+                return self.env_stack[i]
+        return self.report_error(var_name, "var_not_defined")
+
+    def create_env(self):
+        new_env = EnvironmentManager()
+        self.env_stack.append(new_env)
+    
+    def pop_env(self):
+        self.env_stack.pop()
+
     def get_main_function_node(self, ast):
         funcs = ast.get('functions')
         for func in funcs:
@@ -66,10 +79,16 @@ class Interpreter(InterpreterBase):
     def run(self, program):
         ast = parse_program(program)
         self.run_func(self.get_main_function_node(ast))
-
+    
+    # this is where we execute the body of a {} scope
     def run_func(self, func_node):
+        self.create_env()
+
         for statement_node in func_node.get('statements'):
             self.run_statement(statement_node)
+
+        self.pop_env()
+        
 
     def run_statement(self, statement_node):
         statement_type = statement_node.elem_type
@@ -82,30 +101,35 @@ class Interpreter(InterpreterBase):
         elif statement_type == 'if':
             self.do_if(statement_node)
     
+    # this is a {} block
     def do_if(self, statement_node):
-        #print(statement_node.get('condition'))
+        self.create_env()
         condition = self.do_expression(statement_node.get('condition'))
         if not isinstance(condition, bool):
             self.report_error(None, "invalid_if_condition")
             return
         if not condition:
-            # Use a similar run_func called do_else that run else_statements
+            # We must pop the scope in if since else is a separate scope
+            self.pop_env()
             self.do_else(statement_node)
         else:
             # Reuse the run_func function to run statements
             self.run_func(statement_node)
+            self.pop_env()
     
     def do_else(self, else_statements):
         e_statements = else_statements.get('else_statements')
         if e_statements:
+            self.create_env()
             for statement_node in e_statements:
                 self.run_statement(statement_node)
+            self.pop_env()
 
 
     def do_definition(self, statement_node):
         var_name = statement_node.get('name')
         curr_env = self.env_stack[-1]
-
+        #check for existing variable in the scope
         if not curr_env.get(var_name):
             curr_env.create(var_name, '# Not Initialized #')
             return
@@ -115,14 +139,10 @@ class Interpreter(InterpreterBase):
 
     def do_assignment(self, statement_node):
         var_name = statement_node.get('name')
-        curr_env = self.env_stack[-1]
-        # Check if variable exists
-        if not curr_env.get(var_name):
-        #if var_name not in self.var_to_val:
-            self.report_error(var_name, "var_not_defined")
+        # Check if variable exists and return appropriate environment
+        curr_env = self.check_var_in_env_stack(var_name)
         result = self.do_expression(statement_node.get('expression'))
         curr_env.set(var_name, result)
-        #self.var_to_val[var_name] = result
 
     def do_func_call(self, statement_node, origin):
         func_name = statement_node.get('name')
@@ -153,12 +173,7 @@ class Interpreter(InterpreterBase):
                 value = arg.get('val')
             elif arg_type == 'var':
                 var_name = arg.get('name')
-                curr_env = self.env_stack[-1]
-
-                if not curr_env.get(var_name):
-                #if var_name not in self.var_to_val:
-                    self.report_error(var_name, "var_not_defined")
-                #value = self.var_to_val[var_name]
+                curr_env = self.check_var_in_env_stack(var_name)
                 value = curr_env.get(var_name)
             else:
                 value = self.do_expression(arg)
@@ -196,11 +211,8 @@ class Interpreter(InterpreterBase):
         
         elif arg_type == 'var':
             var_name = arg.get('name')
-            curr_env = self.env_stack[-1]
-            # Check if variable exists
-            if not curr_env.get(var_name):
-            #if var_name not in self.var_to_val:
-                self.report_error(var_name, "var_not_defined")
+            # Check if variable exists and return the correct environment
+            curr_env = self.check_var_in_env_stack(var_name)
             return curr_env.get(var_name)
             #return self.var_to_val[var_name]
         
@@ -250,15 +262,23 @@ class Interpreter(InterpreterBase):
 
 def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """func main() {
-             var x;
-             var y;
-             x = 15;
-             if (x > 5) {
+            var x;
+            var y;
+            x = 55;
+            if (x > 5) {
                 print(x);
+                var z;
+                z = 100;
                 if (x < 30 && x > 10) {
                     print(3*x);
+                    var c;
+                    c = 1;
                 }
-             }
+                else {
+                    x = 20;
+                    print(z);
+                }
+            }
           }"""
 
     interpreter = Interpreter()
