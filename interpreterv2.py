@@ -109,7 +109,7 @@ class Interpreter(InterpreterBase):
         if func_name not in ['print', 'inputi', "inputs"]:
             self.report_error(func_name, "func_not_defined")
         # Check for valid function calls
-        if func_name == 'inputi' and origin == 'statement':
+        if func_name == 'inputi' and origin == 'statement' or func_name == 'inputs' and origin == 'statement':
             self.report_error(func_name, "invalid_func_call")
 
         func_args = statement_node.get('args')
@@ -119,6 +119,8 @@ class Interpreter(InterpreterBase):
                 return None                     #Return nil if print is called from an expression
         elif func_name == 'inputi':
             return self.do_inputi(func_args)
+        elif func_name == 'inputs':
+            return self.do_inputs(func_args)
 
     def do_print(self, args):
         content = ""
@@ -155,6 +157,15 @@ class Interpreter(InterpreterBase):
                 self.report_error(None, "invalid_params_to_inputi")
             super().output(arg[0].get('val'))
         user_input = int(super().get_input())
+        return user_input
+    
+    def do_inputs(self, arg):
+        if arg:
+            # We assume that this arg list has only zero or one argument
+            if len(arg) > 1:
+                self.report_error(None, "invalid_params_to_inputi")
+            super().output(arg[0].get('val'))
+        user_input = str(super().get_input())
         return user_input
 
     def do_expression(self, arg):
@@ -221,8 +232,8 @@ def main():  # COMMENT THIS ONCE FINISH TESTING
              var x;
              var y;
              y = 3;
-             x = print("lol") == print("lalala");
-             print(-y);
+             x = inputs("write something: ");
+             print(x);
           }"""
 
     interpreter = Interpreter()
