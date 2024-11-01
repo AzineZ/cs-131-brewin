@@ -51,6 +51,8 @@ class Interpreter(InterpreterBase):
         }
         if error_type == "mismatched_type":
             super().error(ErrorType.TYPE_ERROR, f"Incompatible types for the {item} operation")
+        elif error_type == "invalid_if_condition":
+            super().error(ErrorType.TYPE_ERROR, f"Invalid if condition. It must be a boolean!")
         else:
             super().error(ErrorType.NAME_ERROR, error_messages.get(error_type))
 
@@ -77,6 +79,28 @@ class Interpreter(InterpreterBase):
             self.do_assignment(statement_node)
         elif statement_type == 'fcall':
             self.do_func_call(statement_node, 'statement')
+        elif statement_type == 'if':
+            self.do_if(statement_node)
+    
+    def do_if(self, statement_node):
+        #print(statement_node.get('condition'))
+        condition = self.do_expression(statement_node.get('condition'))
+        if not isinstance(condition, bool):
+            self.report_error(None, "invalid_if_condition")
+            return
+        if not condition:
+            # Use a similar run_func called do_else that run else_statements
+            self.do_else(statement_node)
+        else:
+            # Reuse the run_func function to run statements
+            self.run_func(statement_node)
+    
+    def do_else(self, else_statements):
+        e_statements = else_statements.get('else_statements')
+        if e_statements:
+            for statement_node in e_statements:
+                self.run_statement(statement_node)
+
 
     def do_definition(self, statement_node):
         var_name = statement_node.get('name')
@@ -85,10 +109,7 @@ class Interpreter(InterpreterBase):
         if not curr_env.get(var_name):
             curr_env.create(var_name, '# Not Initialized #')
             return
-        # if var_name not in self.var_to_val:
-        #     # We dont need to worry about initial value for Project 1
-        #     self.var_to_val[var_name] = '# Not Initialized #'
-        #     return
+
         # If the variable already exists, raise error
         self.report_error(var_name, "var_defined")
 
@@ -231,14 +252,16 @@ def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """func main() {
              var x;
              var y;
-             y = 3;
-             x = inputs("write something: ");
-             print(x);
+             x = 15;
+             if (x > 5) {
+                print(x);
+                if (x < 30 && x > 10) {
+                    print(3*x);
+                }
+             }
           }"""
 
     interpreter = Interpreter()
     interpreter.run(program)
 
 main()
-
-# x = inputi("Enter a number: ");
