@@ -1,12 +1,19 @@
 from intbase import InterpreterBase, ErrorType
 from brewparse import parse_program
+from env_v1 import EnvironmentManager
 
 
 class Interpreter(InterpreterBase):
     def __init__(self, console_output=True, inp=None, trace_output=False):
         super().__init__(console_output, inp)   # call InterpreterBase's constructor
 
-        self.var_to_val = {}
+        #self.var_to_val = {}
+        self.env_stack = []
+
+        #Fix this when we implement scoping
+        unique_env = EnvironmentManager()
+        self.env_stack.append(unique_env)
+
         self.non_var_value_type = {'int', 'string', 'bool'}
         self.string_ops = {'+': lambda x, y: x + y,
                            '==': lambda x, y: x == y,
@@ -43,7 +50,7 @@ class Interpreter(InterpreterBase):
             "invalid_params_to_inputi": "No inputi() function found that takes > 1 parameter"
         }
         if error_type == "mismatched_type":
-            super().error(ErrorType.TYPE_ERROR, "Incompatible types for the operation")
+            super().error(ErrorType.TYPE_ERROR, f"Incompatible types for the {item} operation")
         else:
             super().error(ErrorType.NAME_ERROR, error_messages.get(error_type))
 
@@ -73,20 +80,28 @@ class Interpreter(InterpreterBase):
 
     def do_definition(self, statement_node):
         var_name = statement_node.get('name')
-        if var_name not in self.var_to_val:
-            # We dont need to worry about initial value for Project 1
-            self.var_to_val[var_name] = '# Not Initialized #'
+        curr_env = self.env_stack[-1]
+
+        if not curr_env.get(var_name):
+            curr_env.create(var_name, '# Not Initialized #')
             return
+        # if var_name not in self.var_to_val:
+        #     # We dont need to worry about initial value for Project 1
+        #     self.var_to_val[var_name] = '# Not Initialized #'
+        #     return
         # If the variable already exists, raise error
         self.report_error(var_name, "var_defined")
 
     def do_assignment(self, statement_node):
         var_name = statement_node.get('name')
+        curr_env = self.env_stack[-1]
         # Check if variable exists
-        if var_name not in self.var_to_val:
+        if not curr_env.get(var_name):
+        #if var_name not in self.var_to_val:
             self.report_error(var_name, "var_not_defined")
         result = self.do_expression(statement_node.get('expression'))
-        self.var_to_val[var_name] = result
+        curr_env.set(var_name, result)
+        #self.var_to_val[var_name] = result
 
     def do_func_call(self, statement_node, origin):
         func_name = statement_node.get('name')
@@ -115,9 +130,13 @@ class Interpreter(InterpreterBase):
                 value = arg.get('val')
             elif arg_type == 'var':
                 var_name = arg.get('name')
-                if var_name not in self.var_to_val:
+                curr_env = self.env_stack[-1]
+
+                if not curr_env.get(var_name):
+                #if var_name not in self.var_to_val:
                     self.report_error(var_name, "var_not_defined")
-                value = self.var_to_val[var_name]
+                #value = self.var_to_val[var_name]
+                value = curr_env.get(var_name)
             else:
                 value = self.do_expression(arg)
 
@@ -145,21 +164,24 @@ class Interpreter(InterpreterBase):
         
         elif arg_type == 'var':
             var_name = arg.get('name')
+            curr_env = self.env_stack[-1]
             # Check if variable exists
-            if var_name not in self.var_to_val:
+            if not curr_env.get(var_name):
+            #if var_name not in self.var_to_val:
                 self.report_error(var_name, "var_not_defined")
-            return self.var_to_val[var_name]
+            return curr_env.get(var_name)
+            #return self.var_to_val[var_name]
         
         elif arg_type == 'neg':
             op1 = self.do_expression(arg.get('op1'))
             if not isinstance(op1, int):
-                self.report_error(None, "mismatched_type")
+                self.report_error(arg_type, "mismatched_type")
             return -op1
         
         elif arg_type == '!':
             op1 = self.do_expression(arg.get('op1'))
             if not isinstance(op1, bool):
-                self.report_error(None, "mismatched_type")
+                self.report_error(arg_type, "mismatched_type")
             return not op1
         
         elif arg_type in self.int_ops or arg_type in self.string_ops or arg_type in self.bool_ops:
@@ -172,9 +194,10 @@ class Interpreter(InterpreterBase):
                 if arg_type == '==' or arg_type == '!=':
                     return False if arg_type == '==' else True
                               
-                self.report_error(None, "mismatched_type")
+                self.report_error(arg_type, "mismatched_type")
             
             # Check binary arg_type with operands of the same type
+            operation = None
             if isinstance(op1, str) and isinstance(op2, str) and arg_type in self.string_ops:
                 operation = self.string_ops.get(arg_type)
             elif isinstance(op1, int) and isinstance(op2, int) and arg_type in self.int_ops:
@@ -184,10 +207,10 @@ class Interpreter(InterpreterBase):
             elif op1 == None and op2 == None and arg_type in self.nil_ops:
                 operation = self.bool_ops.get(arg_type)
             
-            if operation:
-                return operation(op1, op2)
+            if not operation:
+                self.report_error(arg_type, "mismatched_type")
             else:
-                self.report_error(None, "mismatched_type")
+                return operation(op1, op2)
 
         elif arg_type == 'fcall':
             return self.do_func_call(arg, 'expression')
@@ -197,8 +220,9 @@ def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """func main() {
              var x;
              var y;
-             x = nil != print("lalala");
-             print(false || true);
+             y = 3;
+             x = print("lol") == print("lalala");
+             print(-y);
           }"""
 
     interpreter = Interpreter()
