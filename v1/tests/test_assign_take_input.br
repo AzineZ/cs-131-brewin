@@ -1,0 +1,25 @@
+func main() {
+  var foo;
+  var bar;
+  foo = 10;  
+  var bletch;
+  var boo;
+  var prompt;
+	bar = 3 + foo;
+	bletch = 3 - (5 + 2);
+	prompt = "enter a number: ";
+	boo = inputi();
+	boo = inputi("Enter a number: ");
+  print(boo);
+}
+
+/*
+*IN*
+2
+1
+*IN*
+*OUT*
+Enter a number: 
+1
+*OUT*
+*/

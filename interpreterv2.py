@@ -135,7 +135,7 @@ class Interpreter(InterpreterBase):
         exp = statement_node.get('expression')
         if exp is not None:
             return ReturnValue(self.do_expression(exp))  # Return an instance with the evaluated expression
-        return ReturnValue()  # Return an instance with None to indicate an explicit return
+        return ReturnValue(value=None)  # Return an instance with None to indicate an explicit return
     
     def run_block(self, statement_node):
         for statement_node in statement_node.get('statements'):
@@ -329,12 +329,12 @@ class Interpreter(InterpreterBase):
             operation = None
             if isinstance(op1, str) and isinstance(op2, str) and arg_type in self.string_ops:
                 operation = self.string_ops.get(arg_type)
-            elif isinstance(op1, int) and isinstance(op2, int) and arg_type in self.int_ops:
+            elif isinstance(op1, int) and not isinstance(op1, bool) and isinstance(op2, int) and not isinstance(op2, bool) and arg_type in self.int_ops:
                 operation = self.int_ops.get(arg_type)
             elif isinstance(op1, bool) and isinstance(op2, bool) and arg_type in self.bool_ops:
                 operation = self.bool_ops.get(arg_type)
             elif op1 == None and op2 == None and arg_type in self.nil_ops:
-                operation = self.bool_ops.get(arg_type)
+                operation = self.nil_ops.get(arg_type)
             
             if not operation:
                 self.report_error(arg_type, "mismatched_type")
@@ -346,26 +346,21 @@ class Interpreter(InterpreterBase):
 
 
 # def main():  # COMMENT THIS ONCE FINISH TESTING
-#     program = """func foo(x) {
-#                     if (x < 0) {
-#                         print(x);
-#                         return -x;
-#                         print("this will not print");
+#     program = """func main() {
+#                     var a;
+#                     a = inputs();
+#                     print("string MatcH" == a);
+#                     print("string Match" == a);
+#                     print("string MatcH" != a);
+#                     print("string Match" != a);
+#                     var b;
+#                     b = "-" + inputs() + "123";
+#                     print(b);
+#                     b = inputs();
+#                     print(a == b);
+#                     print(a != b);
+#                     print(a != b + "asd");
 #                     }
-#                     print("this will not print either");
-#                     return 5*x;
-#                 }
-
-#                 func main() {
-#                     var y;
-#                     y = 2;
-#                     foo2();
-#                 }
-
-#                 func foo2() {
-#                     y = 3;
-#                     print(y);
-#                 }
 #             """
 
 #     interpreter = Interpreter()
