@@ -57,16 +57,18 @@ class Interpreter(InterpreterBase):
 
     def check_var_in_env_stack(self, var_name):
         for i in range(len(self.env_stack) - 1, -1, -1):
-            # var_found = self.env_stack[i].get(var_name)
-            # if var_found is not None:
-            # I can't use the get method from env_stack because it returns None if it can't find the variable
-            # but a variable could be assigned to None as well
             if var_name in self.env_stack[i].environment:
                 return self.env_stack[i]
+
+            # Stop searching when we reach a function-level environment
+            if getattr(self.env_stack[i], 'is_function_scope', False):
+                break
+    
         return self.report_error(var_name, "var_not_defined")
 
-    def create_env(self):
+    def create_env(self, is_func_scope=False):
         new_env = EnvironmentManager()
+        new_env.is_function_scope = is_func_scope  # Add a marker to indicate function-level scope
         self.env_stack.append(new_env)
     
     def pop_env(self):
@@ -94,7 +96,7 @@ class Interpreter(InterpreterBase):
     
     # this is where we execute the body of a {} scope
     def run_func(self, func_node, args=None):
-        self.create_env()
+        self.create_env(is_func_scope=True)
 
         # Assign arguments to function parameters and ensure copying
         params = func_node.get('args')
@@ -355,7 +357,14 @@ class Interpreter(InterpreterBase):
 #                 }
 
 #                 func main() {
-#                     print( (-5 - 3+2*6)/3 ); 
+#                     var y;
+#                     y = 2;
+#                     foo2();
+#                 }
+
+#                 func foo2() {
+#                     y = 3;
+#                     print(y);
 #                 }
 #             """
 
