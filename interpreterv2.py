@@ -54,8 +54,11 @@ class Interpreter(InterpreterBase):
 
     def check_var_in_env_stack(self, var_name):
         for i in range(len(self.env_stack) - 1, -1, -1):
-            var_found = self.env_stack[i].get(var_name)
-            if var_found is not None:
+            # var_found = self.env_stack[i].get(var_name)
+            # if var_found is not None:
+            # I can't use the get method from env_stack because it returns None if it can't find the variable
+            # but a variable could be assigned to None as well
+            if var_name in self.env_stack[i].environment:
                 return self.env_stack[i]
         return self.report_error(var_name, "var_not_defined")
 
@@ -73,18 +76,38 @@ class Interpreter(InterpreterBase):
                 return func
         self.report_error(None, "main_not_found")
 
+    def set_func_table(self, ast):
+        funcs = ast.get('functions')
+        for func in funcs:
+            self.func_table[(func.get('name'), len(func.get('args')))] = func
+        #print(self.func_table)
+        
     def run(self, program):
         ast = parse_program(program)
+        self.set_func_table(ast)
         self.run_func(self.get_main_function_node(ast))
     
     # this is where we execute the body of a {} scope
-    def run_func(self, func_node):
+    def run_func(self, func_node, args=None):
         self.create_env()
 
+        # Assign arguments to function parameters and ensure copying
+        params = func_node.get('args')
+        if args:
+            for param_node, arg_value in zip(params, args):
+                param_name = param_node.get('name')
+                # Create a copy of the argument value to ensure pass-by-value
+                copied_value = self.copy_value(arg_value)
+                self.env_stack[-1].create(param_name, copied_value)
+
         for statement_node in func_node.get('statements'):
-            self.run_statement(statement_node)
+            result = self.run_statement(statement_node)
+            if result is not None:  # Handle function return
+                self.pop_env()
+                return result
 
         self.pop_env()
+        return None  # Return nil if no explicit return is found
         
 
     def run_statement(self, statement_node):
@@ -94,11 +117,19 @@ class Interpreter(InterpreterBase):
         elif statement_type == '=':
             self.do_assignment(statement_node)
         elif statement_type == 'fcall':
-            self.do_func_call(statement_node, 'statement')
+            return self.do_func_call(statement_node, 'statement')
         elif statement_type == 'if':
-            self.do_if(statement_node)
+            return self.do_if(statement_node)
         elif statement_type == 'for':
-            self.do_for(statement_node)
+            return self.do_for(statement_node)
+        elif statement_type == 'return':
+            return self.do_return(statement_node)
+    
+    def do_return(self, statement_node):
+        exp = statement_node.get('expression')
+        if exp is not None:
+            return self.do_expression(exp)  # Return the evaluated expression
+        return None  # Indicate a bare return with nil
     
     def do_for(self, statement_node):
         self.create_env()
@@ -166,22 +197,32 @@ class Interpreter(InterpreterBase):
 
     def do_func_call(self, statement_node, origin):
         func_name = statement_node.get('name')
-        # Check for valid function names
-        if func_name not in ['print', 'inputi', "inputs"]:
-            self.report_error(func_name, "func_not_defined")
-        # Check for valid function calls
-        if func_name == 'inputi' and origin == 'statement' or func_name == 'inputs' and origin == 'statement':
-            self.report_error(func_name, "invalid_func_call")
-
         func_args = statement_node.get('args')
+
+        if func_name not in ['print', 'inputi', 'inputs']:
+            # Check if the function exists and get the matching function node
+            func_node = self.func_table.get((func_name, len(func_args)))
+            if not func_node:
+                self.report_error(func_name, "func_not_defined")
+
+            # Evaluate arguments and pass them as a copy to the function
+            evaluated_args = [self.copy_value(self.do_expression(arg)) for arg in func_args]
+            result = self.run_func(func_node, evaluated_args)
+            return result if result is not None else None  # Ensure consistent nil handling
+
+        # Handle built-in functions as before
         if func_name == 'print':
             self.do_print(func_args)
             if origin == 'expression':
-                return None                     #Return nil if print is called from an expression
+                return None  # Return nil if print is called from an expression
         elif func_name == 'inputi':
             return self.do_inputi(func_args)
         elif func_name == 'inputs':
             return self.do_inputs(func_args)
+    
+    def copy_value(self, value):
+        x = value
+        return x
 
     def do_print(self, args):
         content = ""
@@ -283,8 +324,9 @@ class Interpreter(InterpreterBase):
 def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """func main() {
                     var x;
-                    for (x = 10; x >= 0; x = x - 2) {
+                    for (x = 10; x >= 0; x = x - 5) {
                         var q;
+                        print("HELLO ", x);
                         for (q = 0; q < x; q = q + 1) {
                             print(q*q);
                         }

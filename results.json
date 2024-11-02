@@ -2,13 +2,13 @@
     "tests": [
         {
             "name": "Correctness | test_for",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | test_nil1",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -26,7 +26,7 @@
         },
         {
             "name": "Correctness | test_copy",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
