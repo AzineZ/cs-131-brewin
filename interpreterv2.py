@@ -8,10 +8,7 @@ class Interpreter(InterpreterBase):
         super().__init__(console_output, inp)   # call InterpreterBase's constructor
 
         self.env_stack = []
-
-        #Comment this when we implement scoping
-        # unique_env = EnvironmentManager()
-        # self.env_stack.append(unique_env)
+        self.func_table = {}
 
         self.non_var_value_type = {'int', 'string', 'bool'}
         self.string_ops = {'+': lambda x, y: x + y,
@@ -51,14 +48,14 @@ class Interpreter(InterpreterBase):
         if error_type == "mismatched_type":
             super().error(ErrorType.TYPE_ERROR, f"Incompatible types for the {item} operation")
         elif error_type == "invalid_if_condition":
-            super().error(ErrorType.TYPE_ERROR, f"Invalid if condition. It must be a boolean!")
+            super().error(ErrorType.TYPE_ERROR, f"Invalid if or for condition. It must be a boolean!")
         else:
             super().error(ErrorType.NAME_ERROR, error_messages.get(error_type))
 
     def check_var_in_env_stack(self, var_name):
         for i in range(len(self.env_stack) - 1, -1, -1):
             var_found = self.env_stack[i].get(var_name)
-            if var_found:
+            if var_found is not None:
                 return self.env_stack[i]
         return self.report_error(var_name, "var_not_defined")
 
@@ -100,6 +97,29 @@ class Interpreter(InterpreterBase):
             self.do_func_call(statement_node, 'statement')
         elif statement_type == 'if':
             self.do_if(statement_node)
+        elif statement_type == 'for':
+            self.do_for(statement_node)
+    
+    def do_for(self, statement_node):
+        self.create_env()
+        #Initialize the counter
+        starter = statement_node.get('init')
+        self.run_statement(starter)
+
+        #Apply condition, check if it's boolean
+        condition = self.do_expression(statement_node.get('condition'))
+        update = statement_node.get('update')
+        if not isinstance(condition, bool):
+            self.report_error(None, "invalid_if_condition")
+            return
+        
+        #Main loop function. If condition is correct, run its statement, then run update statement and repeat
+        while condition:
+            self.run_func(statement_node)
+            self.run_statement(update)
+            condition = self.do_expression(statement_node.get('condition'))
+        self.pop_env()
+        
     
     # this is a {} block
     def do_if(self, statement_node):
@@ -262,24 +282,14 @@ class Interpreter(InterpreterBase):
 
 def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """func main() {
-            var x;
-            var y;
-            x = 55;
-            if (x > 5) {
-                print(x);
-                var z;
-                z = 100;
-                if (x < 30 && x > 10) {
-                    print(3*x);
-                    var c;
-                    c = 1;
-                }
-                else {
-                    x = 20;
-                    print(z);
-                }
-            }
-          }"""
+                    var x;
+                    for (x = 10; x >= 0; x = x - 2) {
+                        var q;
+                        for (q = 0; q < x; q = q + 1) {
+                            print(q*q);
+                        }
+                    }
+                }"""
 
     interpreter = Interpreter()
     interpreter.run(program)

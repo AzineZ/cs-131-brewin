@@ -1,37 +1,49 @@
 {
     "tests": [
         {
-            "name": "Correctness | test_add1",
+            "name": "Correctness | test_for",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_nil1",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_static_scoping1",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_print_var",
+            "name": "Correctness | test_bool1",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_print_const",
+            "name": "Correctness | test_copy",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | test_bad_call1",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Incorrectness | test_bad_var1",
+            "name": "Incorrectness | test_bad_expr1",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Incorrectness | test_unknown_func_call",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_invalid_operands1",
+            "name": "Incorrectness | test_static_scoping1",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
