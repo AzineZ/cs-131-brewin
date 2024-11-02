@@ -1,0 +1,16 @@
+func main() {
+  var c;
+  c = 10;
+  if (c == 10) {
+    c = "hi";  /* reassigning c from the outer-block */
+    print(c);  /* prints "hi" */
+  }
+  print(c); /* prints “hi” */
+}
+
+/*
+*OUT*
+hi
+hi
+*OUT*
+*/

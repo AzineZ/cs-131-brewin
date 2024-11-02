@@ -1,0 +1,23 @@
+func main() {
+  if (1 < 2) { print("a"); }
+  if (1 > 2) { print("b"); }
+
+  if (1 == 2) { print("c"); }
+  if (1 != 2) { print("d"); }
+
+  if (1 <= 1) { print("e"); }
+  if (1 <= 2) { print("f"); }
+
+  if (1 >= 1) { print("g"); }
+  if (1 >= 2) { print("h"); }
+}
+
+/*
+*OUT*
+a
+d
+e
+f
+g
+*OUT*
+*/

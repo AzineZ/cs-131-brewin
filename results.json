@@ -1,7 +1,25 @@
 {
     "tests": [
         {
+            "name": "Correctness | test_compare_all",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_inputi_arg",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Correctness | test_for",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_print_inputi",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -13,13 +31,175 @@
             "visibility": "visible"
         },
         {
+            "name": "Correctness | test_inputi_no_arg",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Correctness | test_static_scoping1",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
+            "name": "Correctness | test_add_string",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_math",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_static_scoping5",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_if2",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_print_order",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_static_scoping4",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_if",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_overloading",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_new_func",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_add1",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_print_var",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_nested_ret",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_static_scoping3",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_evil_scoping",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_static_scoping2",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_compare_more",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_return",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_fact",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_print_const",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_if_return",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_string_comp",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_new_func2",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_assign_take_input",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_new_func3",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_operations",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Correctness | test_bool1",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | test_print_mult_args",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -37,6 +217,24 @@
             "visibility": "visible"
         },
         {
+            "name": "Incorrectness | test_bad_var1",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | test_bad_if",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | test_bad_compare",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Incorrectness | test_bad_expr1",
             "score": 1,
             "max_score": 1,
@@ -44,6 +242,66 @@
         },
         {
             "name": "Incorrectness | test_static_scoping1",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | test_bad_compare3",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | test_bad_compare2",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | test_bad_arith3",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | test_unknown_func_call",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | test_no_main",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | test_bad_arith2",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | test_invalid_operands1",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | test_bad_arith",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | test_bad_logical",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | test_bad_if copy",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"

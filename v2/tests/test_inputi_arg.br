@@ -1,0 +1,15 @@
+func main() {
+  var b; 
+  b = inputi("Hello");
+  print(b);
+}
+
+/*
+*IN*
+15
+*IN*
+*OUT*
+Hello
+15
+*OUT*
+*/

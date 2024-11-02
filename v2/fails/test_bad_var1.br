@@ -1,0 +1,9 @@
+func main() {
+  print(unknown_var);
+}
+
+/*
+*OUT*
+ErrorType.NAME_ERROR
+*OUT*
+*/

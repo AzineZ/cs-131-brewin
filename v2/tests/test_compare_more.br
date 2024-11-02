@@ -1,0 +1,14 @@
+func main () {
+  print("1" != 1);
+  print(true != 1);
+
+}
+
+/*
+*IN*
+*IN*
+*OUT*
+true
+true
+*OUT*
+*/

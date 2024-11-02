@@ -1,0 +1,15 @@
+func main() {
+  if ("asdf" > "hi") {
+    print("wow");
+  }
+  if ("a" < nil) {
+    return;
+  }
+  
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

@@ -1,0 +1,34 @@
+func main() {
+  var s;
+  var n;
+  s = inputs();
+  n = inputi();
+
+  print(s == n);
+  print(s == nil);
+  print(n == nil);
+  print(s == "1");
+
+  print(s != n);
+  print(s != nil);
+  print(n != nil);
+  print(s != "1");
+
+}
+
+/*
+*IN*
+1
+1
+*IN*
+*OUT*
+false
+false
+false
+true
+true
+true
+true
+false
+*OUT*
+*/

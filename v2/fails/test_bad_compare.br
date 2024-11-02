@@ -1,0 +1,11 @@
+func main() {
+  if (5 > "hi") {
+    print("wow");
+  }
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

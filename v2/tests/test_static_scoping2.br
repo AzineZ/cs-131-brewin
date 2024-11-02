@@ -1,0 +1,17 @@
+func main() {
+  var c;
+  c = 10;
+  if (c == 10) {
+    var c;     /* variable of the same name as outer variable */
+    c = "hi";
+    print(c);  /* prints "hi"; the inner c shadows the outer c*/
+  }
+  print(c); /* prints 10 */
+}
+
+/*
+*OUT*
+hi
+10
+*OUT*
+*/

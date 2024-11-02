@@ -1,0 +1,12 @@
+func main() {
+  print("hi", inputi());
+}
+
+/*
+*IN*
+1
+*IN*
+*OUT*
+hi1
+*OUT*
+*/

@@ -1,0 +1,19 @@
+func foo(c) { 
+  if (c == 10) {
+    var c;     /* variable of the same name as parameter c */
+    c = "hi";
+    print(c);  /* prints "hi"; the inner c shadows the parameter c*/
+  }
+  print(c); /* prints 10 */
+}
+
+func main() {
+  foo(10);
+}
+
+/*
+*OUT*
+hi
+10
+*OUT*
+*/

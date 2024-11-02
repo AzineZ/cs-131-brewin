@@ -1,0 +1,22 @@
+func foo(c) { 
+  if (c == 10) {
+    c = "hi";  /* reassigning c from the outer-block */
+    print(c);  /* prints "hi" */
+  }
+  print(c); /* prints “hi” */
+}
+
+func main() {
+  var c;
+  c = 10;
+  foo(c);
+  print(c);
+}
+
+/*
+*OUT*
+hi
+hi
+10
+*OUT*
+*/

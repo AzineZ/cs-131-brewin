@@ -1,0 +1,14 @@
+func bletch(a,b,c) {
+  print("The answer is: ", a+b*c);
+}
+
+func main() {
+  bletch(1,3,2+4);
+}
+
+
+/*
+*OUT*
+The answer is: 19
+*OUT*
+*/

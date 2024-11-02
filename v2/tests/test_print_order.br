@@ -1,0 +1,10 @@
+func main(){
+  print(print("hi") != nil);
+}
+
+/*
+*OUT*
+hi
+false
+*OUT*
+*/

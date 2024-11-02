@@ -2,6 +2,9 @@ from intbase import InterpreterBase, ErrorType
 from brewparse import parse_program
 from env_v1 import EnvironmentManager
 
+class ReturnValue:
+    def __init__(self, value=None):
+        self.value = value
 
 class Interpreter(InterpreterBase):
     def __init__(self, console_output=True, inp=None, trace_output=False):
@@ -41,7 +44,7 @@ class Interpreter(InterpreterBase):
             "main_not_found": "No main() function was found",
             "var_defined": f"Variable {item} defined more than once!",
             "var_not_defined": f"Variable {item} does not exist or is out of scope!",
-            "func_not_defined": f"The {item} function has not been defined!",
+            "func_not_defined": f"The {item} function has not been defined or you passed the wrong number of arguments!",
             "invalid_func_call": f"The {item} function is called in an invalid manner!",
             "invalid_params_to_inputi": "No inputi() function found that takes > 1 parameter"
         }
@@ -86,6 +89,8 @@ class Interpreter(InterpreterBase):
         ast = parse_program(program)
         self.set_func_table(ast)
         self.run_func(self.get_main_function_node(ast))
+        self.env_stack = []
+        self.func_table = {}
     
     # this is where we execute the body of a {} scope
     def run_func(self, func_node, args=None):
@@ -96,15 +101,14 @@ class Interpreter(InterpreterBase):
         if args:
             for param_node, arg_value in zip(params, args):
                 param_name = param_node.get('name')
-                # Create a copy of the argument value to ensure pass-by-value
                 copied_value = self.copy_value(arg_value)
                 self.env_stack[-1].create(param_name, copied_value)
 
         for statement_node in func_node.get('statements'):
             result = self.run_statement(statement_node)
-            if result is not None:  # Handle function return
+            if isinstance(result, ReturnValue):  # Check for an explicit return
                 self.pop_env()
-                return result
+                return result.value  # Extract the actual value and return it
 
         self.pop_env()
         return None  # Return nil if no explicit return is found
@@ -128,8 +132,15 @@ class Interpreter(InterpreterBase):
     def do_return(self, statement_node):
         exp = statement_node.get('expression')
         if exp is not None:
-            return self.do_expression(exp)  # Return the evaluated expression
-        return None  # Indicate a bare return with nil
+            return ReturnValue(self.do_expression(exp))  # Return an instance with the evaluated expression
+        return ReturnValue()  # Return an instance with None to indicate an explicit return
+    
+    def run_block(self, statement_node):
+        for statement_node in statement_node.get('statements'):
+            result = self.run_statement(statement_node)
+            if isinstance(result, ReturnValue):  # Check for an explicit return
+                return result  # Propagate the ReturnValue object up the chain
+        return None  # Return None if no return statement was encountered
     
     def do_for(self, statement_node):
         self.create_env()
@@ -146,7 +157,13 @@ class Interpreter(InterpreterBase):
         
         #Main loop function. If condition is correct, run its statement, then run update statement and repeat
         while condition:
-            self.run_func(statement_node)
+            self.create_env()
+            result = self.run_block(statement_node)
+            if isinstance(result, ReturnValue):  # Check for an explicit return
+                self.pop_env()
+                return result
+            
+            self.pop_env()
             self.run_statement(update)
             condition = self.do_expression(statement_node.get('condition'))
         self.pop_env()
@@ -159,21 +176,25 @@ class Interpreter(InterpreterBase):
         if not isinstance(condition, bool):
             self.report_error(None, "invalid_if_condition")
             return
-        if not condition:
-            # We must pop the scope in if since else is a separate scope
+        
+        if condition:
+            result = self.run_block(statement_node)
             self.pop_env()
-            self.do_else(statement_node)
+            if isinstance(result, ReturnValue):  # Propagate the ReturnValue object
+                return result
         else:
-            # Reuse the run_func function to run statements
-            self.run_func(statement_node)
             self.pop_env()
+            return self.do_else(statement_node)
     
     def do_else(self, else_statements):
         e_statements = else_statements.get('else_statements')
         if e_statements:
             self.create_env()
             for statement_node in e_statements:
-                self.run_statement(statement_node)
+                result = self.run_statement(statement_node)
+                if isinstance(result, ReturnValue):  # Check for an explicit return
+                    self.pop_env()
+                    return result
             self.pop_env()
 
 
@@ -279,7 +300,8 @@ class Interpreter(InterpreterBase):
         
         elif arg_type == 'neg':
             op1 = self.do_expression(arg.get('op1'))
-            if not isinstance(op1, int):
+            # Need to do two separate checks because bool is a subset of int
+            if not isinstance(op1, int) or isinstance(op1, bool):
                 self.report_error(arg_type, "mismatched_type")
             return -op1
         
@@ -321,19 +343,23 @@ class Interpreter(InterpreterBase):
             return self.do_func_call(arg, 'expression')
 
 
-def main():  # COMMENT THIS ONCE FINISH TESTING
-    program = """func main() {
-                    var x;
-                    for (x = 10; x >= 0; x = x - 5) {
-                        var q;
-                        print("HELLO ", x);
-                        for (q = 0; q < x; q = q + 1) {
-                            print(q*q);
-                        }
-                    }
-                }"""
+# def main():  # COMMENT THIS ONCE FINISH TESTING
+#     program = """func foo(x) {
+#                     if (x < 0) {
+#                         print(x);
+#                         return -x;
+#                         print("this will not print");
+#                     }
+#                     print("this will not print either");
+#                     return 5*x;
+#                 }
 
-    interpreter = Interpreter()
-    interpreter.run(program)
+#                 func main() {
+#                     print( (-5 - 3+2*6)/3 ); 
+#                 }
+#             """
 
-main()
+#     interpreter = Interpreter()
+#     interpreter.run(program)
+
+# main()

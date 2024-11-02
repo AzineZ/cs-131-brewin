@@ -1,0 +1,13 @@
+func main() {
+  var foobar;
+  foobar = true;
+  if (foobar == true) { print("a"); }
+  if (foobar != false) { print("b"); }
+}
+
+/*
+*OUT*
+a
+b
+*OUT*
+*/

@@ -1,0 +1,40 @@
+func foo(a) {
+  if (a != 1) {
+    if (a != 2) {
+      var i;
+      for (i = 0; i < 15; i = i + 1) {
+        if (i == a) {
+          return "oh";
+        }
+      }
+    }
+  }
+}
+
+func loop1() {
+  return loop2();
+}
+func loop2() {
+  return loop3();
+}
+
+func loop3() {
+  return 5;
+}
+
+func main() {
+  var a;
+  a = 10;
+  
+  print(foo(a));
+  print(loop1());
+}
+
+
+
+/*
+*OUT*
+oh
+5
+*OUT*
+*/

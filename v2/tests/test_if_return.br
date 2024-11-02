@@ -1,0 +1,20 @@
+func foo(c) { 
+  if (c == 10) {
+    return 5;
+  }
+  else {
+    return 3;
+  }
+}
+
+func main() {
+  print(foo(10));
+  print(foo(11));
+}
+
+/*
+*OUT*
+5
+3
+*OUT*
+*/
