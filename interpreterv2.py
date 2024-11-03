@@ -312,7 +312,7 @@ class Interpreter(InterpreterBase):
                 self.report_error(arg_type, "mismatched_type")
             return not op1
         
-        elif arg_type in self.int_ops or arg_type in self.string_ops or arg_type in self.bool_ops:
+        elif arg_type in self.int_ops or arg_type in self.string_ops or arg_type in self.bool_ops or arg_type in self.nil_ops:
             op1 = self.do_expression(arg.get('op1'))
             op2 = self.do_expression(arg.get('op2'))
 
@@ -346,23 +346,9 @@ class Interpreter(InterpreterBase):
 
 # def main():  # COMMENT THIS ONCE FINISH TESTING
 #     program = """
-#               func bar(a) {
-#                 print(a);
-#                 return a;
-#                 }
-
 #               func main() {
-#                 var x;
-#                 var y;
-
-#                 x = 2;
-#                 bar(x);
-#                 x = x + 1;
-#                 y = x;
-#                 bar(x);
-#                 bar(y);
-#                 bar(bar(x) == bar(y));
-#               }
+#               print(print("hello") == nil);
+#             }
 #             """
 
 #     interpreter = Interpreter()
