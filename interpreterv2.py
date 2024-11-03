@@ -347,15 +347,22 @@ class Interpreter(InterpreterBase):
 # def main():  # COMMENT THIS ONCE FINISH TESTING
 #     program = """
 #               func bar(a) {
-#   print(a);
-# }
+#                 print(a);
+#                 return a;
+#                 }
 
-# func main() {
-#   bar(5);
-#   bar("hi");
-#   bar(false || true);
-# }
+#               func main() {
+#                 var x;
+#                 var y;
 
+#                 x = 2;
+#                 bar(x);
+#                 x = x + 1;
+#                 y = x;
+#                 bar(x);
+#                 bar(y);
+#                 bar(bar(x) == bar(y));
+#               }
 #             """
 
 #     interpreter = Interpreter()
