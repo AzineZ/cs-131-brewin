@@ -103,8 +103,9 @@ class Interpreter(InterpreterBase):
         if args:
             for param_node, arg_value in zip(params, args):
                 param_name = param_node.get('name')
-                copied_value = self.copy_value(arg_value)
-                self.env_stack[-1].create(param_name, copied_value)
+                # copied_value = self.copy_value(arg_value)
+                # self.env_stack[-1].create(param_name, copied_value)
+                self.env_stack[-1].create(param_name, arg_value)
 
         for statement_node in func_node.get('statements'):
             result = self.run_statement(statement_node)
@@ -345,27 +346,14 @@ class Interpreter(InterpreterBase):
             return self.do_func_call(arg, 'expression')
 
 
-def main():  # COMMENT THIS ONCE FINISH TESTING
-    program = """
-func main() {
-    print(complexReturn(true)); 
-    print(complexReturn(false)); 
-}
+# def main():  # COMMENT THIS ONCE FINISH TESTING
+#     program = """
+# func main() {
+#     print(nil);
+# }
+#             """
 
-func complexReturn(condition) {
-    if (condition) {
-        var x;
-        x = 3;
-        return x + 1;
-    }
-    var y;
-    y = 1;
-    return y + 2;
-}
+#     interpreter = Interpreter()
+#     interpreter.run(program)
 
-            """
-
-    interpreter = Interpreter()
-    interpreter.run(program)
-
-main()
+# main()
