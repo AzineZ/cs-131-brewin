@@ -44,7 +44,7 @@ class Interpreter(InterpreterBase):
             "main_not_found": "No main() function was found",
             "var_defined": f"Variable {item} defined more than once!",
             "var_not_defined": f"Variable {item} does not exist or is out of scope!",
-            "func_not_defined": f"The {item} function has not been defined or you passed the wrong number of arguments!",
+            "func_not_defined": f"The {item} function has not been correctly defined or you passed the wrong number of arguments!",
             "invalid_func_call": f"The {item} function is called in an invalid manner!",
             "invalid_params_to_inputi": "No inputi() function found that takes > 1 parameter"
         }
@@ -155,7 +155,7 @@ class Interpreter(InterpreterBase):
         update = statement_node.get('update')
         if not isinstance(condition, bool):
             self.report_error(None, "invalid_if_condition")
-            return
+            #return
         
         #Main loop function. If condition is correct, run its statement, then run update statement and repeat
         while condition:
@@ -177,7 +177,7 @@ class Interpreter(InterpreterBase):
         condition = self.do_expression(statement_node.get('condition'))
         if not isinstance(condition, bool):
             self.report_error(None, "invalid_if_condition")
-            return
+            #return
         
         if condition:
             result = self.run_block(statement_node)
@@ -345,25 +345,27 @@ class Interpreter(InterpreterBase):
             return self.do_func_call(arg, 'expression')
 
 
-# def main():  # COMMENT THIS ONCE FINISH TESTING
-#     program = """func main() {
-#                     var a;
-#                     a = inputs();
-#                     print("string MatcH" == a);
-#                     print("string Match" == a);
-#                     print("string MatcH" != a);
-#                     print("string Match" != a);
-#                     var b;
-#                     b = "-" + inputs() + "123";
-#                     print(b);
-#                     b = inputs();
-#                     print(a == b);
-#                     print(a != b);
-#                     print(a != b + "asd");
-#                     }
-#             """
+def main():  # COMMENT THIS ONCE FINISH TESTING
+    program = """
+func main() {
+    print(complexReturn(true)); 
+    print(complexReturn(false)); 
+}
 
-#     interpreter = Interpreter()
-#     interpreter.run(program)
+func complexReturn(condition) {
+    if (condition) {
+        var x;
+        x = 3;
+        return x + 1;
+    }
+    var y;
+    y = 1;
+    return y + 2;
+}
 
-# main()
+            """
+
+    interpreter = Interpreter()
+    interpreter.run(program)
+
+main()
