@@ -68,6 +68,7 @@ class Interpreter(InterpreterBase):
 
     def create_env(self, is_func_scope=False):
         new_env = EnvironmentManager()
+        #dynamically add an attribute to the object
         new_env.is_function_scope = is_func_scope  # Add a marker to indicate function-level scope
         self.env_stack.append(new_env)
     
@@ -103,8 +104,6 @@ class Interpreter(InterpreterBase):
         if args:
             for param_node, arg_value in zip(params, args):
                 param_name = param_node.get('name')
-                # copied_value = self.copy_value(arg_value)
-                # self.env_stack[-1].create(param_name, copied_value)
                 self.env_stack[-1].create(param_name, arg_value)
 
         for statement_node in func_node.get('statements'):
@@ -136,14 +135,13 @@ class Interpreter(InterpreterBase):
         exp = statement_node.get('expression')
         if exp is not None:
             return ReturnValue(self.do_expression(exp))  # Return an instance with the evaluated expression
-        return ReturnValue(value=None)  # Return an instance with None to indicate an explicit return
+        return ReturnValue(value=None)  # Return an instance with None to indicate an implicit return
     
     def run_block(self, statement_node):
         for statement_node in statement_node.get('statements'):
             result = self.run_statement(statement_node)
             if isinstance(result, ReturnValue):  # Check for an explicit return
                 return result  # Propagate the ReturnValue object up the chain
-        return None  # Return None if no return statement was encountered
     
     def do_for(self, statement_node):
         self.create_env()
@@ -348,9 +346,16 @@ class Interpreter(InterpreterBase):
 
 # def main():  # COMMENT THIS ONCE FINISH TESTING
 #     program = """
-# func main() {
-#     print(nil);
+#               func bar(a) {
+#   print(a);
 # }
+
+# func main() {
+#   bar(5);
+#   bar("hi");
+#   bar(false || true);
+# }
+
 #             """
 
 #     interpreter = Interpreter()
