@@ -86,7 +86,6 @@ class Interpreter(InterpreterBase):
         funcs = ast.get('functions')
         for func in funcs:
             self.func_table[(func.get('name'), len(func.get('args')))] = func
-        #print(self.func_table)
         
     def run(self, program):
         ast = parse_program(program)
@@ -114,7 +113,6 @@ class Interpreter(InterpreterBase):
 
         self.pop_env()
         return None  # Return nil if no explicit return is found
-        
 
     def run_statement(self, statement_node):
         statement_type = statement_node.elem_type
@@ -144,7 +142,6 @@ class Interpreter(InterpreterBase):
                 return result  # Propagate the ReturnValue object up the chain
     
     def do_for(self, statement_node):
-        #self.create_env()
         #Initialize the counter
         starter = statement_node.get('init')
         self.run_statement(starter)
@@ -166,9 +163,7 @@ class Interpreter(InterpreterBase):
             
             self.pop_env()
             self.run_statement(update)
-            condition = self.do_expression(statement_node.get('condition'))
-        #self.pop_env()
-        
+            condition = self.do_expression(statement_node.get('condition'))        
     
     # this is a {} block
     def do_if(self, statement_node):
@@ -297,7 +292,6 @@ class Interpreter(InterpreterBase):
             # Check if variable exists and return the correct environment
             curr_env = self.check_var_in_env_stack(var_name)
             return curr_env.get(var_name)
-            #return self.var_to_val[var_name]
         
         elif arg_type == 'neg':
             op1 = self.do_expression(arg.get('op1'))
