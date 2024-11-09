@@ -1,0 +1,28 @@
+func main() {
+  var a;
+  var b;
+  var c;
+  var d;
+  a = true && foo();
+  b = false && foo();
+  c = true || foo();
+  d = false || foo();
+  if (a && !b && c && d) {
+	foo();
+  }
+}
+
+func foo() {
+  print(5);
+  return true;
+}
+
+/*
+*OUT*
+5
+5
+5
+5
+5
+*OUT*
+*/

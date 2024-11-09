@@ -1,10 +1,9 @@
 func main() {
- foo();
- print(a);
+	Foo();
 }
 
 func foo() {
- a = 5;
+	print("Hello");
 }
 
 /*

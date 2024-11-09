@@ -1,10 +1,11 @@
 func main() {
+ var a;
+ a = 5;
  foo();
- print(a);
 }
 
 func foo() {
- a = 5;
+  print(a);
 }
 
 /*

@@ -1,0 +1,11 @@
+func main() {
+  var a;
+  a = "abc";
+  for (a=a; a; a=a) { print("true"); }
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

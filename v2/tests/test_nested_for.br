@@ -1,0 +1,21 @@
+func main() {
+ var ans;
+ var i;
+ var j;
+ var n;
+
+ ans = 0;
+ n = 4;
+ for (i=0; i < n; i = i + 1) {
+  for (j =0; j < n; j = j + 1) {
+   ans = ans + i * n + j + 1;
+  }
+ }
+ print(ans);
+}
+
+/*
+*OUT*
+136
+*OUT*
+*/

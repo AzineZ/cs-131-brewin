@@ -1,9 +1,0 @@
-func main() {
-  print(-true);
-}
-
-/*
-*OUT*
-ErrorType.TYPE_ERROR
-*OUT*
-*/

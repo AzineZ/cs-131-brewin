@@ -1,0 +1,31 @@
+func main() {
+  if (5 == nil) { print("YES"); } else { print("NO"); }
+  if (nil == true) { print("YES"); } else { print("NO"); }
+  if (nil == false) { print("YES"); } else { print("NO"); }
+  if (nil == "nil") { print("YES"); } else { print("NO"); }
+  if (nil == "some string") { print("YES"); } else { print("NO"); }
+  if (nil == nil) { print("YES"); } else { print("NO"); }
+  if (5 != nil) { print("YES"); } else { print("NO"); }
+  if (nil != true) { print("YES"); } else { print("NO"); }
+  if (nil != false) { print("YES"); } else { print("NO"); }
+  if (nil != "nil") { print("YES"); } else { print("NO"); }
+  if (nil != "some string") { print("YES"); } else { print("NO"); }
+  if (nil != nil) { print("YES"); } else { print("NO"); }
+}
+
+/*
+*OUT*
+NO
+NO
+NO
+NO
+NO
+YES
+YES
+YES
+YES
+YES
+YES
+NO
+*OUT*
+*/

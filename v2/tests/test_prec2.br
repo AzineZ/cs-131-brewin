@@ -1,0 +1,9 @@
+func main() {
+  print(!true && false);
+}
+
+/*
+*OUT*
+false
+*OUT*
+*/

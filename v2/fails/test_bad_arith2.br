@@ -1,9 +1,0 @@
-func main() {
-  print(nil * 5);
-}
-
-/*
-*OUT*
-ErrorType.TYPE_ERROR
-*OUT*
-*/

@@ -1,23 +1,18 @@
 func main() {
-  if (1 < 2) { print("a"); }
-  if (1 > 2) { print("b"); }
+  if (true) { print("true"); print("foo"); }
+  if (false) { print("false"); }
 
-  if (1 == 2) { print("c"); }
-  if (1 != 2) { print("d"); }
-
-  if (1 <= 1) { print("e"); }
-  if (1 <= 2) { print("f"); }
-
-  if (1 >= 1) { print("g"); }
-  if (1 >= 2) { print("h"); }
+  if (true) { print("true"); print("blue"); } else { print("false"); }
+  if (false) { print("false"); } else { print("true"); print("foo"); }
 }
 
 /*
 *OUT*
-a
-d
-e
-f
-g
+true
+foo
+true
+blue
+true
+foo
 *OUT*
 */

@@ -1,0 +1,13 @@
+func main() {
+  print(true || false && false);
+  print(true && true || true && false);
+  print(true && true && true && false || false && true && true && true);
+}
+
+/*
+*OUT*
+true
+true
+false
+*OUT*
+*/

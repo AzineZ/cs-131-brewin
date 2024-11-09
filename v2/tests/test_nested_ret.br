@@ -1,40 +1,29 @@
-func foo(a) {
-  if (a != 1) {
-    if (a != 2) {
-      var i;
-      for (i = 0; i < 15; i = i + 1) {
-        if (i == a) {
-          return "oh";
-        }
-      }
-    }
+func foo() {
+  var ans;
+  ans = 0;
+  var i;
+  for (i=0;i < 3; i = i + 1) {
+  var j;
+    for (j=0;j < 3;j=j+1) {
+    var k;
+		for (k=0; k < 3; k = k + 1) {
+			if (i * j * k == 1) {
+				return ans;
+			} else {
+				ans = ans + 1;
+			}
+		}
+	}
   }
 }
 
-func loop1() {
-  return loop2();
-}
-func loop2() {
-  return loop3();
-}
-
-func loop3() {
-  return 5;
-}
-
 func main() {
-  var a;
-  a = 10;
-  
-  print(foo(a));
-  print(loop1());
+  print(foo());
 }
-
-
 
 /*
 *OUT*
-oh
-5
+13
 *OUT*
 */
+

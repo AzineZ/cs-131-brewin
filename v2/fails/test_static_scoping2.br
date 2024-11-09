@@ -1,10 +1,9 @@
 func main() {
- foo();
- print(a);
-}
-
-func foo() {
- a = 5;
+  if (true) {
+    var a;
+    a = 5;
+  }
+  print(a);
 }
 
 /*

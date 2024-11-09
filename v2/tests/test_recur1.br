@@ -1,0 +1,14 @@
+func main() {
+  print(fact(5));
+}
+
+func fact(n) {
+  if (n <= 1) { return 1; }
+  return n * fact(n-1);
+}
+
+/*
+*OUT*
+120
+*OUT*
+*/

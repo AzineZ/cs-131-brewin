@@ -1,0 +1,19 @@
+func main() {
+  if (5 == "5") { print("YES"); } else { print("NO"); }
+  if (1 == true) { print("YES"); } else { print("NO"); }
+  if ("true" == true) { print("YES"); } else { print("NO"); }
+  if (5 != "5") { print("YES"); } else { print("NO"); }
+  if (0 != false) { print("YES"); } else { print("NO"); }
+  if ("false" != false) { print("YES"); } else { print("NO"); }
+}
+
+/*
+*OUT*
+NO
+NO
+NO
+YES
+YES
+YES
+*OUT*
+*/

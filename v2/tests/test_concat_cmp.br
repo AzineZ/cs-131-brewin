@@ -1,0 +1,19 @@
+func main() {
+  print("abc" + "def" == "def" + "abc");
+  print("abc" + "" == "" + "abc");
+  print("a" + "b" + "c" == "" + "abc" + "");
+  print("abc" + "def" != "def" + "abc");
+  print("abc" + "" != "" + "abc");
+  print("a" + "b" + "c" != "" + "abc" + "");
+}
+
+/*
+*OUT*
+false
+true
+true
+true
+false
+false
+*OUT*
+*/

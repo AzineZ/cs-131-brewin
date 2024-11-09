@@ -1,14 +1,13 @@
 func main() {
- foo();
- print(a);
+  foo();
 }
 
 func foo() {
- a = 5;
+  print("a");
 }
 
 /*
 *OUT*
-ErrorType.NAME_ERROR
+a
 *OUT*
 */

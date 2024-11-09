@@ -1,0 +1,19 @@
+func main() {
+  var a;
+  var b;
+  a = -5;
+  b = -a;
+  print(a);  
+  print(b);  
+  print(-(-1) == 1);
+  print(-(-(-(1))) == -1);
+}
+
+/*
+*OUT*
+-5
+5
+true
+true
+*OUT*
+*/

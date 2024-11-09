@@ -1,0 +1,20 @@
+func foo() {
+ var q;
+ for (q = 3; q > 0; q = q - 1) {
+  print(q);
+  return q;
+ }
+}
+
+func main() {
+ var x;
+ x = foo();
+ print(x);
+}
+
+/*
+*OUT*
+3
+3
+*OUT*
+*/

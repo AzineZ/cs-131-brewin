@@ -167,12 +167,12 @@ class Interpreter(InterpreterBase):
     
     # this is a {} block
     def do_if(self, statement_node):
-        self.create_env()
         condition = self.do_expression(statement_node.get('condition'))
         if not isinstance(condition, bool):
             self.report_error(None, "invalid_if_condition")
             #return
-        
+
+        self.create_env()
         if condition:
             result = self.run_block(statement_node)
             self.pop_env()

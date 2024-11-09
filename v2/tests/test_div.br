@@ -1,0 +1,24 @@
+func main() {
+  var a;
+  var b;
+  var c;
+
+  b = 51; 
+  a = b / 10;
+  c = b / a;
+  print(a);
+  print(c);
+  print(7 / (-3));
+  print((-7) / 3);
+  print((-7) / (-3));
+}
+
+/*
+*OUT*
+5
+10
+-3
+-3
+2
+*OUT*
+*/

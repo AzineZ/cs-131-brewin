@@ -1,0 +1,17 @@
+func main() {
+  var a;
+  var b;
+  a = true;
+  b = !a;
+  print(b);
+  print(!false);
+}
+
+/*
+*IN*
+*IN*
+*OUT*
+false
+true
+*OUT*
+*/

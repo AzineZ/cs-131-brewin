@@ -1,0 +1,13 @@
+func main() {
+  foo(5,"bar",false);
+}
+
+func foo(a,b,c) {
+  print(a,b,c);
+}
+
+/*
+*OUT*
+5barfalse
+*OUT*
+*/

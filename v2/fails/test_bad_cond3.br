@@ -1,6 +1,7 @@
 func main() {
- var a;
- a = true + 5;
+  var a;
+  a = nil;
+  if (a) { print("true"); }
 }
 
 /*

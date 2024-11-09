@@ -1,0 +1,15 @@
+func main() {
+  print("a");
+  return;
+
+
+  print("b");
+
+
+}
+
+/*
+*OUT*
+a
+*OUT*
+*/

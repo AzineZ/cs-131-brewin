@@ -1,9 +1,0 @@
-func main() {
-  prnt(5);
-}
-
-/*
-*OUT*
-ErrorType.NAME_ERROR
-*OUT*
-*/

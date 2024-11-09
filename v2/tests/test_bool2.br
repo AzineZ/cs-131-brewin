@@ -1,0 +1,12 @@
+func main() {
+  var foobar;
+  foobar = 6 > 3;
+  if (foobar) { print("a"); }
+  if (!foobar) { print("b"); }
+}
+
+/*
+*OUT*
+a
+*OUT*
+*/
