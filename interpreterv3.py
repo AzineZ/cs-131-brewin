@@ -76,7 +76,7 @@ class Interpreter(InterpreterBase):
         elif error_type == "mismatched_return_value":
             super().error(ErrorType.TYPE_ERROR, f"Function {item} is returning a value of mismatched type!")
         elif error_type == "void_func_in_expression":
-            super().error(ErrorType.TYPE_ERROR, f"Void function {item} must not be part of an expression!")
+            super().error(ErrorType.TYPE_ERROR, f"Void function {item} cannot be compared!")
         else:
             super().error(ErrorType.NAME_ERROR, error_messages.get(error_type))
 
@@ -160,13 +160,14 @@ class Interpreter(InterpreterBase):
                 
                 if empty_return:
                     return self.do_func_return(self.default_values[ret_type])
-
-                # Check if the returned value matches the function's declared return type
-                if not self.is_valid_return_type(return_value, ret_type):
+                
+                coerced_value = self.do_coercion(return_value)
+                # Check if the coerced value matches the function's declared return type
+                if not self.is_valid_return_type(coerced_value, ret_type):
                     self.report_error(func_node.get('name'), "mismatched_return_value")
 
-                # Handle return by reference for structs and by value for primitives, also handle return default value using return;
-                return self.do_func_return(return_value)
+                # Handle return by reference for structs and by value for primitives
+                return self.do_func_return(coerced_value)
 
         self.pop_env()
 
@@ -317,14 +318,13 @@ class Interpreter(InterpreterBase):
         func_name = statement_node.get('name')
         func_args = statement_node.get('args')
 
-        if origin == 'expression' and statement_node.get('return_type') == 'void':
-            self.report_error(func_name, "void_func_in_expression")
-
         if func_name not in ['print', 'inputi', 'inputs']:
             # Check if the function exists and get the matching function node
             func_node = self.func_table.get((func_name, len(func_args)))
             if not func_node:
                 self.report_error(func_name, "func_not_defined")
+            if origin == 'expression' and func_node.get('return_type') == 'void':
+                self.report_error(func_name, "void_func_in_expression")
 
             # Evaluate arguments and pass them as a copy to the function
             evaluated_args = []
@@ -485,10 +485,10 @@ def main():  # COMMENT THIS ONCE FINISH TESTING
   return a + c;
 }
 
-func talk_to(name:string): int {
+func talk_to(name:string): void {
   if (name == "Carey") {
      print("Go away!");
-     return 3;  /* using return is OK w/void, just don't specify a value */
+     return;  /* using return is OK w/void, just don't specify a value */
   }
   print("Greetings");
 }
