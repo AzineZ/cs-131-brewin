@@ -78,7 +78,7 @@ class Interpreter(InterpreterBase):
         elif error_type == "void_func_in_expression":
             super().error(ErrorType.TYPE_ERROR, f"Void function {item} cannot be compared!")
         elif error_type == "mismatched_param":
-            super().error(ErrorType.TYPE_ERROR, f"Parameter {item} receives a mismatched type of value!")
+            super().error(ErrorType.TYPE_ERROR, f"Function {item} receives a mismatched type of argument to its formal parameter!")
         else:
             super().error(ErrorType.NAME_ERROR, error_messages.get(error_type))
 
@@ -141,9 +141,11 @@ class Interpreter(InterpreterBase):
             for param_node, arg_value in zip(params, args):
                 param_name = param_node.get('name')
                 expected_type = param_node.get('var_type')
-                coerced_param = self.do_coercion(arg_value)
+                #Coerce only when the formal parameter is a bool
+                if expected_type == 'bool':
+                    arg_value = self.do_coercion(arg_value)
                 # Check if the coerced value matches the expected type
-                if not self.match_type(coerced_param, expected_type):
+                if not self.match_type(arg_value, expected_type):
                     self.report_error(func_node.get('name'), "mismatched_param")
 
                 self.env_stack[-1].create(param_name, arg_value)
@@ -169,13 +171,14 @@ class Interpreter(InterpreterBase):
                 if empty_return:
                     return self.do_func_return(self.default_values[ret_type])
                 
-                coerced_value = self.do_coercion(return_value)
-                # Check if the coerced value matches the function's declared return type
-                if not self.match_type(coerced_value, ret_type):
-                    self.report_error(func_node.get('name'), "mismatched_return_value")
+                if ret_type == 'bool':
+                    return_value = self.do_coercion(return_value)
+                    # Check if the coerced value matches the function's declared return type
+                    if not self.match_type(return_value, ret_type):
+                        self.report_error(func_node.get('name'), "mismatched_return_value")
 
                 # Handle return by reference for structs and by value for primitives
-                return self.do_func_return(coerced_value)
+                return self.do_func_return(return_value)
 
         self.pop_env()
 
@@ -486,21 +489,21 @@ class Interpreter(InterpreterBase):
             return self.do_func_call(arg, 'expression')
 
 
-# def main():  # COMMENT THIS ONCE FINISH TESTING
-#     program = """
-#             func main() : void {
-#   var a: bool; 
-#   a = true;
-#   foo(a);
-#   foo(false);
-# }
+def main():  # COMMENT THIS ONCE FINISH TESTING
+    program = """
+            func main() : void {
+  var a: bool; 
+  a = true;
+  print(foo(3));
+}
 
-# func foo(x:int) : void {
-#   print(x);
-# }
-#             """
+func foo(x:int) : int {
+  print(x);
+  return 10;
+}
+            """
 
-#     interpreter = Interpreter()
-#     interpreter.run(program)
+    interpreter = Interpreter()
+    interpreter.run(program)
 
-# main()
+main()
