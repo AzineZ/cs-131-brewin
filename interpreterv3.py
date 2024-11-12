@@ -59,6 +59,8 @@ class Interpreter(InterpreterBase):
             super().error(ErrorType.TYPE_ERROR, f"Invalid parameters or return types for function {item}()!")
         elif error_type == "invalid_var_def":
             super().error(ErrorType.TYPE_ERROR, f"Type of variable {item} is invalid or missing!")
+        elif error_type == "Invalid_type_assignment":
+            super().error(ErrorType.TYPE_ERROR, f"Incompatible type assignment for variable {item}")
         else:
             super().error(ErrorType.NAME_ERROR, error_messages.get(error_type))
 
@@ -151,6 +153,12 @@ class Interpreter(InterpreterBase):
             return ReturnValue(self.do_expression(exp))  # Return an instance with the evaluated expression
         return ReturnValue(value=None)  # Return an instance with None to indicate an implicit return
     
+    # Need to add supports for struct-to-struct, struct-to-nil, and coercion!!!!
+    def do_type_comp(self, lhs, rhs):
+        if type(lhs) != type(rhs):
+            return False
+        return True
+    
     def run_block(self, statement_node):
         for statement_node in statement_node.get('statements'):
             result = self.run_statement(statement_node)
@@ -228,6 +236,9 @@ class Interpreter(InterpreterBase):
         # Check if variable exists and return appropriate environment
         curr_env = self.check_var_in_env_stack(var_name)
         result = self.do_expression(statement_node.get('expression'))
+        #print(curr_env.get(var_name))
+        if self.do_type_comp(curr_env.get(var_name), result) is False:
+            self.report_error(var_name, "Invalid_type_assignment")
         curr_env.set(var_name, result)
 
     def do_func_call(self, statement_node, origin):
@@ -380,6 +391,7 @@ class Interpreter(InterpreterBase):
 #   print(theory);
 #   var old: bool;
 #   print(old);
+#   eyeballs = "hello";
 # }
 
 
