@@ -239,9 +239,14 @@ class Interpreter(InterpreterBase):
         # Check if variable exists and return appropriate environment
         curr_env = self.check_var_in_env_stack(var_name)
         result = self.do_expression(statement_node.get('expression'))
-        #print(curr_env.get(var_name))
-        if self.do_type_comp(curr_env.get(var_name), result) is False:
-            self.report_error(var_name, "Invalid_type_assignment")
+        existing_value = curr_env.get(var_name)
+        
+        if self.do_type_comp(existing_value, result) is False:
+            #Check for coercion if the two are of different types
+            if isinstance(existing_value, bool) and isinstance(result, int):
+                result = self.do_coercion(result)
+            else:
+                self.report_error(var_name, "Invalid_type_assignment")
         curr_env.set(var_name, result)
 
     def do_func_call(self, statement_node, origin):
@@ -350,12 +355,29 @@ class Interpreter(InterpreterBase):
             op2 = self.do_expression(arg.get('op2'))
 
             # Handle coercion for comparisons (e.g., ==, !=)
-            if arg_type in ['==', '!=']:
-                # Allow int to bool coercion for comparison
-                if isinstance(op1, int) and isinstance(op2, bool):
+            if arg_type in ['==', '!=', '&&', '||']:
+                op1 = self.do_expression(arg.get('op1'))
+                op2 = self.do_expression(arg.get('op2'))
+
+                if arg_type in ['&&', '||']:
+                    # Logical operators: both operands should be coerced to bool
                     op1 = self.do_coercion(op1)
-                elif isinstance(op2, int) and isinstance(op1, bool):
                     op2 = self.do_coercion(op2)
+
+                    # Ensure both operands are boolean after coercion
+                    if not isinstance(op1, bool) or not isinstance(op2, bool):
+                        self.report_error(arg_type, "mismatched_type")
+                    return op1 and op2 if arg_type == '&&' else op1 or op2
+
+                elif arg_type in ['==', '!=']:
+                    # Equality comparisons: coerce int to bool if one operand is bool
+                    if isinstance(op1, int) and isinstance(op2, bool):
+                        op1 = self.do_coercion(op1)
+                    elif isinstance(op2, int) and isinstance(op1, bool):
+                        op2 = self.do_coercion(op2)
+
+                    # Perform the equality comparison
+                    return (op1 == op2) if arg_type == '==' else (op1 != op2)
 
             # Check if both operands are of the same type or coercible
             if type(op1) != type(op2):
@@ -383,24 +405,17 @@ class Interpreter(InterpreterBase):
             return self.do_func_call(arg, 'expression')
 
 
-# def main():  # COMMENT THIS ONCE FINISH TESTING
-#     program = """
-#              func main() : int {
-#   var a:int;
-#   a = 10;
-#   if (a) {
-#     print("a");
-#   }
-#   if (20) {
-#     print("20");
-#   }
-#   if (0) {
-#     print("0");
-#   }
-# }
-#             """
+def main():  # COMMENT THIS ONCE FINISH TESTING
+    program = """
+             func main() : int {
+                var k: int;
+                for (k = 5; k; k = k - 1) {
+                    print(-1 && true);
+                }      
+            }
+            """
 
-#     interpreter = Interpreter()
-#     interpreter.run(program)
+    interpreter = Interpreter()
+    interpreter.run(program)
 
-# main()
+main()
