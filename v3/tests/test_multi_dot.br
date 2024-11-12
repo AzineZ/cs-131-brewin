@@ -1,0 +1,33 @@
+struct ant {
+ i:int;
+}
+
+struct bat {
+ a:ant;
+}
+
+struct cat {
+ b:bat;
+}
+
+struct dog {
+ c:cat;
+}
+
+func main() : int {
+  var d: dog; 
+  d = new dog;
+  d.c = new cat;
+  d.c.b = new bat;
+  d.c.b.a = new ant;
+
+  d.c.b.a.i = 15;
+  print(d.c.b.a.i);
+}
+
+
+/*
+*OUT*
+15
+*OUT*
+*/
