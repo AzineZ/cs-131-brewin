@@ -12,6 +12,7 @@ class Interpreter(InterpreterBase):
 
         self.env_stack = []
         self.func_table = {}
+        self.valid_types = {'int', 'string', 'bool'} #ADD STRUCT LATERRRRRR!!!!!
 
         self.non_var_value_type = {'int', 'string', 'bool'}
         self.string_ops = {'+': lambda x, y: x + y,
@@ -52,6 +53,8 @@ class Interpreter(InterpreterBase):
             super().error(ErrorType.TYPE_ERROR, f"Incompatible types for the {item} operation")
         elif error_type == "invalid_if_condition":
             super().error(ErrorType.TYPE_ERROR, f"Invalid if or for condition. It must be a boolean!")
+        elif error_type == "invalid_params_or_ret_type":
+            super().error(ErrorType.TYPE_ERROR, f"Invalid parameters or return types for function {item}()!")
         else:
             super().error(ErrorType.NAME_ERROR, error_messages.get(error_type))
 
@@ -85,7 +88,16 @@ class Interpreter(InterpreterBase):
     def set_func_table(self, ast):
         funcs = ast.get('functions')
         for func in funcs:
+            ret_type = func.get('return_type')
+            if ret_type not in self.valid_types and ret_type != 'void':
+                self.report_error(func.get('name'), 'invalid_params_or_ret_type')
+
+            args = func.get('args')
+            for arg in args:
+                if arg.get('var_type') not in self.valid_types:
+                    self.report_error(func.get('name'), 'invalid_params_or_ret_type')
             self.func_table[(func.get('name'), len(func.get('args')))] = func
+        #print(self.func_table)
         
     def run(self, program):
         ast = parse_program(program)
@@ -338,36 +350,30 @@ class Interpreter(InterpreterBase):
             return self.do_func_call(arg, 'expression')
 
 
-# def main():  # COMMENT THIS ONCE FINISH TESTING
-#     program = """
-#               func complex() {
-#     var i;
-#     for (i = 0; i < 5; i = i + 1) {
-#         print("Outer loop: ", i);
-#         if (i == 2) {
-#             var j;
-#             for (j = 0; j < 3; j = j + 1) {
-#                 print("  Inner loop: ", j);
-#                 if (j == 1) {
-#                     return i * 10 + j;  
-#                 }
-#                 print("  This should print once for j = 0"); 
-#             }
-#             print("This should not print"); 
-#         }
-#         print("This should print for i = 0 and i = 1 only"); 
-#     }
-#     return 0; 
-# }
+def main():  # COMMENT THIS ONCE FINISH TESTING
+    program = """
+              func foo(a:int, b:string, c:int, d:bool) : void {
+  print(b, d);
+  return a + c;
+}
 
-# func main() {
-#     var result;
-#     result = complex();
-#     print("Result is: ", result); 
-# }
-#             """
+func talk_to(name:string): void {
+  if (name == "Carey") {
+     print("Go away!");
+     return;  /* using return is OK w/void, just don't specify a value */
+  }
+  print("Greetings");
+}
 
-#     interpreter = Interpreter()
-#     interpreter.run(program)
+func main() : void {
+  print(foo(10, "blah", 20, false));
+  talk_to("Bonnie");
+}
 
-# main()
+
+            """
+
+    interpreter = Interpreter()
+    interpreter.run(program)
+
+main()
