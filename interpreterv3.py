@@ -13,7 +13,7 @@ class Interpreter(InterpreterBase):
         self.env_stack = []
         self.func_table = {}
         #ADD STRUCT LATERRRRRR and default value of nil for structs!!!!
-        self.valid_types = {'int', 'string', 'bool'}
+        self.valid_types = {'int', 'string', 'bool', 'str'}
         self.default_values = {'int': 0, 'string': "", 'bool': False}
 
         self.non_var_value_type = {'int', 'string', 'bool'}
@@ -260,7 +260,19 @@ class Interpreter(InterpreterBase):
                 self.report_error(func_name, "func_not_defined")
 
             # Evaluate arguments and pass them as a copy to the function
-            evaluated_args = [self.copy_value(self.do_expression(arg)) for arg in func_args]
+            #evaluated_args = [self.copy_value(self.do_expression(arg)) for arg in func_args]
+            evaluated_args = []
+            for arg in func_args:
+                eval_arg = self.do_expression(arg)
+                # Check if the type of the evaluated argument is in the set of valid_types
+                if type(eval_arg).__name__ in self.valid_types:
+                    # Pass by value for int, string, bool
+                    #print(type(eval_arg).__name__)
+                    evaluated_args.append(self.copy_value(eval_arg))
+                else:
+                    # Pass by reference for other types (e.g., structs)
+                    evaluated_args.append(eval_arg)
+
             result = self.run_func(func_node, evaluated_args)
             return result if result is not None else None  # Ensure consistent nil handling
 
@@ -405,17 +417,30 @@ class Interpreter(InterpreterBase):
             return self.do_func_call(arg, 'expression')
 
 
-def main():  # COMMENT THIS ONCE FINISH TESTING
-    program = """
-             func main() : int {
-                var k: int;
-                for (k = 5; k; k = k - 1) {
-                    print(-1 && true);
-                }      
-            }
-            """
+# def main():  # COMMENT THIS ONCE FINISH TESTING
+#     program = """
+#              func foo(a:int, b:string, c:int, d:bool) : int {
+#   print(b, d);
+#   return a + c;
+# }
 
-    interpreter = Interpreter()
-    interpreter.run(program)
+# func talk_to(name:string): void {
+#   if (name == "Carey") {
+#      print("Go away!");
+#      return;  /* using return is OK w/void, just don't specify a value */
+#   }
+#   print("Greetings");
+# }
 
-main()
+# func main() : void {
+#   print(foo(10, "blah", 20, false));
+#   talk_to("Bonnie");
+# }
+
+
+#             """
+
+#     interpreter = Interpreter()
+#     interpreter.run(program)
+
+# main()
