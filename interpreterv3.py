@@ -172,10 +172,11 @@ class Interpreter(InterpreterBase):
 
         #Apply condition, check if it's boolean
         condition = self.do_expression(statement_node.get('condition'))
+        condition = self.do_coercion(condition)  # Coerce to bool if needed
         update = statement_node.get('update')
+
         if not isinstance(condition, bool):
             self.report_error(None, "invalid_if_condition")
-            #return
         
         #Main loop function. If condition is correct, run its statement, then run update statement and repeat
         while condition:
@@ -192,6 +193,8 @@ class Interpreter(InterpreterBase):
     # this is a {} block
     def do_if(self, statement_node):
         condition = self.do_expression(statement_node.get('condition'))
+        condition = self.do_coercion(condition)  # Coerce to bool if needed
+
         if not isinstance(condition, bool):
             self.report_error(None, "invalid_if_condition")
             #return
@@ -311,6 +314,11 @@ class Interpreter(InterpreterBase):
         user_input = str(super().get_input())
         return user_input
 
+    def do_coercion(self, value):
+        if isinstance(value, int):
+            return value != 0
+        return value
+    
     def do_expression(self, arg):
         arg_type = arg.elem_type
         if arg_type in self.non_var_value_type:
@@ -331,6 +339,8 @@ class Interpreter(InterpreterBase):
         
         elif arg_type == '!':
             op1 = self.do_expression(arg.get('op1'))
+            # Coerce int to bool if necessary
+            op1 = self.do_coercion(op1)
             if not isinstance(op1, bool):
                 self.report_error(arg_type, "mismatched_type")
             return not op1
@@ -339,12 +349,18 @@ class Interpreter(InterpreterBase):
             op1 = self.do_expression(arg.get('op1'))
             op2 = self.do_expression(arg.get('op2'))
 
-            # Check if both operands are of the same type
+            # Handle coercion for comparisons (e.g., ==, !=)
+            if arg_type in ['==', '!=']:
+                # Allow int to bool coercion for comparison
+                if isinstance(op1, int) and isinstance(op2, bool):
+                    op1 = self.do_coercion(op1)
+                elif isinstance(op2, int) and isinstance(op1, bool):
+                    op2 = self.do_coercion(op2)
+
+            # Check if both operands are of the same type or coercible
             if type(op1) != type(op2):
-                #Check the cases of == and != with different data types
-                if arg_type == '==' or arg_type == '!=':
-                    return False if arg_type == '==' else True
-                              
+                if arg_type in ['==', '!=']:
+                    return (op1 == op2) if arg_type == '==' else (op1 != op2)
                 self.report_error(arg_type, "mismatched_type")
             
             # Check binary arg_type with operands of the same type
@@ -369,32 +385,19 @@ class Interpreter(InterpreterBase):
 
 # def main():  # COMMENT THIS ONCE FINISH TESTING
 #     program = """
-#               func foo(a:int, b:string, c:int, d:bool) : void {
-#   print(b, d);
-#   return a + c;
-# }
-
-# func talk_to(name:string): void {
-#   if (name == "Carey") {
-#      print("Go away!");
-#      return;  /* using return is OK w/void, just don't specify a value */
+#              func main() : int {
+#   var a:int;
+#   a = 10;
+#   if (a) {
+#     print("a");
 #   }
-#   print("Greetings");
+#   if (20) {
+#     print("20");
+#   }
+#   if (0) {
+#     print("0");
+#   }
 # }
-
-# func main() : void {
-#   print(foo(10, "blah", 20, false));
-#   talk_to("Bonnie");
-#   var eyeballs: int;
-#   print(eyeballs);
-#   var theory: string;
-#   print(theory);
-#   var old: bool;
-#   print(old);
-#   eyeballs = "hello";
-# }
-
-
 #             """
 
 #     interpreter = Interpreter()
