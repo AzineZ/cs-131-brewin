@@ -5,6 +5,15 @@ from env_v1 import EnvironmentManager
 class ReturnValue:
     def __init__(self, value=None):
         self.value = value
+    
+    def has_value(self):
+        """Check if the return value is actually a value (not NoValue)."""
+        return not isinstance(self.value, NoValue)
+
+class NoValue:
+    """Marker class to indicate a return with no value (used for void functions)."""
+    def __repr__(self):
+        return "<NoValue>"
 
 class Interpreter(InterpreterBase):
     def __init__(self, console_output=True, inp=None, trace_output=False):
@@ -12,7 +21,7 @@ class Interpreter(InterpreterBase):
 
         self.env_stack = []
         self.func_table = {}
-        #ADD STRUCT LATERRRRRR and default value of nil for structs!!!!
+        # ADD STRUCT LATERRRRRR and default value of nil for structs!!!!
         self.valid_types = {'int', 'string', 'bool', 'str'}
         self.default_values = {'int': 0, 'string': "", 'bool': False}
 
@@ -60,8 +69,14 @@ class Interpreter(InterpreterBase):
             super().error(ErrorType.TYPE_ERROR, f"Invalid parameters or return types for function {item}()!")
         elif error_type == "invalid_var_def":
             super().error(ErrorType.TYPE_ERROR, f"Type of variable {item} is invalid or missing!")
-        elif error_type == "Invalid_type_assignment":
+        elif error_type == "invalid_type_assignment":
             super().error(ErrorType.TYPE_ERROR, f"Incompatible type assignment for variable {item}")
+        elif error_type == "invalid_void_return":
+            super().error(ErrorType.TYPE_ERROR, f"Void function {item} must not return a value!")
+        elif error_type == "mismatched_return_value":
+            super().error(ErrorType.TYPE_ERROR, f"Function {item} is returning a value of mismatched type!")
+        elif error_type == "void_func_in_expression":
+            super().error(ErrorType.TYPE_ERROR, f"Void function {item} must not be part of an expression!")
         else:
             super().error(ErrorType.NAME_ERROR, error_messages.get(error_type))
 
@@ -117,6 +132,7 @@ class Interpreter(InterpreterBase):
     def run_func(self, func_node, args=None):
         self.create_env(is_func_scope=True)
 
+        ret_type = func_node.get('return_type')
         # Assign arguments to function parameters and ensure copying
         params = func_node.get('args')
         if args:
@@ -124,14 +140,60 @@ class Interpreter(InterpreterBase):
                 param_name = param_node.get('name')
                 self.env_stack[-1].create(param_name, arg_value)
 
+        # Execute the function body and capture any return statement
+        # For void function, we don't care what it returns to the function call. 
+        # The reason is that void function will not be used in expression so 
+        # it being called as a statement has no uses on what it returns, so we can return None just fine
         for statement_node in func_node.get('statements'):
             result = self.run_statement(statement_node)
+
             if isinstance(result, ReturnValue):  # Check for an explicit return
+                return_value = result.value
+                empty_return = isinstance(return_value, NoValue)
                 self.pop_env()
-                return result.value  # Extract the actual value and return it
+
+                # Handle functions with a void return type
+                if ret_type == 'void':
+                    if not empty_return:
+                        self.report_error(func_node.get('name'), "invalid_void_return")
+                    return None  # A void function should return nothing
+                
+                if empty_return:
+                    return self.do_func_return(self.default_values[ret_type])
+
+                # Check if the returned value matches the function's declared return type
+                if not self.is_valid_return_type(return_value, ret_type):
+                    self.report_error(func_node.get('name'), "mismatched_return_value")
+
+                # Handle return by reference for structs and by value for primitives, also handle return default value using return;
+                return self.do_func_return(return_value)
 
         self.pop_env()
-        return None  # Return nil if no explicit return is found
+
+        # Handle the case where the function ends without an explicit return statement
+        if ret_type == 'void':
+            return None  # Void function should return nothing
+        return self.do_func_return(self.default_values[ret_type])  # Return default value if no explicit return is encountered
+        #return None  # Return nil if no explicit return is found
+    
+    def do_func_return(self, value):
+        if type(value).__name__ not in self.non_var_value_type:
+            return value  # Return by reference for user-defined structs
+        return self.copy_value(value)  # Return by value for primitives
+
+    def is_valid_return_type(self, value, expected_type):
+        """Check if the returned value matches the expected type. REMEMBER TO ADD STRUCTS HEREEEEE!!!"""
+        if expected_type == 'int' and isinstance(value, int):
+            return True
+        elif expected_type == 'string' and isinstance(value, str):
+            return True
+        elif expected_type == 'bool' and isinstance(value, bool):
+            return True
+        elif expected_type == 'nil' and value is None:
+            return True
+        elif expected_type == 'void' and value is None:
+            return True
+        return False
 
     def run_statement(self, statement_node):
         statement_type = statement_node.elem_type
@@ -150,11 +212,13 @@ class Interpreter(InterpreterBase):
     
     def do_return(self, statement_node):
         exp = statement_node.get('expression')
+        # If there's an expression, evaluate and return its value
         if exp is not None:
-            return ReturnValue(self.do_expression(exp))  # Return an instance with the evaluated expression
-        return ReturnValue(value=None)  # Return an instance with None to indicate an implicit return
+            return ReturnValue(self.do_expression(exp))  # Explicitly returning a value (can be None if it's nil)
+        # If there's no expression, return NoValue to indicate no value was returned
+        return ReturnValue(value=NoValue())
     
-    # Need to add supports for struct-to-struct, struct-to-nil, and coercion!!!!
+    # Need to add supports for struct-to-struct, struct-to-nil!!!!
     def do_type_comp(self, lhs, rhs):
         if type(lhs) != type(rhs):
             return False
@@ -191,7 +255,6 @@ class Interpreter(InterpreterBase):
             self.run_statement(update)
             condition = self.do_expression(statement_node.get('condition'))        
     
-    # this is a {} block
     def do_if(self, statement_node):
         condition = self.do_expression(statement_node.get('condition'))
         condition = self.do_coercion(condition)  # Coerce to bool if needed
@@ -247,12 +310,15 @@ class Interpreter(InterpreterBase):
             if isinstance(existing_value, bool) and isinstance(result, int):
                 result = self.do_coercion(result)
             else:
-                self.report_error(var_name, "Invalid_type_assignment")
+                self.report_error(var_name, "invalid_type_assignment")
         curr_env.set(var_name, result)
 
     def do_func_call(self, statement_node, origin):
         func_name = statement_node.get('name')
         func_args = statement_node.get('args')
+
+        if origin == 'expression' and statement_node.get('return_type') == 'void':
+            self.report_error(func_name, "void_func_in_expression")
 
         if func_name not in ['print', 'inputi', 'inputs']:
             # Check if the function exists and get the matching function node
@@ -261,14 +327,12 @@ class Interpreter(InterpreterBase):
                 self.report_error(func_name, "func_not_defined")
 
             # Evaluate arguments and pass them as a copy to the function
-            #evaluated_args = [self.copy_value(self.do_expression(arg)) for arg in func_args]
             evaluated_args = []
             for arg in func_args:
                 eval_arg = self.do_expression(arg)
                 # Check if the type of the evaluated argument is in the set of valid_types
                 if type(eval_arg).__name__ in self.non_var_value_type:
                     # Pass by value for int, string, bool
-                    #print(type(eval_arg).__name__)
                     evaluated_args.append(self.copy_value(eval_arg))
                 else:
                     # Pass by reference for other types (e.g., structs)
@@ -364,41 +428,37 @@ class Interpreter(InterpreterBase):
             return not op1
         
         elif arg_type in self.int_ops or arg_type in self.string_ops or arg_type in self.bool_ops or arg_type in self.nil_ops:
+            # Evaluate operands once
             op1 = self.do_expression(arg.get('op1'))
             op2 = self.do_expression(arg.get('op2'))
 
-            # Handle coercion for comparisons (e.g., ==, !=)
-            if arg_type in ['==', '!=', '&&', '||']:
-                op1 = self.do_expression(arg.get('op1'))
-                op2 = self.do_expression(arg.get('op2'))
+            # Handle logical operators separately
+            if arg_type in ['&&', '||']:
+                # Coerce both operands to bool if necessary
+                op1 = self.do_coercion(op1)
+                op2 = self.do_coercion(op2)
 
-                if arg_type in ['&&', '||']:
-                    # Logical operators: both operands should be coerced to bool
+                # Ensure both operands are boolean after coercion
+                if not isinstance(op1, bool) or not isinstance(op2, bool):
+                    self.report_error(arg_type, "mismatched_type")
+                return op1 and op2 if arg_type == '&&' else op1 or op2
+
+            # Handle equality comparisons separately
+            elif arg_type in ['==', '!=']:
+                # Coerce int to bool if one operand is bool and the other is int
+                if isinstance(op1, int) and isinstance(op2, bool):
                     op1 = self.do_coercion(op1)
+                elif isinstance(op2, int) and isinstance(op1, bool):
                     op2 = self.do_coercion(op2)
+                
+                # Perform equality comparison after coercion
+                return (op1 == op2) if arg_type == '==' else (op1 != op2)
 
-                    # Ensure both operands are boolean after coercion
-                    if not isinstance(op1, bool) or not isinstance(op2, bool):
-                        self.report_error(arg_type, "mismatched_type")
-                    return op1 and op2 if arg_type == '&&' else op1 or op2
-
-                elif arg_type in ['==', '!=']:
-                    # Equality comparisons: coerce int to bool if one operand is bool
-                    if isinstance(op1, int) and isinstance(op2, bool):
-                        op1 = self.do_coercion(op1)
-                    elif isinstance(op2, int) and isinstance(op1, bool):
-                        op2 = self.do_coercion(op2)
-
-                    # Perform the equality comparison
-                    return (op1 == op2) if arg_type == '==' else (op1 != op2)
-
-            # Check if both operands are of the same type or coercible
+            # Check if both operands are of the same type for arithmetic and string operations
             if type(op1) != type(op2):
-                if arg_type in ['==', '!=']:
-                    return (op1 == op2) if arg_type == '==' else (op1 != op2)
                 self.report_error(arg_type, "mismatched_type")
             
-            # Check binary arg_type with operands of the same type
+            # Determine the operation based on type and arg_type
             operation = None
             if isinstance(op1, str) and isinstance(op2, str) and arg_type in self.string_ops:
                 operation = self.string_ops.get(arg_type)
@@ -406,9 +466,9 @@ class Interpreter(InterpreterBase):
                 operation = self.int_ops.get(arg_type)
             elif isinstance(op1, bool) and isinstance(op2, bool) and arg_type in self.bool_ops:
                 operation = self.bool_ops.get(arg_type)
-            elif op1 == None and op2 == None and arg_type in self.nil_ops:
+            elif op1 is None and op2 is None and arg_type in self.nil_ops:
                 operation = self.nil_ops.get(arg_type)
-            
+
             if not operation:
                 self.report_error(arg_type, "mismatched_type")
             else:
@@ -425,20 +485,17 @@ def main():  # COMMENT THIS ONCE FINISH TESTING
   return a + c;
 }
 
-func talk_to(name:string): void {
+func talk_to(name:string): int {
   if (name == "Carey") {
      print("Go away!");
-     return;  /* using return is OK w/void, just don't specify a value */
+     return 3;  /* using return is OK w/void, just don't specify a value */
   }
   print("Greetings");
 }
 
 func main() : void {
-  print(foo(10, "blah", 20, false));
-  talk_to("Bonnie");
+  print(talk_to("Carey") == true);
 }
-
-
             """
 
     interpreter = Interpreter()
