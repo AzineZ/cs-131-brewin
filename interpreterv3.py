@@ -12,7 +12,9 @@ class Interpreter(InterpreterBase):
 
         self.env_stack = []
         self.func_table = {}
-        self.valid_types = {'int', 'string', 'bool'} #ADD STRUCT LATERRRRRR!!!!!
+        #ADD STRUCT LATERRRRRR and default value of nil for structs!!!!
+        self.valid_types = {'int', 'string', 'bool'}
+        self.default_values = {'int': 0, 'string': "", 'bool': False}
 
         self.non_var_value_type = {'int', 'string', 'bool'}
         self.string_ops = {'+': lambda x, y: x + y,
@@ -55,6 +57,8 @@ class Interpreter(InterpreterBase):
             super().error(ErrorType.TYPE_ERROR, f"Invalid if or for condition. It must be a boolean!")
         elif error_type == "invalid_params_or_ret_type":
             super().error(ErrorType.TYPE_ERROR, f"Invalid parameters or return types for function {item}()!")
+        elif error_type == "invalid_var_def":
+            super().error(ErrorType.TYPE_ERROR, f"Type of variable {item} is invalid or missing!")
         else:
             super().error(ErrorType.NAME_ERROR, error_messages.get(error_type))
 
@@ -207,11 +211,13 @@ class Interpreter(InterpreterBase):
 
 
     def do_definition(self, statement_node):
-        var_name = statement_node.get('name')
+        var_name, var_type = statement_node.get('name'), statement_node.get('var_type')
         curr_env = self.env_stack[-1]
+        if var_type not in self.valid_types:
+            self.report_error(var_name, "invalid_var_def")
         #check for existing variable in the scope
         if not curr_env.get(var_name):
-            curr_env.create(var_name, '# Not Initialized #')
+            curr_env.create(var_name, self.default_values[var_type])
             return
 
         # If the variable already exists, raise error
@@ -350,30 +356,36 @@ class Interpreter(InterpreterBase):
             return self.do_func_call(arg, 'expression')
 
 
-def main():  # COMMENT THIS ONCE FINISH TESTING
-    program = """
-              func foo(a:int, b:string, c:int, d:bool) : void {
-  print(b, d);
-  return a + c;
-}
+# def main():  # COMMENT THIS ONCE FINISH TESTING
+#     program = """
+#               func foo(a:int, b:string, c:int, d:bool) : void {
+#   print(b, d);
+#   return a + c;
+# }
 
-func talk_to(name:string): void {
-  if (name == "Carey") {
-     print("Go away!");
-     return;  /* using return is OK w/void, just don't specify a value */
-  }
-  print("Greetings");
-}
+# func talk_to(name:string): void {
+#   if (name == "Carey") {
+#      print("Go away!");
+#      return;  /* using return is OK w/void, just don't specify a value */
+#   }
+#   print("Greetings");
+# }
 
-func main() : void {
-  print(foo(10, "blah", 20, false));
-  talk_to("Bonnie");
-}
+# func main() : void {
+#   print(foo(10, "blah", 20, false));
+#   talk_to("Bonnie");
+#   var eyeballs: int;
+#   print(eyeballs);
+#   var theory: string;
+#   print(theory);
+#   var old: bool;
+#   print(old);
+# }
 
 
-            """
+#             """
 
-    interpreter = Interpreter()
-    interpreter.run(program)
+#     interpreter = Interpreter()
+#     interpreter.run(program)
 
-main()
+# main()
