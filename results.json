@@ -26,7 +26,7 @@
         },
         {
             "name": "Correctness | test_ret1",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -62,7 +62,7 @@
         },
         {
             "name": "Incorrectness | test_cmp_void3",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -86,7 +86,7 @@
         },
         {
             "name": "Incorrectness | test_pass2",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },

@@ -77,6 +77,8 @@ class Interpreter(InterpreterBase):
             super().error(ErrorType.TYPE_ERROR, f"Function {item} is returning a value of mismatched type!")
         elif error_type == "void_func_in_expression":
             super().error(ErrorType.TYPE_ERROR, f"Void function {item} cannot be compared!")
+        elif error_type == "mismatched_param":
+            super().error(ErrorType.TYPE_ERROR, f"Parameter {item} receives a mismatched type of value!")
         else:
             super().error(ErrorType.NAME_ERROR, error_messages.get(error_type))
 
@@ -138,6 +140,12 @@ class Interpreter(InterpreterBase):
         if args:
             for param_node, arg_value in zip(params, args):
                 param_name = param_node.get('name')
+                expected_type = param_node.get('var_type')
+                coerced_param = self.do_coercion(arg_value)
+                # Check if the coerced value matches the expected type
+                if not self.match_type(coerced_param, expected_type):
+                    self.report_error(func_node.get('name'), "mismatched_param")
+
                 self.env_stack[-1].create(param_name, arg_value)
 
         # Execute the function body and capture any return statement
@@ -163,7 +171,7 @@ class Interpreter(InterpreterBase):
                 
                 coerced_value = self.do_coercion(return_value)
                 # Check if the coerced value matches the function's declared return type
-                if not self.is_valid_return_type(coerced_value, ret_type):
+                if not self.match_type(coerced_value, ret_type):
                     self.report_error(func_node.get('name'), "mismatched_return_value")
 
                 # Handle return by reference for structs and by value for primitives
@@ -182,9 +190,9 @@ class Interpreter(InterpreterBase):
             return value  # Return by reference for user-defined structs
         return self.copy_value(value)  # Return by value for primitives
 
-    def is_valid_return_type(self, value, expected_type):
+    def match_type(self, value, expected_type):
         """Check if the returned value matches the expected type. REMEMBER TO ADD STRUCTS HEREEEEE!!!"""
-        if expected_type == 'int' and isinstance(value, int):
+        if expected_type == 'int' and isinstance(value, int) and not isinstance(value, bool): #Bool is a subset of Int so we need additional check
             return True
         elif expected_type == 'string' and isinstance(value, str):
             return True
@@ -478,27 +486,21 @@ class Interpreter(InterpreterBase):
             return self.do_func_call(arg, 'expression')
 
 
-def main():  # COMMENT THIS ONCE FINISH TESTING
-    program = """
-             func foo(a:int, b:string, c:int, d:bool) : int {
-  print(b, d);
-  return a + c;
-}
+# def main():  # COMMENT THIS ONCE FINISH TESTING
+#     program = """
+#             func main() : void {
+#   var a: bool; 
+#   a = true;
+#   foo(a);
+#   foo(false);
+# }
 
-func talk_to(name:string): void {
-  if (name == "Carey") {
-     print("Go away!");
-     return;  /* using return is OK w/void, just don't specify a value */
-  }
-  print("Greetings");
-}
+# func foo(x:int) : void {
+#   print(x);
+# }
+#             """
 
-func main() : void {
-  print(talk_to("Carey") == true);
-}
-            """
+#     interpreter = Interpreter()
+#     interpreter.run(program)
 
-    interpreter = Interpreter()
-    interpreter.run(program)
-
-main()
+# main()
