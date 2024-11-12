@@ -16,7 +16,8 @@ class Interpreter(InterpreterBase):
         self.valid_types = {'int', 'string', 'bool', 'str'}
         self.default_values = {'int': 0, 'string': "", 'bool': False}
 
-        self.non_var_value_type = {'int', 'string', 'bool'}
+        # contain only primitives
+        self.non_var_value_type = {'int', 'string', 'bool', 'str'}
         self.string_ops = {'+': lambda x, y: x + y,
                            '==': lambda x, y: x == y,
                            '!=': lambda x, y: x != y
@@ -265,7 +266,7 @@ class Interpreter(InterpreterBase):
             for arg in func_args:
                 eval_arg = self.do_expression(arg)
                 # Check if the type of the evaluated argument is in the set of valid_types
-                if type(eval_arg).__name__ in self.valid_types:
+                if type(eval_arg).__name__ in self.non_var_value_type:
                     # Pass by value for int, string, bool
                     #print(type(eval_arg).__name__)
                     evaluated_args.append(self.copy_value(eval_arg))
@@ -417,30 +418,30 @@ class Interpreter(InterpreterBase):
             return self.do_func_call(arg, 'expression')
 
 
-# def main():  # COMMENT THIS ONCE FINISH TESTING
-#     program = """
-#              func foo(a:int, b:string, c:int, d:bool) : int {
-#   print(b, d);
-#   return a + c;
-# }
+def main():  # COMMENT THIS ONCE FINISH TESTING
+    program = """
+             func foo(a:int, b:string, c:int, d:bool) : int {
+  print(b, d);
+  return a + c;
+}
 
-# func talk_to(name:string): void {
-#   if (name == "Carey") {
-#      print("Go away!");
-#      return;  /* using return is OK w/void, just don't specify a value */
-#   }
-#   print("Greetings");
-# }
+func talk_to(name:string): void {
+  if (name == "Carey") {
+     print("Go away!");
+     return;  /* using return is OK w/void, just don't specify a value */
+  }
+  print("Greetings");
+}
 
-# func main() : void {
-#   print(foo(10, "blah", 20, false));
-#   talk_to("Bonnie");
-# }
+func main() : void {
+  print(foo(10, "blah", 20, false));
+  talk_to("Bonnie");
+}
 
 
-#             """
+            """
 
-#     interpreter = Interpreter()
-#     interpreter.run(program)
+    interpreter = Interpreter()
+    interpreter.run(program)
 
-# main()
+main()
