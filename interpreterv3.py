@@ -21,9 +21,10 @@ class Interpreter(InterpreterBase):
 
         self.env_stack = []
         self.func_table = {}
+        self.struct_table = {}
         # ADD STRUCT LATERRRRRR and default value of nil for structs!!!!
         self.valid_types = {'int', 'string', 'bool', 'str'}
-        self.default_values = {'int': 0, 'string': "", 'bool': False}
+        #self.default_values = {'int': 0, 'string': "", 'bool': False}
 
         # contain only primitives
         self.non_var_value_type = {'int', 'string', 'bool', 'str'}
@@ -79,6 +80,8 @@ class Interpreter(InterpreterBase):
             super().error(ErrorType.TYPE_ERROR, f"Void function {item} cannot be compared!")
         elif error_type == "mismatched_param":
             super().error(ErrorType.TYPE_ERROR, f"Function {item} receives a mismatched type of argument to its formal parameter!")
+        elif error_type == "invalid_struct_type":
+            super().error(ErrorType.TYPE_ERROR, f"Struct {item} is not defined!")
         else:
             super().error(ErrorType.NAME_ERROR, error_messages.get(error_type))
 
@@ -109,7 +112,21 @@ class Interpreter(InterpreterBase):
                 return func
         self.report_error(None, "main_not_found")
 
+    # Two new errors not implemented yet
     def set_func_table(self, ast):
+        structs = ast.get('structs')
+        for struct in structs:
+            struct_name = struct.get('name')
+            # No need to check for duplicate struct names
+            self.struct_table[struct_name] = struct
+
+            # Validate struct fields
+            fields = struct.get('fields')
+            for field in fields:
+                field_type = field.get('var_type')
+                if field_type not in self.valid_types and field_type not in self.struct_table:
+                    self.report_error(struct_name, 'invalid_field_type')
+
         funcs = ast.get('functions')
         for func in funcs:
             ret_type = func.get('return_type')
@@ -122,6 +139,7 @@ class Interpreter(InterpreterBase):
                     self.report_error(func.get('name'), 'invalid_params_or_ret_type')
             self.func_table[(func.get('name'), len(func.get('args')))] = func
         #print(self.func_table)
+        print(self.struct_table)
         
     def run(self, program):
         ast = parse_program(program)
@@ -169,7 +187,7 @@ class Interpreter(InterpreterBase):
                     return None  # A void function should return nothing
                 
                 if empty_return:
-                    return self.do_func_return(self.default_values[ret_type])
+                    return self.do_func_return(self.get_default_value(ret_type))
                 
                 if ret_type == 'bool':
                     return_value = self.do_coercion(return_value)
@@ -185,7 +203,7 @@ class Interpreter(InterpreterBase):
         # Handle the case where the function ends without an explicit return statement
         if ret_type == 'void':
             return None  # Void function should return nothing
-        return self.do_func_return(self.default_values[ret_type])  # Return default value if no explicit return is encountered
+        return self.do_func_return(self.get_default_value(ret_type))  # Return default value if no explicit return is encountered
         #return None  # Return nil if no explicit return is found
     
     def do_func_return(self, value):
@@ -194,8 +212,15 @@ class Interpreter(InterpreterBase):
         return self.copy_value(value)  # Return by value for primitives
 
     def match_type(self, value, expected_type):
-        """Check if the returned value matches the expected type. REMEMBER TO ADD STRUCTS HEREEEEE!!!"""
-        if expected_type == 'int' and isinstance(value, int) and not isinstance(value, bool): #Bool is a subset of Int so we need additional check
+        """Check if the value matches the expected type"""
+        if expected_type in self.struct_definitions:
+            # Return True if the value is a struct instance (uses a dictionary) of the expected type
+            if isinstance(value, dict) and value.get('type') == expected_type:
+                return True
+            # Return True if the value is nil and expected type is a struct
+            if value is None:
+                return True
+        elif expected_type == 'int' and isinstance(value, int) and not isinstance(value, bool): #Bool is a subset of Int so we need additional check
             return True
         elif expected_type == 'string' and isinstance(value, str):
             return True
@@ -300,11 +325,11 @@ class Interpreter(InterpreterBase):
     def do_definition(self, statement_node):
         var_name, var_type = statement_node.get('name'), statement_node.get('var_type')
         curr_env = self.env_stack[-1]
-        if var_type not in self.valid_types:
+        if var_type not in self.valid_types or var_type not in self.struct_table:
             self.report_error(var_name, "invalid_var_def")
         #check for existing variable in the scope
         if not curr_env.get(var_name):
-            curr_env.create(var_name, self.default_values[var_type])
+            curr_env.create(var_name, self.get_default_value(var_type))    # Struct should be handled here too
             return
 
         # If the variable already exists, raise error
@@ -412,10 +437,38 @@ class Interpreter(InterpreterBase):
             return value != 0
         return value
     
+    def get_default_value(self, var_type):
+        """Returns the default value based on the type."""
+        if var_type == 'int':
+            return 0
+        elif var_type == 'bool':
+            return False
+        elif var_type == 'string':
+            return ""
+        else:  # For other structs
+            return None  # Represents 'nil'
+        
+    def do_new_struct(self, new_node):
+        struct_type = new_node.get('var_type')
+        # Check if the struct type exists in the dictionary
+        if struct_type not in self.struct_table:
+            self.report_error(struct_type, 'invalid_struct_type')
+        
+        struct_node = self.struct_table[struct_type]
+        fields = {}
+        for field_node in struct_node.get('fields'):
+            field_name = field_node.get('name')
+            field_type = field_node.get('var_type') # can contain structs
+            fields[field_name] = self.get_default_value(field_type)
+        return {'name': struct_type, 'fields': fields}
+
     def do_expression(self, arg):
         arg_type = arg.elem_type
         if arg_type in self.non_var_value_type:
             return arg.get('val')
+        
+        elif arg_type == 'new':
+            return self.do_new_struct(arg)
         
         elif arg_type == 'var':
             var_name = arg.get('name')
@@ -491,15 +544,20 @@ class Interpreter(InterpreterBase):
 
 def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """
+    struct cat {
+  name: string;
+  scratches: bool;
+}
+
+struct person {
+  name: string;
+  age: int;
+  address: string;
+  kitty: cat;
+}
             func main() : void {
   var a: bool; 
   a = true;
-  print(foo(3));
-}
-
-func foo(x:int) : int {
-  print(x);
-  return 10;
 }
             """
 
