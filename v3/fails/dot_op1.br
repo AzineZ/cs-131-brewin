@@ -1,0 +1,11 @@
+func main() : void {
+   var x : int;
+   x = 5;
+   print(x.name);
+ 
+}
+
+/*OUT
+TYPE ERROR
+dot used with non struct
+*/

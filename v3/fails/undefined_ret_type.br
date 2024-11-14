@@ -1,0 +1,10 @@
+func foo(a) {
+  print("i shouldn't print");
+}
+func main() : void {
+ print("i shouldn't print either");
+}
+
+/*OUT
+TYPE ERROR
+*/

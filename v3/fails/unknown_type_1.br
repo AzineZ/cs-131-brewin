@@ -1,0 +1,9 @@
+func main() : void {
+ print("i should print");
+ var x;
+}
+
+/*OUT
+i should print
+TYPE ERROR
+*/

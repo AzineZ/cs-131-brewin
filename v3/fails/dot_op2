@@ -1,0 +1,17 @@
+struct animal {
+    name : string;
+    noise : string;
+    color : string;
+    extinct : bool;
+    ears: int; 
+}
+func main() : void {
+   var pig : animal;
+   pig.noise = "oink";
+}
+
+/*
+OUT
+FAULT_ERROR 
+variable to left of dot is nil
+*/

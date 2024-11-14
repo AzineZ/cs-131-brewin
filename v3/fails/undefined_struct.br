@@ -1,0 +1,14 @@
+struct dog {
+  name: string;
+  vaccinated: bool;  
+}
+
+func main() : void {
+  var d: cat;
+  print("i shouldn't print");
+  }
+
+/*
+OUT
+Type ERROR
+*/

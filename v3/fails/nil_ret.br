@@ -1,0 +1,8 @@
+func incorrect() : nil{
+print(nil);
+
+}
+func main() : void{
+print("hi");
+incorrect();
+}
