@@ -2,7 +2,7 @@
     "tests": [
         {
             "name": "Correctness | test_challenge1",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -20,7 +20,7 @@
         },
         {
             "name": "Correctness | test_new_expr",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -38,7 +38,7 @@
         },
         {
             "name": "Correctness | test_struct1",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -50,7 +50,7 @@
         },
         {
             "name": "Correctness | test_pass_by_or1",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },

@@ -136,12 +136,13 @@ class Interpreter(InterpreterBase):
         funcs = ast.get('functions')
         for func in funcs:
             ret_type = func.get('return_type')
-            if ret_type not in self.valid_types and ret_type != 'void':
+            if ret_type not in self.valid_types and ret_type not in self.struct_table and ret_type != 'void':
                 self.report_error(func.get('name'), 'invalid_params_or_ret_type')
 
             args = func.get('args')
             for arg in args:
-                if arg.get('var_type') not in self.valid_types:
+                arg_type = arg.get('var_type')
+                if arg_type not in self.valid_types and arg_type not in self.struct_table:
                     self.report_error(func.get('name'), 'invalid_params_or_ret_type')
             self.func_table[(func.get('name'), len(func.get('args')))] = func
         #print(self.func_table)
@@ -484,8 +485,10 @@ class Interpreter(InterpreterBase):
                 content += str(value).lower()
             else:
                 content += str(value)
-
-        super().output(content)
+        if content == "None":
+            super().output("nil")
+        else:
+            super().output(content)
 
     def do_inputi(self, arg):
         if arg:
@@ -669,19 +672,57 @@ class Interpreter(InterpreterBase):
 
 # def main():  # COMMENT THIS ONCE FINISH TESTING
 #     program = """
-# struct dog {
-#   name: string;
-#   vaccinated: bool;  
+# struct list {
+#     val: int;
+#     next: list;
+# }
+
+# func cons(val: int, l: list) : list {
+#     var h: list;
+#     h = new list;
+#     h.val = val;
+#     h.next = l;
+#     return h;
+# }
+
+# func rev_app(l: list, a: list) : list {
+#     if (l == nil) {
+#         return a;
+#     }
+
+#     return rev_app(l.next, cons(l.val, a));
+# }
+
+# func reverse(l: list) : list {
+#     var a: list;
+
+#     return rev_app(l, a);
+# }
+
+# func print_list(l: list): void {
+#     var x: list;
+#     var n: int;
+#     for (x = l; x != nil; x = x.next) {
+#         print(x.val);
+#         n = n + 1;
+#     }
+#     print("N=", n);
 # }
 
 # func main() : void {
-#   var d: dog;
-#   var e: dog;
-#   d = new dog;   /* sets d object reference to point to a dog structure */
-#   d.vaccinated = false;
-#   e = d;
-#   e.name = "Phi";
-#   print(d.name);
+#     var n: int;
+#     var i: int;
+#     var l: list;
+#     var r: list;
+
+#     n = inputi();
+#     for (i = n; i; i = i - 1) {
+#         var n: int;
+#         n = inputi();
+#         l = cons(n, l);
+#     }
+#     r = reverse(l);
+#     print_list(r);
 # }
 #             """
 
