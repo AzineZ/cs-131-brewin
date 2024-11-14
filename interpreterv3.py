@@ -158,6 +158,7 @@ class Interpreter(InterpreterBase):
         self.env_stack = []
         self.func_table = {}
         self.struct_table = {}
+        self.var_to_struct_type = {}
     
     # this is where we execute the body of a {} scope
     def run_func(self, func_node, args=None):
@@ -674,23 +675,23 @@ class Interpreter(InterpreterBase):
             return self.do_func_call(arg, 'expression')
 
 
-def main():  # COMMENT THIS ONCE FINISH TESTING
-    program = """
-func foo (a: int) : void {
-    return print(a);
-}
+# def main():  # COMMENT THIS ONCE FINISH TESTING
+#     program = """
+# func foo (a: int) : void {
+#     return print(a);
+# }
 
-func main() : void {
-    var a: int;
-    a = 1;
-    foo(a);
-}
-            """
+# func main() : void {
+#     var a: int;
+#     a = 1;
+#     foo(a);
+# }
+#             """
 
-    interpreter = Interpreter()
-    interpreter.run(program)
+#     interpreter = Interpreter()
+#     interpreter.run(program)
 
-main()
+# main()
 
 
 # def set_field_value(self, var_name, value):
