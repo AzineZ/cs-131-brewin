@@ -148,7 +148,7 @@ class Interpreter(InterpreterBase):
                     self.report_error(func.get('name'), 'invalid_params_or_ret_type')
             self.func_table[(func.get('name'), len(func.get('args')))] = func
         #print(self.func_table)
-        print(self.struct_table)
+        #print(self.struct_table)
         
     def run(self, program):
         ast = parse_program(program)
@@ -236,7 +236,7 @@ class Interpreter(InterpreterBase):
             return True
         elif expected_type == 'string' and isinstance(value, str):
             return True
-        elif expected_type == 'bool' and isinstance(value, bool):
+        elif expected_type == 'bool' and isinstance(value, bool) or expected_type == 'bool' and isinstance(value, int):
             return True
         # elif expected_type == 'nil' and value is None:
         #     return True
@@ -272,7 +272,7 @@ class Interpreter(InterpreterBase):
         # Case 1: Handle uninitialized variables (lhs is None)
         if lhs is None:
             # If lhs is None but is meant to be a struct type, allow assignment if rhs is of the correct struct type
-            if isinstance(rhs, dict) and 'type' in rhs:
+            if isinstance(rhs, dict) and 'type' in rhs or rhs is None:
                 return True  # Allow assignment if rhs is a valid struct instance
             return False
 
@@ -413,9 +413,9 @@ class Interpreter(InterpreterBase):
         curr_env = self.check_var_in_env_stack(var_name)
         existing_value = curr_env.get(var_name)
 
-        # Ensure the variable exists before assignment
-        if existing_value is None and var_name not in self.var_to_struct_type:
-            self.report_error(var_name, "undefined_variable")
+        # # Ensure the struct variable exists before assignment
+        # if existing_value is None and var_name not in self.var_to_struct_type:
+        #     self.report_error(var_name, "undefined_variable")
 
         # Type check for regular variable assignment
         if not self.do_type_comp(existing_value, result):
@@ -448,7 +448,7 @@ class Interpreter(InterpreterBase):
                     # Pass by value for int, string, bool
                     evaluated_args.append(self.copy_value(eval_arg))
                 else:
-                    # Pass by reference for other types (e.g., structs)
+                    # Pass by object reference for structs
                     evaluated_args.append(eval_arg)
 
             result = self.run_func(func_node, evaluated_args)
@@ -675,42 +675,30 @@ class Interpreter(InterpreterBase):
             return self.do_func_call(arg, 'expression')
 
 
-# def main():  # COMMENT THIS ONCE FINISH TESTING
-#     program = """
-# func foo (a: int) : void {
-#     return print(a);
-# }
+def main():  # COMMENT THIS ONCE FINISH TESTING
+    program = """
+struct person {
+    name : string;
+    }
+    func incorrect() : int{
+    var x : int;
+    return 9;
+}
+func correct() : person{
+    print("i should print");
+    return;
+}
+func main() : void{
+    var p : person;
+    print("hi");
+    p = correct();
+    print(p);
+    print(correct());
+    incorrect();
+}
+            """
 
-# func main() : void {
-#     var a: int;
-#     a = 1;
-#     foo(a);
-# }
-#             """
+    interpreter = Interpreter()
+    interpreter.run(program)
 
-#     interpreter = Interpreter()
-#     interpreter.run(program)
-
-# main()
-
-
-# def set_field_value(self, var_name, value):
-#         """
-#         Sets the value of a nested field (e.g., 'd.companion.age = 3').
-#         It handles assignments where the right-hand side can also be a nested field (e.g., 'd1.companion = d2.companion').
-#         """
-#         # If the value is a nested field, resolve its value
-#         if isinstance(value, str) and '.' in value:
-#             value = self.get_field_value(value)
-
-#         # Resolve the field access for the left-hand side
-#         struct_instance, final_field_name = self.do_field_access(var_name)
-
-#         # Perform type checking for the assignment
-#         struct_type = struct_instance['type']
-#         field_type = self.struct_table[struct_type]['fields'][final_field_name]
-#         if not self.match_type(value, field_type):
-#             self.report_error(final_field_name, "invalid_type_assignment")
-
-#         # Assign the value to the struct field
-#         struct_instance['fields'][final_field_name] = value
+main()
