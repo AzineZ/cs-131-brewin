@@ -88,6 +88,8 @@ class Interpreter(InterpreterBase):
             super().error(ErrorType.TYPE_ERROR, f"Struct {item} does not exist!")
         elif error_type == "invalid_field_name":
             super().error(ErrorType.NAME_ERROR, f"Field {item} does not exist!")
+        elif error_type == "print_in_expr":
+            super().error(ErrorType.TYPE_ERROR, f"Print function must not be used in expression!")
         else:
             super().error(ErrorType.NAME_ERROR, error_messages.get(error_type))
 
@@ -453,9 +455,11 @@ class Interpreter(InterpreterBase):
 
         # Handle built-in functions as before
         if func_name == 'print':
-            self.do_print(func_args)
             if origin == 'expression':
-                return None  # Return nil if print is called from an expression
+                self.report_error(None, "print_in_expr")
+            self.do_print(func_args)
+            # if origin == 'expression':
+            #     return None  # Return nil if print is called from an expression
         elif func_name == 'inputi':
             return self.do_inputi(func_args)
         elif func_name == 'inputs':
@@ -670,66 +674,23 @@ class Interpreter(InterpreterBase):
             return self.do_func_call(arg, 'expression')
 
 
-# def main():  # COMMENT THIS ONCE FINISH TESTING
-#     program = """
-# struct list {
-#     val: int;
-#     next: list;
-# }
+def main():  # COMMENT THIS ONCE FINISH TESTING
+    program = """
+func foo (a: int) : void {
+    return print(a);
+}
 
-# func cons(val: int, l: list) : list {
-#     var h: list;
-#     h = new list;
-#     h.val = val;
-#     h.next = l;
-#     return h;
-# }
+func main() : void {
+    var a: int;
+    a = 1;
+    foo(a);
+}
+            """
 
-# func rev_app(l: list, a: list) : list {
-#     if (l == nil) {
-#         return a;
-#     }
+    interpreter = Interpreter()
+    interpreter.run(program)
 
-#     return rev_app(l.next, cons(l.val, a));
-# }
-
-# func reverse(l: list) : list {
-#     var a: list;
-
-#     return rev_app(l, a);
-# }
-
-# func print_list(l: list): void {
-#     var x: list;
-#     var n: int;
-#     for (x = l; x != nil; x = x.next) {
-#         print(x.val);
-#         n = n + 1;
-#     }
-#     print("N=", n);
-# }
-
-# func main() : void {
-#     var n: int;
-#     var i: int;
-#     var l: list;
-#     var r: list;
-
-#     n = inputi();
-#     for (i = n; i; i = i - 1) {
-#         var n: int;
-#         n = inputi();
-#         l = cons(n, l);
-#     }
-#     r = reverse(l);
-#     print_list(r);
-# }
-#             """
-
-#     interpreter = Interpreter()
-#     interpreter.run(program)
-
-# main()
+main()
 
 
 # def set_field_value(self, var_name, value):
