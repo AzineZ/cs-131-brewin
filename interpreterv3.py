@@ -22,7 +22,7 @@ class Interpreter(InterpreterBase):
         self.env_stack = []
         self.func_table = {}
         self.struct_table = {}
-        # ADD STRUCT LATERRRRRR and default value of nil for structs!!!!
+        self.var_to_struct_type = {}
         self.valid_types = {'int', 'string', 'bool', 'str'}
         #self.default_values = {'int': 0, 'string': "", 'bool': False}
 
@@ -82,6 +82,12 @@ class Interpreter(InterpreterBase):
             super().error(ErrorType.TYPE_ERROR, f"Function {item} receives a mismatched type of argument to its formal parameter!")
         elif error_type == "invalid_struct_type":
             super().error(ErrorType.TYPE_ERROR, f"Struct {item} is not defined!")
+        elif error_type == "nil_struct_access":
+            super().error(ErrorType.FAULT_ERROR, f"Nil does not have fields!")
+        elif error_type == "invalid_struct_access":
+            super().error(ErrorType.TYPE_ERROR, f"Struct {item} does not exist!")
+        elif error_type == "invalid_field_name":
+            super().error(ErrorType.NAME_ERROR, f"Field {item} does not exist!")
         else:
             super().error(ErrorType.NAME_ERROR, error_messages.get(error_type))
 
@@ -144,9 +150,11 @@ class Interpreter(InterpreterBase):
     def run(self, program):
         ast = parse_program(program)
         self.set_func_table(ast)
+        #print(ast)
         self.run_func(self.get_main_function_node(ast))
         self.env_stack = []
         self.func_table = {}
+        self.struct_table = {}
     
     # this is where we execute the body of a {} scope
     def run_func(self, func_node, args=None):
@@ -226,8 +234,8 @@ class Interpreter(InterpreterBase):
             return True
         elif expected_type == 'bool' and isinstance(value, bool):
             return True
-        elif expected_type == 'nil' and value is None:
-            return True
+        # elif expected_type == 'nil' and value is None:
+        #     return True
         elif expected_type == 'void' and value is None:
             return True
         return False
@@ -257,9 +265,31 @@ class Interpreter(InterpreterBase):
     
     # Need to add supports for struct-to-struct, struct-to-nil!!!!
     def do_type_comp(self, lhs, rhs):
-        if type(lhs) != type(rhs):
+        # Case 1: If lhs is None (nil), it cannot accept any assignments (undefined variable)
+        if lhs is None:
             return False
-        return True
+
+        # Case 2: If rhs is None (nil), lhs must be a struct type
+        if rhs is None:
+            return isinstance(lhs, dict) and 'type' in lhs
+
+        # Case 3: Handle assignment for struct types
+        if isinstance(lhs, dict) and 'type' in lhs:
+            # lhs is a struct type, rhs must be a struct of the same type
+            if isinstance(rhs, dict) and 'type' in rhs:
+                return lhs['type'] == rhs['type']
+            return False  # Structs can only accept other structs of the same type or nil
+
+        # Case 4: Handle assignment for primitive types
+        lhs_type = type(lhs).__name__
+        rhs_type = type(rhs).__name__
+
+        # Allow coercion from int to bool
+        if lhs_type == 'bool' and rhs_type == 'int':
+            return True
+
+        # Check if both lhs and rhs are of the same primitive type
+        return lhs_type == rhs_type
     
     def run_block(self, statement_node):
         for statement_node in statement_node.get('statements'):
@@ -325,11 +355,13 @@ class Interpreter(InterpreterBase):
     def do_definition(self, statement_node):
         var_name, var_type = statement_node.get('name'), statement_node.get('var_type')
         curr_env = self.env_stack[-1]
-        if var_type not in self.valid_types or var_type not in self.struct_table:
+        if var_type not in self.valid_types and var_type not in self.struct_table:
             self.report_error(var_name, "invalid_var_def")
         #check for existing variable in the scope
         if not curr_env.get(var_name):
             curr_env.create(var_name, self.get_default_value(var_type))    # Struct should be handled here too
+            if var_type not in self.valid_types:
+                self.var_to_struct_type[var_name] = var_type               # Parse variable with struct type
             return
 
         # If the variable already exists, raise error
@@ -337,17 +369,38 @@ class Interpreter(InterpreterBase):
 
     def do_assignment(self, statement_node):
         var_name = statement_node.get('name')
-        # Check if variable exists and return appropriate environment
+        result = self.do_expression(statement_node.get('expression')) # This should already handle nested fields
+
+        # Handle nested field assignment directly within this function
+        if '.' in var_name:
+            # Resolve the LHS (left-hand side) to get the struct instance and field name
+            lhs_instance, lhs_field_name = self.do_field_access(var_name)
+            lhs_field_type = self.struct_table[lhs_instance['type']]['fields'][lhs_field_name]
+
+            # Perform type checking directly here
+            if not self.match_type(result, lhs_field_type):
+                self.report_error(lhs_field_name, "invalid_type_assignment")
+
+            # Assign the value to the field
+            lhs_instance['fields'][lhs_field_name] = result         # Does not involve env since we modify fields, not variables
+            return
+
+        # Handle regular variable assignment (non-nested)
         curr_env = self.check_var_in_env_stack(var_name)
-        result = self.do_expression(statement_node.get('expression'))
         existing_value = curr_env.get(var_name)
-        
-        if self.do_type_comp(existing_value, result) is False:
-            #Check for coercion if the two are of different types
+
+        # Ensure the variable exists before assignment
+        if existing_value is None:
+            self.report_error(var_name, "undefined_variable")
+
+        # Type check for regular variable assignment
+        if not self.do_type_comp(existing_value, result):
             if isinstance(existing_value, bool) and isinstance(result, int):
                 result = self.do_coercion(result)
             else:
                 self.report_error(var_name, "invalid_type_assignment")
+
+        # Assign the value to the variable in the environment
         curr_env.set(var_name, result)
 
     def do_func_call(self, statement_node, origin):
@@ -460,7 +513,53 @@ class Interpreter(InterpreterBase):
             field_name = field_node.get('name')
             field_type = field_node.get('var_type') # can contain structs
             fields[field_name] = self.get_default_value(field_type)
-        return {'name': struct_type, 'fields': fields}
+        return {'type': struct_type, 'fields': fields}
+    
+    def do_field_access(self, var_name):
+        """
+        Resolves a field access (e.g., 'd.companion.age') and returns:
+        - The value of the final field
+        - The parent dictionary containing the field
+        If any intermediate field is nil or does not exist, it raises an error.
+        """
+        parts = var_name.split('.')
+        base_var_name = parts[0]
+        field_names = parts[1:]
+
+        # Retrieve the base variable from the environment
+        curr_env = self.check_var_in_env_stack(base_var_name)
+        struct_instance = curr_env.get(base_var_name)
+
+        # Ensure the base variable is a struct instance and not nil
+        if struct_instance is None:
+            self.report_error(base_var_name, "nil_struct_access")
+        if not isinstance(struct_instance, dict) or 'type' not in struct_instance:
+            self.report_error(base_var_name, "invalid_struct_access")
+
+        # Traverse through the fields to reach the target field
+        for field_name in field_names[:-1]:
+            if field_name not in struct_instance['fields']:
+                self.report_error(field_name, "invalid_field_name")
+            struct_instance = struct_instance['fields'][field_name]
+
+            # If any intermediate field is nil, raise an error
+            if struct_instance is None:
+                self.report_error(field_name, "nil_struct_access")
+
+        final_field_name = field_names[-1]
+        struct_type = struct_instance['type']
+        if final_field_name not in self.struct_table[struct_type]['fields']:
+            self.report_error(final_field_name, "invalid_field_name")
+
+        return struct_instance, final_field_name
+    
+    def get_field_value(self, var_name):
+        """
+        Retrieves the value of a nested field (e.g., 'd.companion.age').
+        """
+        struct_instance, field_name = self.do_field_access(var_name)
+        return struct_instance['fields'][field_name]
+
 
     def do_expression(self, arg):
         arg_type = arg.elem_type
@@ -472,9 +571,12 @@ class Interpreter(InterpreterBase):
         
         elif arg_type == 'var':
             var_name = arg.get('name')
-            # Check if variable exists and return the correct environment
-            curr_env = self.check_var_in_env_stack(var_name)
-            return curr_env.get(var_name)
+            if '.' in var_name:
+                return self.get_field_value(var_name)   # Return the evaluated struct field, possibly nested
+            else:
+                # Check if variable exists and return the correct environment
+                curr_env = self.check_var_in_env_stack(var_name)
+                return curr_env.get(var_name)
         
         elif arg_type == 'neg':
             op1 = self.do_expression(arg.get('op1'))
@@ -544,20 +646,18 @@ class Interpreter(InterpreterBase):
 
 def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """
-    struct cat {
+struct dog {
   name: string;
-  scratches: bool;
+  vaccinated: bool;  
 }
 
-struct person {
-  name: string;
-  age: int;
-  address: string;
-  kitty: cat;
-}
-            func main() : void {
-  var a: bool; 
-  a = true;
+func main() : void {
+  var d: dog;
+  var e: bool;
+  d = new dog;   /* sets d object reference to point to a dog structure */
+  d.vaccinated = true;
+  e = d.vaccinated;
+  print(e);
 }
             """
 
@@ -565,3 +665,25 @@ struct person {
     interpreter.run(program)
 
 main()
+
+
+# def set_field_value(self, var_name, value):
+#         """
+#         Sets the value of a nested field (e.g., 'd.companion.age = 3').
+#         It handles assignments where the right-hand side can also be a nested field (e.g., 'd1.companion = d2.companion').
+#         """
+#         # If the value is a nested field, resolve its value
+#         if isinstance(value, str) and '.' in value:
+#             value = self.get_field_value(value)
+
+#         # Resolve the field access for the left-hand side
+#         struct_instance, final_field_name = self.do_field_access(var_name)
+
+#         # Perform type checking for the assignment
+#         struct_type = struct_instance['type']
+#         field_type = self.struct_table[struct_type]['fields'][final_field_name]
+#         if not self.match_type(value, field_type):
+#             self.report_error(final_field_name, "invalid_type_assignment")
+
+#         # Assign the value to the struct field
+#         struct_instance['fields'][final_field_name] = value
