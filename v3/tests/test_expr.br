@@ -1,0 +1,13 @@
+func main(): void {
+ print(3+4*5);
+ print(3*4+5);
+ print(3*4/5);
+}
+
+/*
+*OUT*
+23
+17
+2
+*OUT*
+*/

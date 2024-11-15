@@ -1,0 +1,22 @@
+struct dog {
+  name: string;
+  vaccinated: bool;  
+}
+
+func main() : void {
+  var d: dog;
+  d = steal_dog(new dog, "Spots");
+  print(d.name);
+
+  }
+
+func steal_dog(d : dog, name: string) : dog {
+  d.name = name;
+  return d;
+}
+
+/*
+*OUT*
+Spots
+*OUT*
+*/

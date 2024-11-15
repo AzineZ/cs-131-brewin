@@ -1,0 +1,9 @@
+func main(): void {
+  print(nil * 5);
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

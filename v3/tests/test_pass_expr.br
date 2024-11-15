@@ -1,0 +1,13 @@
+func main(): void {
+ foo(5+3);
+}
+
+func foo(xx: int): int {
+  print(xx);
+}
+
+/*
+*OUT*
+8
+*OUT*
+*/

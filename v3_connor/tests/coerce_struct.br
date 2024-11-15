@@ -1,0 +1,28 @@
+struct animal {
+    name : string;
+    noise : string;
+    color : string;
+    extinct : bool;
+    ears: int; 
+}
+func main() : void {
+   var pig : animal;
+   var extinct : bool;
+   extinct = make_pig(pig, 0);
+   print(extinct);
+}
+func make_pig(a : animal, extinct : int) : bool{
+  if (a == nil){
+    print("making a pig");
+    a = new animal;
+  }
+  a.extinct = extinct;
+  return a.extinct;
+}
+
+/*
+*OUT*
+making a pig
+false
+*OUT*
+*/

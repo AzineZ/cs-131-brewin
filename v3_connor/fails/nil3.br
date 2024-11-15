@@ -1,0 +1,16 @@
+func incorrect() : int{
+var x : int;
+}
+func main() : void{
+print("hi");
+incorrect();
+var x : int;
+x = nil;
+print(x);
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

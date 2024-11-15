@@ -1,0 +1,38 @@
+struct node {
+  value: int;
+  next: node;
+}
+
+func main() : void {
+  var n : node;
+  var p : node;
+  var q : node; 
+  print(n);
+  n = new node;
+  p = new node;
+  q = new node;
+  n.value = 9;
+  n.next = p;
+  print(n.value);
+  p.value = 9;
+  print(p.value);
+  print(p.next);
+  print(n.next.value);
+  n.next.next = q;
+  n.next.next.value = 10;
+  print(p.next.value);
+  print(q.value + 1);
+}
+
+
+/*
+*OUT*
+nil
+9
+9
+nil
+9
+10
+11
+*OUT*
+*/

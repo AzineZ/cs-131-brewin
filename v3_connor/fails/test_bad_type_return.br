@@ -1,0 +1,21 @@
+func foo(x:string) {
+ if (true) {
+   var x: int;
+   x = 5;
+   print(x);
+ }
+ print(x);
+}
+
+func main(): void {
+  var a: string;
+  a = "foo";
+  foo(a);
+  print(a);
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

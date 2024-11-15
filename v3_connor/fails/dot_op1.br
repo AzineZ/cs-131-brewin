@@ -1,0 +1,12 @@
+func main() : void {
+   var x : int;
+   x = 5;
+   print(x.name);
+ 
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

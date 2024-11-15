@@ -1,0 +1,12 @@
+func foo(a: int) : invalidint {
+  print("i shouldn't print");
+}
+func main() : void {
+ print("i shouldn't print either");
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

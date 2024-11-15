@@ -1,0 +1,20 @@
+struct node {
+  value: int;
+  next: node;
+}
+
+func main() : void {
+  var n : node;
+  print(n);
+  n = new node;
+  print(n.value);
+  print(n.next);
+}
+
+/*
+*OUT*
+nil
+0
+nil
+*OUT*
+*/

@@ -1,0 +1,14 @@
+struct p {
+  a:int;
+}
+
+func main(): void {
+  var x: int;
+  print(x.b);
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

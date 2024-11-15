@@ -1,0 +1,13 @@
+func foo(a:invinal) : int {
+  print("i shouldn't print");
+}
+
+func main() : void {
+ print("i shouldn't print either");
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

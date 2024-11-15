@@ -1,0 +1,16 @@
+struct dog {
+  name: string;
+  vaccinated: bool;  
+}
+
+func main() : void {
+  var d: dog;    /* d is an object reference whose value is nil */
+
+  print (d == nil);  /* prints true, because d was initialized to nil */
+}
+
+/*
+*OUT*
+true
+*OUT*
+*/

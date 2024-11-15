@@ -1,0 +1,22 @@
+
+func main(): void {
+  var a: int;
+  a = 5;
+  foo(10);
+  foo(20,30);
+}
+
+func foo(a: int): void {
+  print(a);
+}
+
+func foo(a: int,b: int): void {
+  print(a," ",b);
+}
+
+/*
+*OUT*
+10
+20 30
+*OUT*
+*/

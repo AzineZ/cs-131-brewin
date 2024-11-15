@@ -1,0 +1,40 @@
+struct obj {
+  a: int;
+  b: string;
+}
+
+func main() : void {
+    var a: int;
+    var b: int;
+    a = 1;
+    b = 1;
+	print(a == b);
+	
+	var c: string;
+    var d: string;
+    c = "hi";
+    d = "hi";    
+	print(c == d);
+	
+	var e: obj;
+	var f: obj;
+	var g: obj;
+	e = new obj;
+	f = new obj;
+	e.a = 1;
+	e.b = "asf";
+	f.a = 1;
+	f.b = "asf";
+	g = e;
+	print(e == f);
+	print(e == g);
+}
+
+/*
+*OUT*
+true
+true
+false
+true
+*OUT*
+*/

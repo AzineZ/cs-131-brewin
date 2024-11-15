@@ -1,0 +1,55 @@
+struct animal {
+    name : string;
+    extinct : bool;
+    ears: int; 
+}
+
+
+func main() : void {
+   var pig : animal;
+   var ret: bool;
+   ret = is_extinct(pig);
+   print(ret);
+   pig = new animal;
+   pig.extinct = true;
+   ret = is_extinct(pig);
+   print(ret);
+   destroy_animals("pig", pig);
+   print(pig.extinct);
+   
+}
+
+func is_extinct(p : animal) : bool {
+  if (p == nil){
+    print("i go in here first");
+    return 0;
+  }
+  else{
+    return p.extinct;
+  }
+}
+
+func destroy_animals(name: string, p : animal) : animal{
+  if (p==nil){
+     p = new animal;
+  }
+  name = inputs("What animal do you want to destroy?");
+  p.name = name;
+  p.extinct = true;
+  print("Destroyed animal ", p.name);
+  return nil;
+}
+
+/*
+*IN*
+pig
+*IN*
+*OUT*
+i go in here first
+false
+true
+What animal do you want to destroy?
+Destroyed animal pig
+true
+*OUT*
+*/

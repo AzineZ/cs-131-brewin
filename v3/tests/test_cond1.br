@@ -1,0 +1,12 @@
+func main(): void {
+  var a: int;
+  a = 5;
+  if (a) { print("true"); print("foo"); }
+}
+
+/*
+*OUT*
+true
+foo
+*OUT*
+*/

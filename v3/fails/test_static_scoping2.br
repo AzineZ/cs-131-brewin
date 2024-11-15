@@ -1,0 +1,13 @@
+func main(): void {
+  if (true) {
+    var a: int;
+    a = 5;
+  }
+  print(a);
+}
+
+/*
+*OUT*
+ErrorType.NAME_ERROR
+*OUT*
+*/

@@ -1,0 +1,14 @@
+func main(): void {
+ var i: int;
+ for (i = 3; i > 0; i = i - 1) {
+  print(i);
+ }
+}
+
+/*
+*OUT*
+3
+2
+1
+*OUT*
+*/

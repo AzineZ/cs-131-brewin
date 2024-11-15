@@ -1,0 +1,11 @@
+func main():void {
+  print(true != 1);
+}
+
+/*
+*IN*
+*IN*
+*OUT*
+false
+*OUT*
+*/

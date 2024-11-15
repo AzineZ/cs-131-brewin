@@ -1,0 +1,20 @@
+struct p {
+  x:int;
+}
+
+func foop(s: p): void {
+  print(s == nil);
+}
+
+func main(): void {
+  var x: p;
+  foop(x);
+  foop(nil);
+}
+
+/*
+*OUT*
+true
+true
+*OUT*
+*/

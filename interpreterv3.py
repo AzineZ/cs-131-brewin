@@ -373,7 +373,7 @@ class Interpreter(InterpreterBase):
         if var_type not in self.valid_types and var_type not in self.struct_table:
             self.report_error(var_name, "invalid_var_def")
         #check for existing variable in the scope
-        if not curr_env.get(var_name):
+        if curr_env.get(var_name) is None:
             curr_env.create(var_name, self.get_default_value(var_type))    # Struct should be handled here too
             if var_type not in self.valid_types:
                 self.var_to_struct_type[var_name] = var_type               # Parse variable with struct type
@@ -412,10 +412,15 @@ class Interpreter(InterpreterBase):
             lhs_instance['fields'][lhs_field_name] = result
             return
 
-        # Handle regular variable assignment (non-nested)
         curr_env = self.check_var_in_env_stack(var_name)
         existing_value = curr_env.get(var_name)
 
+        # If lhs is a struct and rhs is a struct
+        if var_name in self.var_to_struct_type:
+            struct_type = self.var_to_struct_type[var_name]
+            if self.match_type(result, struct_type) is False:
+                self.report_error(var_name, "invalid_type_assignment")
+        
         # Type check for regular variable assignment
         if not self.do_type_comp(existing_value, result):
             if isinstance(existing_value, bool) and isinstance(result, int):
@@ -645,27 +650,39 @@ class Interpreter(InterpreterBase):
                     self.report_error(arg_type, "mismatched_type")
                 return op1 and op2 if arg_type == '&&' else op1 or op2
 
-            # Handle equality comparisons separately
-            elif arg_type in ['==', '!='] and not isinstance(op1, dict) and not isinstance(op1, dict):
-                # Coerce int to bool if one operand is bool and the other is int
+            elif arg_type in ['==', '!=']:
+                # Step 1: Handle cases where one or both operands are variables
+                type1 = self.get_struct_type(arg.get('op1'))
+                type2 = self.get_struct_type(arg.get('op2'))
+
+                # Step 2: If both are variables with struct types, handle type checking
+                if type1 and type2:
+                    # If one of them is None (uninitialized), ensure they are of the same struct type
+                    if op1 is None or op2 is None:
+                        if type1 != type2:
+                            self.report_error(arg_type, "mismatched_type")
+                        return (op1 is None and op2 is None) if arg_type == '==' else (op1 is not None or op2 is not None)
+                # If one is a struct and the other is a pure nil value
+                elif type1 or type2:
+                    return (op1 is None and op2 is None) if arg_type == '==' else (op1 is not None or op2 is not None)
+
+                # Both are allocated structs, ensure they have the same type
+                if isinstance(op1, dict) and isinstance(op2, dict):
+                    if op1['type'] != op2['type']:
+                        self.report_error(arg_type, "mismatched_type")
+                    return (op1 is op2) if arg_type == '==' else (op1 is not op2)
+
+                # Step 3: Handle primitive types and coercion
                 if isinstance(op1, int) and isinstance(op2, bool):
                     op1 = self.do_coercion(op1)
                 elif isinstance(op2, int) and isinstance(op1, bool):
                     op2 = self.do_coercion(op2)
-                
-                # Perform equality comparison after coercion
-                return (op1 == op2) if arg_type == '==' else (op1 != op2)
-            
-            # Check if one operand is a struct and the other is None
-            if (isinstance(op1, dict) and op2 is None) or (isinstance(op2, dict) and op1 is None):
-                if arg_type == '==':
-                    return op1 is None and op2 is None
-                elif arg_type == '!=':
-                    return op1 is not None or op2 is not None
 
-            # Check if both operands are of the same type for arithmetic and string operations
-            if type(op1) != type(op2):
-                self.report_error(arg_type, "mismatched_type")
+                # Check if both operands are of the same type for arithmetic and string operations
+                if type(op1) != type(op2):
+                    self.report_error(arg_type, "mismatched_type")
+                # Step 4: Perform the equality or inequality comparison for primitives
+                return (op1 == op2) if arg_type == '==' else (op1 != op2)
             
             # Determine the operation based on type and arg_type
             operation = None
@@ -678,7 +695,7 @@ class Interpreter(InterpreterBase):
             elif op1 is None and op2 is None and arg_type in self.nil_ops:
                 operation = self.nil_ops.get(arg_type)
             # Check if both operands are structs (dictionaries) and use reference comparison
-            elif isinstance(op1, dict) and isinstance(op2, dict) and arg_type in self.struct_ops:
+            elif isinstance(op1, dict) and isinstance(op2, dict) and op1['type'] == op2['type'] and arg_type in self.struct_ops:
                 # Compare by reference using 'is'
                 operation = self.struct_ops.get(arg_type)
 
@@ -689,21 +706,27 @@ class Interpreter(InterpreterBase):
 
         elif arg_type == 'fcall':
             return self.do_func_call(arg, 'expression')
+    
+    def get_struct_type(self, operand):
+        if operand.elem_type == 'var':
+            var_name = operand.get('name')
+            if var_name in self.var_to_struct_type:
+                return self.var_to_struct_type[var_name]
+        return None
 
 
 def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """
-func main() : void {
-    var flag: bool;
-    flag = 1;     
-    print(flag);  
-
-    flag = 0;    
-    print(flag);  
-
-    flag = -10;   
-    print(flag);  
+struct cat {
+  name: string;
+  scratches: bool;
 }
+
+func main(): void {
+  var x: cat;
+  x = nil;
+}
+
             """
 
     interpreter = Interpreter()

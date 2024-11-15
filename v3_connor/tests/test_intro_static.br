@@ -1,0 +1,21 @@
+func main() : void {
+  var n : int;
+  n = inputi("Enter a number: ");
+  print(fact(n));
+}
+
+func fact(n : int) : int {
+  if (n <= 1) { return 1; }
+  return n * fact(n-1);
+}
+
+
+/*
+*IN*
+5
+*IN*
+*OUT*
+Enter a number: 
+120
+*OUT*
+*/

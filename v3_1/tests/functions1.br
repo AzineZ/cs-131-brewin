@@ -16,8 +16,6 @@ func main() : void {
   talk_to("Bonnie");
 }
 
-
-
 /*
 *OUT*
 blahfalse

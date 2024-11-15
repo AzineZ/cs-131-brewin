@@ -1,0 +1,18 @@
+func main() : void {
+  print(foo());
+  print(bar());
+}
+
+func foo() : int {
+  return "string"; /* returns 0 */
+}
+
+func bar() : bool {
+  print("bar");
+}  /* returns false*/
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

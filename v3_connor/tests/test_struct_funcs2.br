@@ -1,0 +1,29 @@
+struct circle{
+  r: int;
+}
+
+func square(c: circle): circle {
+  c.r = c.r * c.r;
+  return c;
+}
+
+func main(): void{
+  var c1: circle;
+  var c2: circle;
+
+  c1 = new circle;
+  c1.r = 10;
+  print(c1.r);
+
+  c2 = square(c1);
+  print(c1.r);
+  print(c2.r);
+}
+
+/*
+*OUT*
+10
+100
+100
+*OUT*
+*/

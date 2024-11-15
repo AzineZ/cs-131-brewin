@@ -1,0 +1,13 @@
+func squat(a:bool): bool{
+  return 3;
+}
+
+func main(): void{
+  print(squat(5));  
+}
+
+/*
+*OUT*
+true
+*OUT*
+*/

@@ -1,0 +1,28 @@
+struct circle{
+  r: int;
+}
+
+func squat(): circle {
+  var s: circle;
+  s = new circle;
+  s.r = 100;
+  return s;
+}
+
+func main(): void{
+  var c: circle;
+  c = new circle;
+  print(c.r);
+  c.r = 10;
+  print(c.r);
+  c = squat();
+  print(c.r);
+}
+
+/*
+*OUT*
+0
+10
+100
+*OUT*
+*/

@@ -1,0 +1,10 @@
+func main(): void {
+ var a: int;
+ a = nil + 5;
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

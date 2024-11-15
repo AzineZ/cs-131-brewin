@@ -1,0 +1,9 @@
+func main(): void {
+  if (5 == "5") { print("YES"); } else { print("NO"); }
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

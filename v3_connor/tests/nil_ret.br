@@ -1,0 +1,23 @@
+struct person {
+  name : string;
+}
+func incorrect() : int{
+  var x : int;
+  return 9;
+}
+func correct() : person{
+  print("i should print");
+  return nil;
+}
+func main() : void{
+  print("hi");
+  correct();
+  incorrect();
+}
+
+/*
+*OUT*
+hi
+i should print
+*OUT*
+*/

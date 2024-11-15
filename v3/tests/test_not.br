@@ -1,0 +1,17 @@
+func main(): void {
+  var a: bool;
+  var b: bool;
+  a = true;
+  b = !a;
+  print(b);
+  print(!false);
+}
+
+/*
+*IN*
+*IN*
+*OUT*
+false
+true
+*OUT*
+*/

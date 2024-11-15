@@ -1,0 +1,11 @@
+func main(): void {
+ var a: bool;
+ a = 1 && 0;
+ print(a);
+}
+
+/*
+*OUT*
+false
+*OUT*
+*/

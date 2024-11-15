@@ -1,0 +1,18 @@
+struct p {
+  a:int;
+}
+
+struct b {
+  asdf: int;
+}
+
+func main(): void {
+  var x: int;
+  x.b.a = 2;
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

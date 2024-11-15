@@ -1,0 +1,10 @@
+func main() : void {
+ print("i should print");
+ var x : invalid;
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/
