@@ -23,6 +23,7 @@ class Interpreter(InterpreterBase):
         self.func_table = {}
         self.struct_table = {}
         self.var_to_struct_type = {}
+        self.var_to_prims = {}
         self.valid_types = {'int', 'string', 'bool', 'str'}
         #self.default_values = {'int': 0, 'string': "", 'bool': False}
 
@@ -191,10 +192,6 @@ class Interpreter(InterpreterBase):
 
                     self.env_stack[-1].create(param_name, arg_value)
 
-        # Execute the function body and capture any return statement
-        # For void function, we don't care what it returns to the function call. 
-        # The reason is that void function will not be used in expression so 
-        # it being called as a statement has no uses on what it returns, so we can return None just fine
         for statement_node in func_node.get('statements'):
             result = self.run_statement(statement_node)
 
@@ -380,6 +377,8 @@ class Interpreter(InterpreterBase):
             curr_env.create(var_name, self.get_default_value(var_type))    # Struct should be handled here too
             if var_type not in self.valid_types:
                 self.var_to_struct_type[var_name] = var_type               # Parse variable with struct type
+            else:
+                self.var_to_prims[var_name] = var_type
             return
 
         # If the variable already exists, raise error
@@ -416,10 +415,6 @@ class Interpreter(InterpreterBase):
         # Handle regular variable assignment (non-nested)
         curr_env = self.check_var_in_env_stack(var_name)
         existing_value = curr_env.get(var_name)
-
-        # # Ensure the struct variable exists before assignment
-        # if existing_value is None and var_name not in self.var_to_struct_type:
-        #     self.report_error(var_name, "undefined_variable")
 
         # Type check for regular variable assignment
         if not self.do_type_comp(existing_value, result):
@@ -490,13 +485,17 @@ class Interpreter(InterpreterBase):
             value = ''
             if arg_type in self.non_var_value_type:
                 value = arg.get('val')
-            # elif arg_type == 'var':
-            #     var_name = arg.get('name')
-            #     curr_env = self.check_var_in_env_stack(var_name)
-            #     value = curr_env.get(var_name)
+            
             else:
                 value = self.do_expression(arg)
 
+            if arg_type == 'var':
+                var_type = None
+                arg_name = arg.get('name')
+                if arg_name in self.var_to_prims:
+                    var_type = self.var_to_prims[arg_name]
+                if var_type == 'bool' and isinstance(value, int) and not isinstance(value, bool):
+                    value = self.do_coercion(value)
             # Check if the value is a boolean and convert to lowercase if True or False
             if isinstance(value, bool):
                 content += str(value).lower()
@@ -556,12 +555,6 @@ class Interpreter(InterpreterBase):
         return {'type': struct_type, 'fields': fields}
     
     def do_field_access(self, var_name):
-        """
-        Resolves a field access (e.g., 'd.companion.age') and returns:
-        - The value of the final field
-        - The parent dictionary containing the field
-        If any intermediate field is nil or does not exist, it raises an error.
-        """
         parts = var_name.split('.')
         base_var_name = parts[0]
         field_names = parts[1:]
@@ -698,37 +691,22 @@ class Interpreter(InterpreterBase):
             return self.do_func_call(arg, 'expression')
 
 
-# def main():  # COMMENT THIS ONCE FINISH TESTING
-#     program = """
-# struct animal {
-#     name : string;
-#     noise : string;
-#     color : string;
-#     extinct : bool;
-#     ears: int; 
-# }
-# struct person {
-#   name: string;
-#   height: int;
-# }
-# func main() : void {
-#    var pig : animal;
-#    var p : person;
-#    var noise : string;
-#    noise = make_pig(p, "oink");
-#    print(noise);
-# }
-# func make_pig(a : animal, noise : string) : string{
-#   if (a == nil){
-#     print("making a pig");
-#     a = new animal;
-#   }
-#   a.noise = noise;
-#   return a.noise;
-# }
-#             """
+def main():  # COMMENT THIS ONCE FINISH TESTING
+    program = """
+func main() : void {
+    var flag: bool;
+    flag = 1;     
+    print(flag);  
 
-#     interpreter = Interpreter()
-#     interpreter.run(program)
+    flag = 0;    
+    print(flag);  
 
-# main()
+    flag = -10;   
+    print(flag);  
+}
+            """
+
+    interpreter = Interpreter()
+    interpreter.run(program)
+
+main()
