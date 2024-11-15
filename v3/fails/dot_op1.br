@@ -5,7 +5,8 @@ func main() : void {
  
 }
 
-/*OUT
-TYPE ERROR
-dot used with non struct
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
 */

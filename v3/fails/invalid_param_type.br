@@ -6,7 +6,7 @@ func main() : void {
 }
 
 /*
-OUT:
-
-ErrorType.TYPE_ERROR: Invalid type for formal parameter a in function foo
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
 */

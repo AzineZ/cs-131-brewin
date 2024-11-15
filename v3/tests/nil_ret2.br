@@ -18,9 +18,12 @@ print(correct());
 incorrect();
 }
 
-/*OUT
+/*
+*OUT*
 hi
 i should print
 nil
 i should print
-nil*/
+nil
+*OUT*
+*/

@@ -11,7 +11,7 @@ func main() : void {
 }
 
 /*
-OUT
-FAULT_ERROR 
-variable to left of dot is nil
+*OUT*
+ErrorType.FAULT_ERROR
+*OUT*
 */

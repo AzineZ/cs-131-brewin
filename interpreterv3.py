@@ -51,7 +51,11 @@ class Interpreter(InterpreterBase):
         self.nil_ops = {
                         '==': lambda x, y: x == y,
                         '!=': lambda x, y: x != y,
-                        }
+                        }   
+        self.struct_ops =  {
+            '==': lambda x, y: x is y,
+            '!=': lambda x, y: x is not y
+        }
 
     def report_error(self, item, error_type):
         error_messages = {
@@ -203,9 +207,9 @@ class Interpreter(InterpreterBase):
                 
                 if ret_type == 'bool':
                     return_value = self.do_coercion(return_value)
-                    # Check if the coerced value matches the function's declared return type
-                    if not self.match_type(return_value, ret_type):
-                        self.report_error(func_node.get('name'), "mismatched_return_value")
+                # Check if the coerced value matches the function's declared return type
+                if not self.match_type(return_value, ret_type):
+                    self.report_error(func_node.get('name'), "mismatched_return_value")
 
                 # Handle return by reference for structs and by value for primitives
                 return self.do_func_return(return_value)
@@ -279,13 +283,6 @@ class Interpreter(InterpreterBase):
         # Case 2: If rhs is None (nil), lhs must be a struct type
         if rhs is None:
             return isinstance(lhs, dict) and 'type' in lhs
-
-        # Case 3: Handle assignment for struct types
-        if isinstance(lhs, dict) and 'type' in lhs:
-            # lhs is a struct type, rhs must be a struct of the same type
-            if isinstance(rhs, dict) and 'type' in rhs:
-                return lhs['type'] == rhs['type']
-            return False  # Structs can only accept other structs of the same type or nil
 
         # Case 3: Handle assignment for struct types
         if isinstance(lhs, dict) and 'type' in lhs:
@@ -624,7 +621,7 @@ class Interpreter(InterpreterBase):
                 self.report_error(arg_type, "mismatched_type")
             return not op1
         
-        elif arg_type in self.int_ops or arg_type in self.string_ops or arg_type in self.bool_ops or arg_type in self.nil_ops:
+        elif arg_type in self.int_ops or arg_type in self.string_ops or arg_type in self.bool_ops or arg_type in self.nil_ops or arg_type in self.struct_ops:
             # Evaluate operands once
             op1 = self.do_expression(arg.get('op1'))
             op2 = self.do_expression(arg.get('op2'))
@@ -641,7 +638,7 @@ class Interpreter(InterpreterBase):
                 return op1 and op2 if arg_type == '&&' else op1 or op2
 
             # Handle equality comparisons separately
-            elif arg_type in ['==', '!=']:
+            elif arg_type in ['==', '!='] and not isinstance(op1, dict) and not isinstance(op1, dict):
                 # Coerce int to bool if one operand is bool and the other is int
                 if isinstance(op1, int) and isinstance(op2, bool):
                     op1 = self.do_coercion(op1)
@@ -650,6 +647,13 @@ class Interpreter(InterpreterBase):
                 
                 # Perform equality comparison after coercion
                 return (op1 == op2) if arg_type == '==' else (op1 != op2)
+            
+            # Check if one operand is a struct and the other is None
+            if (isinstance(op1, dict) and op2 is None) or (isinstance(op2, dict) and op1 is None):
+                if arg_type == '==':
+                    return op1 is None and op2 is None
+                elif arg_type == '!=':
+                    return op1 is not None or op2 is not None
 
             # Check if both operands are of the same type for arithmetic and string operations
             if type(op1) != type(op2):
@@ -665,6 +669,10 @@ class Interpreter(InterpreterBase):
                 operation = self.bool_ops.get(arg_type)
             elif op1 is None and op2 is None and arg_type in self.nil_ops:
                 operation = self.nil_ops.get(arg_type)
+            # Check if both operands are structs (dictionaries) and use reference comparison
+            elif isinstance(op1, dict) and isinstance(op2, dict) and arg_type in self.struct_ops:
+                # Compare by reference using 'is'
+                operation = self.struct_ops.get(arg_type)
 
             if not operation:
                 self.report_error(arg_type, "mismatched_type")
@@ -677,24 +685,31 @@ class Interpreter(InterpreterBase):
 
 def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """
-struct person {
+struct animal {
     name : string;
-    }
-    func incorrect() : int{
-    var x : int;
-    return 9;
+    noise : string;
+    color : string;
+    extinct : bool;
+    ears: int; 
 }
-func correct() : person{
-    print("i should print");
-    return;
+struct person {
+  name: string;
+  height: int;
 }
-func main() : void{
-    var p : person;
-    print("hi");
-    p = correct();
-    print(p);
-    print(correct());
-    incorrect();
+func main() : void {
+   var pig : animal;
+   var p : person;
+   var noise : string;
+   noise = make_pig(p, "oink");
+   print(noise);
+}
+func make_pig(a : animal, noise : string) : string{
+  if (a == nil){
+    print("making a pig");
+    a = new animal;
+  }
+  a.noise = noise;
+  return a.noise;
 }
             """
 

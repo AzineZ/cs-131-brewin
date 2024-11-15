@@ -5,6 +5,8 @@ func main() : void {
  print("i shouldn't print either");
 }
 
-/*OUT
-TYPE ERROR
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
 */

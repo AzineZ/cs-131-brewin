@@ -23,7 +23,9 @@ func main() : void {
   d.companion.age = 3; 
 }
 
-/*OUT
+/*
+*OUT*
 false
 nil
+*OUT*
 */

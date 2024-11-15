@@ -14,6 +14,8 @@ func steal_dog(d : dog, name: string) : void {
   d.name = name;
 }
 
-/*OUT
+/*
+*OUT*
 My new Dog
+*OUT*
 */

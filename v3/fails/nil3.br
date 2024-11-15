@@ -10,6 +10,7 @@ print(x);
 }
 
 /*
-OUT
-ErrorType.TYPE_ERROR: Type mismatch int vs nil in assignment
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
 */

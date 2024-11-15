@@ -17,8 +17,8 @@ func foo(p : Person) : void {
   print(p.name, " is ", p.age, " years old.");
 }
 
-/* OUT
-
+/*
+*OUT*
 Carey is 21 years old.
-
+*OUT*
 */

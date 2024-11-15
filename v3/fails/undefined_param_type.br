@@ -6,6 +6,7 @@ func main() : void {
 }
 
 /*
-OUT
-TYPE_ERROR
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
 */

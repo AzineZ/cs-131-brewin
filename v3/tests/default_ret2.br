@@ -25,10 +25,10 @@ func main() : void {
 }
 
 /*
-OUT
-
+*OUT*
 0
 hi
 false
 nil
+*OUT*
 */

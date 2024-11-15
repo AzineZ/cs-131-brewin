@@ -12,8 +12,9 @@ func bar() : bool {
 }  /* returns false*/
 
 /*
-OUT
+*OUT*
 0
 bar
 false
+*OUT*
 */

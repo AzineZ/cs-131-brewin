@@ -21,6 +21,8 @@ func make_pig(a : animal, extinct : int) : bool{
 }
 
 /*
-OUT:
+*OUT*
 making a pig
-false*/
+false
+*OUT*
+*/

@@ -37,10 +37,15 @@ func destroy_animals(name: string, p : animal) : animal{
 }
 
 /*
-OUT:
+*IN*
+pig
+*IN*
+*OUT*
 i go in here first
 false
 true
 What animal do you want to destroy?
 Destroyed animal pig
-true*/
+true
+*OUT*
+*/

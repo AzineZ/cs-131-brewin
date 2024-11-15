@@ -1,9 +1,10 @@
 func main() : void {
  print("i should print");
- var x : invalid
+ var x : invalid;
 }
 
-/*OUT
-i should print
-TYPE ERROR
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
 */

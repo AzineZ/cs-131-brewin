@@ -17,6 +17,8 @@ func foo(d: dog) : dog {  /* d holds the same object reference that the koda var
   print(koda.bark, " ", koda.bite); /* prints 10 20 */
 }
 
-/* OUT
+/*
+*OUT*
 10 20
+*OUT*
 */

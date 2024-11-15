@@ -21,6 +21,7 @@ func make_pig(a : animal, extinct : int) : bool{
 }
 
 /*
-OUT:
-ErrorType.TYPE_ERROR: Type mismatch on formal parameter extinct
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
 */

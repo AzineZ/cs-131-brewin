@@ -1,0 +1,34 @@
+struct foo {
+  a:int;
+  b:bool;
+  c:string;
+}
+
+func main() : void {
+  var s1 : foo;
+
+  print(s1);
+
+  s1 = new foo;
+  print(s1.a);
+  print(s1.b);
+  print(s1.c);
+
+  s1.a = 10;
+  s1.b = true;
+  s1.c = "barf";
+  print(s1.a);
+  print(s1.b);
+  print(s1.c);
+}
+/*
+*OUT*
+nil
+0
+false
+
+10
+true
+barf
+*OUT*
+*/

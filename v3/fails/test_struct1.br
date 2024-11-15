@@ -1,0 +1,14 @@
+struct s {
+  a:int;
+}
+
+func main() : int {
+  var x: s;
+  x.a = 10; 
+}
+
+/*
+*OUT*
+ErrorType.FAULT_ERROR
+*OUT*
+*/

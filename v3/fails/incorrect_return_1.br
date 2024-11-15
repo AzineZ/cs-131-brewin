@@ -12,6 +12,7 @@ func bar() : bool {
 }  /* returns false*/
 
 /*
-OUT
-ErrorType.TYPE_ERROR: Returned value's type string is inconsistent with function's return type int
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
 */

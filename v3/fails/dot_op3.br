@@ -12,7 +12,7 @@ func main() : void {
 }
 
 /*
-OUT
-NAME_ERROR 
-field name is invalid
+*OUT*
+ErrorType.NAME_ERROR
+*OUT*
 */

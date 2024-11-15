@@ -1,0 +1,17 @@
+struct foo {
+ a: int;
+}
+
+func bar(f: foo): void {
+  print(f.a);
+}
+
+func main() : int {
+  bar(new foo);
+}
+
+/*
+*OUT*
+0
+*OUT*
+*/

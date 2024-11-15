@@ -3,7 +3,8 @@ func main() : void {
  var x;
 }
 
-/*OUT
-i should print
-TYPE ERROR
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
 */

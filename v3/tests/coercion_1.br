@@ -12,8 +12,10 @@ func foo(b : bool) : void {
   print(b);
 }
 
-/*OUT
+/*
+*OUT*
 true
 if works on integers now!
 false
+*OUT*
 */

@@ -25,7 +25,8 @@ func main() : void {
 }
 
 
-/*OUT
+/*
+*OUT*
 nil
 9
 9
@@ -33,4 +34,5 @@ nil
 9
 10
 11
+*OUT*
 */

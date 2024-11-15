@@ -12,8 +12,9 @@ func main() : void {
 }
 
 /*
-OUT
+*OUT*
 nil
 0
 nil
+*OUT*
 */

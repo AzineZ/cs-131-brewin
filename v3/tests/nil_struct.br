@@ -21,7 +21,8 @@ func make_pig(a : animal) : string{
 }
 
 /*
-OUT:
+*OUT*
 making a pig
 oink
+*OUT*
 */
