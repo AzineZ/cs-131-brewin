@@ -175,14 +175,21 @@ class Interpreter(InterpreterBase):
             for param_node, arg_value in zip(params, args):
                 param_name = param_node.get('name')
                 expected_type = param_node.get('var_type')
-                #Coerce only when the formal parameter is a bool
-                if expected_type == 'bool':
-                    arg_value = self.do_coercion(arg_value)
-                # Check if the coerced value matches the expected type
-                if not self.match_type(arg_value, expected_type):
-                    self.report_error(func_node.get('name'), "mismatched_param")
 
-                self.env_stack[-1].create(param_name, arg_value)
+                if isinstance(arg_value, tuple):    # this arg is None sent from a struct variable
+                    struct_type = arg_value[1]
+                    if struct_type != expected_type:
+                        self.report_error(func_node.get('name'), "mismatched_param")
+                    self.env_stack[-1].create(param_name, arg_value[0])
+                else:
+                    #Coerce only when the formal parameter is a bool
+                    if expected_type == 'bool':
+                        arg_value = self.do_coercion(arg_value)
+                    # Check if the coerced value matches the expected type
+                    if not self.match_type(arg_value, expected_type):
+                        self.report_error(func_node.get('name'), "mismatched_param")
+
+                    self.env_stack[-1].create(param_name, arg_value)
 
         # Execute the function body and capture any return statement
         # For void function, we don't care what it returns to the function call. 
@@ -439,6 +446,11 @@ class Interpreter(InterpreterBase):
             # Evaluate arguments and pass them as a copy to the function
             evaluated_args = []
             for arg in func_args:
+                arg_name = arg.get('name')
+                arg_type = None
+                if arg_name in self.var_to_struct_type:
+                    arg_type = self.var_to_struct_type[arg_name]
+
                 eval_arg = self.do_expression(arg)
                 # Check if the type of the evaluated argument is in the set of valid_types
                 if type(eval_arg).__name__ in self.non_var_value_type:
@@ -446,7 +458,10 @@ class Interpreter(InterpreterBase):
                     evaluated_args.append(self.copy_value(eval_arg))
                 else:
                     # Pass by object reference for structs
-                    evaluated_args.append(eval_arg)
+                    if arg_type is not None and eval_arg is None:       #Thi 
+                        evaluated_args.append((eval_arg, arg_type))
+                    else:
+                        evaluated_args.append(eval_arg)
 
             result = self.run_func(func_node, evaluated_args)
             return result if result is not None else None  # Ensure consistent nil handling
@@ -683,37 +698,37 @@ class Interpreter(InterpreterBase):
             return self.do_func_call(arg, 'expression')
 
 
-def main():  # COMMENT THIS ONCE FINISH TESTING
-    program = """
-struct animal {
-    name : string;
-    noise : string;
-    color : string;
-    extinct : bool;
-    ears: int; 
-}
-struct person {
-  name: string;
-  height: int;
-}
-func main() : void {
-   var pig : animal;
-   var p : person;
-   var noise : string;
-   noise = make_pig(p, "oink");
-   print(noise);
-}
-func make_pig(a : animal, noise : string) : string{
-  if (a == nil){
-    print("making a pig");
-    a = new animal;
-  }
-  a.noise = noise;
-  return a.noise;
-}
-            """
+# def main():  # COMMENT THIS ONCE FINISH TESTING
+#     program = """
+# struct animal {
+#     name : string;
+#     noise : string;
+#     color : string;
+#     extinct : bool;
+#     ears: int; 
+# }
+# struct person {
+#   name: string;
+#   height: int;
+# }
+# func main() : void {
+#    var pig : animal;
+#    var p : person;
+#    var noise : string;
+#    noise = make_pig(p, "oink");
+#    print(noise);
+# }
+# func make_pig(a : animal, noise : string) : string{
+#   if (a == nil){
+#     print("making a pig");
+#     a = new animal;
+#   }
+#   a.noise = noise;
+#   return a.noise;
+# }
+#             """
 
-    interpreter = Interpreter()
-    interpreter.run(program)
+#     interpreter = Interpreter()
+#     interpreter.run(program)
 
-main()
+# main()

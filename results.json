@@ -194,7 +194,7 @@
         },
         {
             "name": "Incorrectness | invalid_param",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
