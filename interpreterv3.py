@@ -411,7 +411,9 @@ class Interpreter(InterpreterBase):
         # If lhs is a struct
         if var_name in self.var_to_struct_type:
             struct_type = self.var_to_struct_type[var_name]
-            if target_type is not None and target_type != struct_type:             # rhs is a value from a struct
+            # target_type is not None when result is a declared struct variable.
+            # result is a dict if it references an allocated struct (for new operator)
+            if target_type is not None and target_type != struct_type or isinstance(result, dict) and result.get('type') != struct_type:
                 self.report_error(var_name, "invalid_type_assignment")
             # if self.match_type(result, struct_type) is False:                       #rhs is a value
             #     self.report_error(var_name, "invalid_type_assignment")
@@ -647,8 +649,8 @@ class Interpreter(InterpreterBase):
 
             elif arg_type in ['==', '!=']:
                 # Step 1: Handle cases where one or both operands are variables
-                type1 = self.get_struct_type(arg.get('op1'))
-                type2 = self.get_struct_type(arg.get('op2'))
+                type1 = self.get_struct_type(op1)
+                type2 = self.get_struct_type(op2)
 
                 # Step 2: If both are variables with struct types, handle type checking
                 if type1 and type2:
@@ -703,33 +705,78 @@ class Interpreter(InterpreterBase):
             return self.do_func_call(arg, 'expression')
     
     def get_struct_type(self, operand):
-        if operand.elem_type == 'var':
+        if hasattr(operand, 'elem_type') and operand.elem_type == 'var':
             var_name = operand.get('name')
             if var_name in self.var_to_struct_type:
                 return self.var_to_struct_type[var_name]
+        elif isinstance(operand, dict):
+            return operand.get('type')
         return None
 
 
 # def main():  # COMMENT THIS ONCE FINISH TESTING
 #     program = """
-# struct Puppy {
-#     name: string;
-#     bark: int;
+# struct node {
+#     value: int;
+#     next: node;
 # }
 
-# struct Cat {
-#     name: string;
-#     meow: int;
-# }
-# struct Dog {
-#   name : string;
-#   alive : bool;
-#   age: int;
-#   offspring: Puppy;
+# struct list {
+#     head: node;
 # }
 
-# func main() : void {
-#   print(1 && true);
+# func create_list(): list {
+#     var l: list;
+#     l = new list;
+#     l.head = nil;
+#     return l;
+# }
+
+# func append(l: list, val: int): void {
+#     var new_node: node;
+#     new_node = new node;
+#     new_node.value = val;
+#     new_node.next = nil;
+
+#     if (l.head == nil) {
+#         l.head = new_node;
+#     } else {
+#         var current: node;
+#         for (current = l.head; current.next != nil; current = current.next) {
+#             /* It doesn't work in Barista if it's empty, so this is just a useless line */
+#             print("placeholder");
+#         }
+#         current.next = new_node;
+#     }
+#     return;
+# }
+
+# func print_list(l: list): void {
+#     var current: node;
+
+#     if (l.head == nil) {
+#         print("List is empty.");
+#         return;
+#     }
+
+#     for (current = l.head; current != nil; current = current.next) {
+#         print(current.value);
+#     }
+#     return;
+# }
+
+# func main(): void {
+#     var l: list;
+#     l = create_list();
+
+#     append(l, 10);
+#     append(l, 20);
+#     append(l, 30);
+
+#     print("Printing the list:");
+#     print_list(l);
+
+#     return;
 # }
 #             """
 
