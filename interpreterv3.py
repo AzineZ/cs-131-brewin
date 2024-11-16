@@ -59,44 +59,31 @@ class Interpreter(InterpreterBase):
         }
 
     def report_error(self, item, error_type):
-        error_messages = {
-            "main_not_found": "No main() function was found",
-            "var_defined": f"Variable {item} defined more than once!",
-            "var_not_defined": f"Variable {item} does not exist or is out of scope!",
-            "func_not_defined": f"The {item} function has not been correctly defined or you passed the wrong number of arguments!",
-            "invalid_func_call": f"The {item} function is called in an invalid manner!",
-            "invalid_params_to_inputi": "No inputi() function found that takes > 1 parameter"
+        error_map = {
+            "mismatched_type": (ErrorType.TYPE_ERROR, f"Incompatible types for the {item} operation"),
+            "invalid_if_condition": (ErrorType.TYPE_ERROR, "Invalid if or for condition. It must be a boolean!"),
+            "invalid_params_or_ret_type": (ErrorType.TYPE_ERROR, f"Invalid parameters or return types for function {item}()!"),
+            "invalid_var_def": (ErrorType.TYPE_ERROR, f"Type of variable {item} is invalid or missing!"),
+            "invalid_type_assignment": (ErrorType.TYPE_ERROR, f"Incompatible type assignment for variable {item}"),
+            "invalid_void_return": (ErrorType.TYPE_ERROR, f"Void function {item} must not return a value!"),
+            "mismatched_return_value": (ErrorType.TYPE_ERROR, f"Function {item} is returning a value of mismatched type!"),
+            "void_func_in_expression": (ErrorType.TYPE_ERROR, f"Void function {item} cannot be compared!"),
+            "mismatched_param": (ErrorType.TYPE_ERROR, f"Function {item} receives a mismatched type of argument!"),
+            "invalid_struct_type": (ErrorType.TYPE_ERROR, f"Struct {item} is not defined!"),
+            "nil_struct_access": (ErrorType.FAULT_ERROR, "Nil does not have fields!"),
+            "invalid_struct_access": (ErrorType.TYPE_ERROR, f"Struct {item} does not exist!"),
+            "invalid_field_name": (ErrorType.NAME_ERROR, f"Field {item} does not exist!"),
+            "print_in_expr": (ErrorType.TYPE_ERROR, "Print function must not be used in expression!"),
+            "main_not_found": (ErrorType.NAME_ERROR, "No main() function was found"),
+            "var_defined": (ErrorType.NAME_ERROR, f"Variable {item} defined more than once!"),
+            "var_not_defined": (ErrorType.NAME_ERROR, f"Variable {item} does not exist or is out of scope!"),
+            "func_not_defined": (ErrorType.NAME_ERROR, f"Function {item} not defined or wrong number of arguments!"),
+            "invalid_func_call": (ErrorType.NAME_ERROR, f"Function {item} called invalidly!"),
+            "invalid_params_to_inputi": (ErrorType.NAME_ERROR, "No inputi() function found that takes > 1 parameter")
         }
-        if error_type == "mismatched_type":
-            super().error(ErrorType.TYPE_ERROR, f"Incompatible types for the {item} operation")
-        elif error_type == "invalid_if_condition":
-            super().error(ErrorType.TYPE_ERROR, f"Invalid if or for condition. It must be a boolean!")
-        elif error_type == "invalid_params_or_ret_type":
-            super().error(ErrorType.TYPE_ERROR, f"Invalid parameters or return types for function {item}()!")
-        elif error_type == "invalid_var_def":
-            super().error(ErrorType.TYPE_ERROR, f"Type of variable {item} is invalid or missing!")
-        elif error_type == "invalid_type_assignment":
-            super().error(ErrorType.TYPE_ERROR, f"Incompatible type assignment for variable {item}")
-        elif error_type == "invalid_void_return":
-            super().error(ErrorType.TYPE_ERROR, f"Void function {item} must not return a value!")
-        elif error_type == "mismatched_return_value":
-            super().error(ErrorType.TYPE_ERROR, f"Function {item} is returning a value of mismatched type!")
-        elif error_type == "void_func_in_expression":
-            super().error(ErrorType.TYPE_ERROR, f"Void function {item} cannot be compared!")
-        elif error_type == "mismatched_param":
-            super().error(ErrorType.TYPE_ERROR, f"Function {item} receives a mismatched type of argument to its formal parameter!")
-        elif error_type == "invalid_struct_type":
-            super().error(ErrorType.TYPE_ERROR, f"Struct {item} is not defined!")
-        elif error_type == "nil_struct_access":
-            super().error(ErrorType.FAULT_ERROR, f"Nil does not have fields!")
-        elif error_type == "invalid_struct_access":
-            super().error(ErrorType.TYPE_ERROR, f"Struct {item} does not exist!")
-        elif error_type == "invalid_field_name":
-            super().error(ErrorType.NAME_ERROR, f"Field {item} does not exist!")
-        elif error_type == "print_in_expr":
-            super().error(ErrorType.TYPE_ERROR, f"Print function must not be used in expression!")
-        else:
-            super().error(ErrorType.NAME_ERROR, error_messages.get(error_type))
+        
+        error_type, message = error_map.get(error_type, (ErrorType.NAME_ERROR, f"Unknown error: {error_type}"))
+        super().error(error_type, message)
 
     def check_var_in_env_stack(self, var_name):
         for i in range(len(self.env_stack) - 1, -1, -1):
@@ -386,6 +373,7 @@ class Interpreter(InterpreterBase):
 
     def do_assignment(self, statement_node):
         var_name = statement_node.get('name')
+        target_type = self.get_struct_type(statement_node.get('expression'))
         result = self.do_expression(statement_node.get('expression')) # This should already handle nested fields
 
         # Handle nested field assignment directly within this function
@@ -408,21 +396,26 @@ class Interpreter(InterpreterBase):
             if not lhs_field_type or not self.match_type(result, lhs_field_type):
                 self.report_error(lhs_field_name, "invalid_type_assignment")
 
-            # Assign the value to the field (modifying the struct directly)
+            # if lhs is a struct, check rhs for struct type or pure nil
+            lhs = lhs_instance['fields'][lhs_field_name]
+            if isinstance(lhs, dict) and target_type is not None and lhs.get('type') != target_type:
+                self.report_error(var_name, "invalid_type_assignment")
             lhs_instance['fields'][lhs_field_name] = result
             return
 
         curr_env = self.check_var_in_env_stack(var_name)
         existing_value = curr_env.get(var_name)
 
-        # If lhs is a struct and rhs is a struct
+        # If lhs is a struct
         if var_name in self.var_to_struct_type:
             struct_type = self.var_to_struct_type[var_name]
-            if self.match_type(result, struct_type) is False:
+            if target_type is not None and target_type != struct_type:             # rhs is a value from a struct
                 self.report_error(var_name, "invalid_type_assignment")
+            # if self.match_type(result, struct_type) is False:                       #rhs is a value
+            #     self.report_error(var_name, "invalid_type_assignment")
         
         # Type check for regular variable assignment
-        if not self.do_type_comp(existing_value, result):
+        elif self.do_type_comp(existing_value, result) is False:
             if isinstance(existing_value, bool) and isinstance(result, int):
                 result = self.do_coercion(result)
             else:
@@ -715,21 +708,30 @@ class Interpreter(InterpreterBase):
         return None
 
 
-def main():  # COMMENT THIS ONCE FINISH TESTING
-    program = """
-struct cat {
-  name: string;
-  scratches: bool;
-}
+# def main():  # COMMENT THIS ONCE FINISH TESTING
+#     program = """
+# struct Puppy {
+#     name: string;
+#     bark: int;
+# }
 
-func main(): void {
-  var x: cat;
-  x = nil;
-}
+# struct Cat {
+#     name: string;
+#     meow: int;
+# }
+# struct Dog {
+#   name : string;
+#   alive : bool;
+#   age: int;
+#   offspring: Puppy;
+# }
 
-            """
+# func main() : void {
+#   print(1 && true);
+# }
+#             """
 
-    interpreter = Interpreter()
-    interpreter.run(program)
+#     interpreter = Interpreter()
+#     interpreter.run(program)
 
-main()
+# main()
