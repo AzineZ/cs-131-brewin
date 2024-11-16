@@ -400,6 +400,8 @@ class Interpreter(InterpreterBase):
             lhs = lhs_instance['fields'][lhs_field_name]
             if isinstance(lhs, dict) and target_type is not None and lhs.get('type') != target_type:
                 self.report_error(var_name, "invalid_type_assignment")
+            if isinstance(lhs, bool) and isinstance(result, int):
+                result = self.do_coercion(result)
             lhs_instance['fields'][lhs_field_name] = result
             return
 
