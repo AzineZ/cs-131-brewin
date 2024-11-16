@@ -1,1 +1,2 @@
-All good!
+Right now, the program fails the Incorrectness test_struct4 test case. During my attempt to fix this, I have discovered several
+independent errors in my program that was tested on Gradescope. They are all accounted for, beside the mentioned test case.
