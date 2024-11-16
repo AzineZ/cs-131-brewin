@@ -1,0 +1,55 @@
+struct node {
+  value: int;
+  next: node;
+}
+
+func main(): void {
+  var root: node;
+  var here: node;
+  root = new node;
+  here = root;
+  root.value = 21;
+  var i: int;
+  for (i = 20; i; i = i - 1) {
+    here = insert_node(here, i);
+  }
+
+  for (here = root; here != nil; here = here.next) {
+    print(here.value);
+  }
+  return;
+}
+
+func insert_node(nd: node, val: int): node {
+  var new_nd: node;
+  new_nd = new node;
+  new_nd.value = val;
+  nd.next = new_nd;
+  return new_nd;
+}
+
+/*
+*OUT*
+21
+20
+19
+18
+17
+16
+15
+14
+13
+12
+11
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+*OUT*
+*/

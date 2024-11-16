@@ -1,0 +1,13 @@
+func main() : void {
+  return;
+}
+
+func invalid_type() : GLaDOS {
+  return;
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

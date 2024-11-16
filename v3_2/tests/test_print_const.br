@@ -1,0 +1,11 @@
+func main(): void {
+  print(10);  
+}
+
+/*
+*IN*
+*IN*
+*OUT*
+10
+*OUT*
+*/

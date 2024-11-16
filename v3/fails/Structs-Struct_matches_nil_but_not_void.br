@@ -1,0 +1,21 @@
+struct bar {
+  a: int;
+}
+
+func main(): void {
+  var a: int;
+  var b: bar;
+  b = nil;
+  print("fine so far");
+  b = foo();
+  print("not fine");
+  print(b);
+}
+
+func foo() : void {return;}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

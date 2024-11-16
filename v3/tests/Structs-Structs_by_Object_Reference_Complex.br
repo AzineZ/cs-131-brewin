@@ -1,0 +1,41 @@
+struct ErrObj {
+  a: string;
+}
+
+struct Msg {
+  a: string;
+  b: int;
+  c: ErrObj;
+}
+
+func main(): void {
+  var m: Msg;
+  m = new Msg;
+  var o: ErrObj;
+  print(o);
+  o = new ErrObj;
+  o.a = "new obj";
+  print(o.a);
+  print(m.c);
+  m.c = new ErrObj;
+  print(m.c.a);
+  m.c.a = "overriden string";
+  print(m.c.a);
+  print(o.a);
+  return;
+}
+
+func foo(): Msg {
+  return;
+}
+
+/*
+*OUT*
+nil
+new obj
+nil
+
+overriden string
+new obj
+*OUT*
+*/

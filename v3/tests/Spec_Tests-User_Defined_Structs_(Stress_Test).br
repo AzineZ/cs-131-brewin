@@ -1,0 +1,25 @@
+struct cat {
+  name: string;
+  scratches: bool;
+}
+
+struct person {
+  name: string;
+  age: int;
+  address: string;
+  kitty: cat;
+}
+
+struct node {
+  value: int;
+  next: node;    /* this works since node is defined above! */
+}
+
+func main(): void {
+  return;
+}
+
+/*
+*OUT*
+*OUT*
+*/

@@ -1,0 +1,18 @@
+func main(): void {
+  var x: int;
+
+  for (x=0; x < 2; x = x+1) {
+    var x: int;
+    x = -1;
+    print(x);
+  }
+  print(x);
+}
+
+/*
+*OUT*
+-1
+-1
+2
+*OUT*
+*/

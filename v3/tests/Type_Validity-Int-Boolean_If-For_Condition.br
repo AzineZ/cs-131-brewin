@@ -1,0 +1,39 @@
+func main() : void {
+  var vd: bool;
+  vd = false;
+  if (inputs() == "I'm in") {
+    var i: int;
+    for (i = 0; i - 10; i = i + 1) {
+      var x: int;
+      x = i * i - 7 * i + 10;
+      if (!x) {
+        vd = x;
+        print("is zero:    ", i, " -> ", x);
+      } else {
+        if (x < 0) {
+          print("below zero: ", i, " -> ", x);
+        } else {
+          print("above zero: ", i, " -> ", x);
+        }
+      }
+    }
+  }
+}
+
+/*
+*IN*
+I'm in
+*IN*
+*OUT*
+above zero: 0 -> 10
+above zero: 1 -> 4
+is zero:    2 -> 0
+below zero: 3 -> -2
+below zero: 4 -> -2
+is zero:    5 -> 0
+above zero: 6 -> 4
+above zero: 7 -> 10
+above zero: 8 -> 18
+above zero: 9 -> 28
+*OUT*
+*/

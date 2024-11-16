@@ -1,0 +1,13 @@
+func main() : void {
+  var a: string;
+  print(a);
+  a = "it wasn't str arghhhh.";
+  print(a);
+}
+
+/*
+*OUT*
+
+it wasn't str arghhhh.
+*OUT*
+*/

@@ -1,0 +1,35 @@
+struct X {i: int; b: bool; s:string;}
+struct Y {i: int; b: bool; s:string;}
+struct Z {x: X; y: Y; z: Z;}
+
+func main(): void {
+  var v: Z;
+  v = new Z;
+  setZ(v, 42, true, "marco");
+  v.z.z.z.z = nil;
+  print("v.x.i: ", v.x.i);
+  print("v.x.b: ", v.x.b);
+  print("v.x.s: ", v.x.s);
+  print("v.y.i: ", v.y.i);
+  print("v.y.b: ", v.y.b);
+  print("v.y.s: ", v.y.s);
+  print(v.z.z.z.z.y.b);
+}
+
+func setZ(v: Z, i: int, b: bool, s:string): void {
+  v.z = v;
+  v.x = new X;
+  v.y = new Y;
+  v.z.z.z.z.z.z.x.i = i;
+  v.x.b = b;
+  v.z.z.z.z.x.s = s;
+  v.z.z.z.z.z.z.y.i = 100 - i;
+  v.y.b = !b;
+  v.z.z.z.z.y.s = s + " polo";
+}
+
+/*
+*OUT*
+ErrorType.FAULT_ERROR
+*OUT*
+*/

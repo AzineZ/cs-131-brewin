@@ -1,0 +1,33 @@
+func main() : void {
+  var a: int;
+  var b: bool;
+  a = five();
+  print(a);
+  b = frive();
+  print(b);
+  b = five();
+  print(b);
+  b = zero();
+  print(b);
+}
+
+func five(): int {
+  return 5;
+}
+
+func zero(): int {
+  return 0;
+}
+
+func frive(): bool {
+  return 5;
+}
+
+/*
+*OUT*
+5
+true
+true
+false
+*OUT*
+*/

@@ -1,0 +1,40 @@
+struct A {x: int;}
+struct B {x: int;}
+
+func main(): void {
+  var a: A;
+  var b: B;
+  a = getAnil();
+  b = getBnil();
+  print(a);
+  print(b);
+  print("fine so far");
+  getB();
+  return;
+}
+
+func getA() : A {
+  var b: B;
+  b = nil;
+  return b;
+}
+
+func getB() : B {
+  var a: A;
+  a = nil;
+  return a;
+}
+
+func getAnil() : A {
+  return nil;
+}
+
+func getBnil() : B {
+  return nil;
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

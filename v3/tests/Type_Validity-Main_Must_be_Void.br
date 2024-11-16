@@ -1,0 +1,14 @@
+func main() : int {
+  print("barista says this is valid?");
+  print("may be undefined behavior");
+  print("I am not sure");
+  return 6;
+}
+
+/*
+*OUT*
+barista says this is valid?
+may be undefined behavior
+I am not sure
+*OUT*
+*/

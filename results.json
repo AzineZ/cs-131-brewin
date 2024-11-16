@@ -19,13 +19,31 @@
             "visibility": "visible"
         },
         {
+            "name": "Correctness | Structs-Composition_of_Structs",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Correctness | test_and",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
+            "name": "Correctness | Structs-Structs_by_Object_Reference_Complex",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Correctness | test_inputi_arg",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Spec_Tests-Structures",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -55,7 +73,19 @@
             "visibility": "visible"
         },
         {
+            "name": "Correctness | Type_Validity-Simple_Parameter_Passing",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Correctness | test_prec1",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Structs-Attempt_to_Print_Struct",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -68,6 +98,12 @@
         },
         {
             "name": "Correctness | test_nested_expr",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Type_Validity-Int-Boolean_If-For_Condition",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -133,7 +169,19 @@
             "visibility": "visible"
         },
         {
+            "name": "Correctness | Structs-Simple_Struct_Definition",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Correctness | test_if_copy",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Spec_Tests-Print_Prints_Nils",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -157,6 +205,12 @@
             "visibility": "visible"
         },
         {
+            "name": "Correctness | Type_Validity-Main_Must_be_Void",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Correctness | test_pass_expr",
             "score": 1,
             "max_score": 1,
@@ -170,6 +224,12 @@
         },
         {
             "name": "Correctness | test_legacy2",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Structs-Linked_List",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -205,7 +265,25 @@
             "visibility": "visible"
         },
         {
+            "name": "Correctness | Spec_Tests-User_Defined_Structs_(Stress_Test)",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Spec_Tests-Coercion",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Correctness | test_ret4",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Structs-test_nil_to_struct_func",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -247,13 +325,31 @@
             "visibility": "visible"
         },
         {
+            "name": "Correctness | Structs-Struct_Comparison",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Correctness | test_static_scoping3",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
+            "name": "Correctness | Spec_Tests-Function_Definitions",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Correctness | test_recur1",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Type_Validity-Valid_Print",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -283,6 +379,12 @@
             "visibility": "visible"
         },
         {
+            "name": "Correctness | Type_Validity-Type_Coercion_With_Operators",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Correctness | test_pass_by_val",
             "score": 1,
             "max_score": 1,
@@ -290,6 +392,12 @@
         },
         {
             "name": "Correctness | test_nested_for",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Spec_Tests-Return_a_UDS",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -349,6 +457,12 @@
             "visibility": "visible"
         },
         {
+            "name": "Correctness | Spec_Tests-Parameter_Passing",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Correctness | test_recur_catalan_nums",
             "score": 1,
             "max_score": 1,
@@ -367,7 +481,25 @@
             "visibility": "visible"
         },
         {
+            "name": "Correctness | Spec_Tests-User_Defined_Structs_(Dog_Flea)",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Structs-Linked_List_Complex",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Correctness | test_assign_take_input",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Spec_Tests-Return_Statement",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -409,7 +541,19 @@
             "visibility": "visible"
         },
         {
+            "name": "Correctness | Spec_Tests-Default_Return_Values",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Correctness | test_copy",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Type_Validity-Matched_Return_Type",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -445,7 +589,19 @@
             "visibility": "visible"
         },
         {
+            "name": "Incorrectness | Structs-Reference_Hell",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Incorrectness | test_bad_expr5",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Type_Validity-Parameter_Type_Mismatch_Int_-_String",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -493,7 +649,67 @@
             "visibility": "visible"
         },
         {
+            "name": "Incorrectness | Structs-Struct_matches_nil_but_not_void",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Type_Validity-Nil_Validity_with_Primitives",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Incorrectness | test_bad_compare2",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Type_Validity-Type_Coercion,_input,_shadowing,_and_void_call",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Type_Validity-Missing_Return_Type_in_foo",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Type_Validity-Coercion_Incorrectess",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Type_Validity-Mismatched_Return_Assignment",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Type_Validity-Tagged_nil_Validity",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Type_Validity-Nil_Return_Attempt_on_Primitive",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Structs-Invalid_New_Type",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Type_Validity-Labeled_Parameter_with_Undefined_Type",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -505,7 +721,19 @@
             "visibility": "visible"
         },
         {
+            "name": "Incorrectness | Type_Validity-Mismatched_Return_Value",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Incorrectness | test_bad_static_scoping4",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Type_Validity-Non-Existent_Member_in_Struct",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -518,6 +746,18 @@
         },
         {
             "name": "Incorrectness | test_no_main",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Structs-Invalid_Paramter_with_Structs",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Spec_Tests-Print_Has_Void_Return_Type",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -541,13 +781,37 @@
             "visibility": "visible"
         },
         {
+            "name": "Incorrectness | Type_Validity-Labeled_Function_Return_with_Undefined_Type",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Incorrectness | test_bad_arith2",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
+            "name": "Incorrectness | Type_Validity-Return_Type_Does_Not_Match_Value",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Type_Validity-Missing_Return_Type_in_main",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
             "name": "Incorrectness | test_bad_expr6",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Type_Validity-Primitives_Have_no_Members",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -584,6 +848,12 @@
         },
         {
             "name": "Incorrectness | test_bad_call2",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Structs-Nil_Validity_in_Struct",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"

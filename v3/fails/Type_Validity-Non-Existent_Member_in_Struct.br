@@ -1,0 +1,14 @@
+struct A {
+  a:int;
+}
+
+func main() : void {
+  var a : A;
+  print(a.b);
+}
+
+/*
+*OUT*
+ErrorType.FAULT_ERROR
+*OUT*
+*/

@@ -1,0 +1,73 @@
+func main(): void {
+  direct_print();
+  assign_var();
+  print_rets();
+  return;
+}
+
+func direct_print(): void {
+  print(-0);
+  print(-1);
+  print(!1);
+  print(!0);
+  print(!!-1);
+  print(!!false);
+  print(!false);
+  print(!!true);
+  print(!true);
+}
+
+func assign_var() : void {
+  var i: int;
+  i = 6;
+  var b: bool;
+  b = i;
+  i = 0;
+  print(b);
+  b = -2;
+  print(b);
+  b = 1 / 2;
+  print(b);
+}
+
+func print_rets() : void {
+  print(ret_bool(4));
+  print(ret_bool(0));
+  print(ret_bool(-20));
+  print(impl_ret());
+  print(!impl_ret());
+}
+
+func ret_bool(a: int) : bool {
+  return a;
+}
+
+func impl_ret() : bool {
+  var a: int;
+}
+
+func bool_expr() : bool {
+  var a: int;
+}
+
+/*
+*OUT*
+0
+-1
+false
+true
+true
+false
+true
+true
+false
+true
+true
+false
+true
+false
+true
+false
+true
+*OUT*
+*/

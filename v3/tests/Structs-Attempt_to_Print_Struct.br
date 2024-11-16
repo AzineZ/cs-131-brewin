@@ -1,0 +1,17 @@
+struct A {x: bool;}
+
+func main() : void {
+  var a: A;
+  print(a);
+  /*
+  this is undefined behavior
+  a = new A;
+  print(a);
+  */
+}
+
+/*
+*OUT*
+nil
+*OUT*
+*/

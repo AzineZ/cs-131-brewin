@@ -1,0 +1,27 @@
+func foo(a:int, b:string, c:int, d:bool) : int {
+  print(b, d);
+  return a + c;
+}
+
+func talk_to(name:string): void {
+  if (name == "Carey") {
+     print("Go away!");
+     return;  /* using return is OK w/void, just don't specify a value */
+  }
+  print("Greetings");
+}
+
+func main() : void {
+  print(foo(10, "blah", 20, false));
+  talk_to("Bonnie");
+}
+
+
+
+/*
+*OUT*
+blahfalse
+30
+Greetings
+*OUT*
+*/

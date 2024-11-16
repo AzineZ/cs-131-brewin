@@ -1,0 +1,21 @@
+struct foo {
+  a: int;
+}
+
+func main() : void {
+  var bar: foo;
+  bar = new foo;
+  print(bar == nil);
+  bar.a = 5;
+  print(bar.a);
+  print("all good!");
+  return;
+}
+
+/*
+*OUT*
+false
+5
+all good!
+*OUT*
+*/

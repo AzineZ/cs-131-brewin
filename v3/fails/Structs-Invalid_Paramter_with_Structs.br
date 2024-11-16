@@ -1,0 +1,32 @@
+struct animal {
+    name : string;
+    noise : string;
+    color : string;
+    extinct : bool;
+    ears: int;
+}
+struct person {
+  name: string;
+  height: int;
+}
+func main() : void {
+   var pig : animal;
+   var p : person;
+   var noise : string;
+   noise = make_pig(p, "oink");
+   print(noise);
+}
+func make_pig(a : animal, noise : string) : string{
+  if (a == nil){
+    print("making a pig");
+    a = new animal;
+  }
+  a.noise = noise;
+  return a.noise;
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

@@ -1,0 +1,17 @@
+func main() : void {
+  return;
+}
+
+func bar() : int {
+  return 5;
+}
+
+func foo() {
+  return;
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

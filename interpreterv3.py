@@ -196,6 +196,13 @@ class Interpreter(InterpreterBase):
                 if empty_return:
                     return self.do_func_return(self.get_default_value(ret_type))
                 
+                if ret_type in self.struct_table and return_value is None:
+                    #print(statement_node.get('expression').get('name'))
+                    var_name = statement_node.get('expression').get('name')
+                    if var_name in self.var_to_struct_type:
+                        value_type = self.var_to_struct_type[var_name]
+                        if value_type != ret_type:
+                            self.report_error(func_node.get('name'), "mismatched_return_value")
                 if ret_type == 'bool':
                     return_value = self.do_coercion(return_value)
                 # Check if the coerced value matches the function's declared return type
@@ -652,15 +659,20 @@ class Interpreter(InterpreterBase):
                 type1 = self.get_struct_type(op1)
                 type2 = self.get_struct_type(op2)
 
+                src_type1 = self.get_struct_type(arg.get('op1'))
+                src_type2 = self.get_struct_type(arg.get('op2'))
+
                 # Step 2: If both are variables with struct types, handle type checking
-                if type1 and type2:
+                if type1 and type2 or src_type1 and src_type2:
                     # If one of them is None (uninitialized), ensure they are of the same struct type
                     if op1 is None or op2 is None:
-                        if type1 != type2:
+                        if type1 != type2 and src_type1 != src_type2:
                             self.report_error(arg_type, "mismatched_type")
                         return (op1 is None and op2 is None) if arg_type == '==' else (op1 is not None or op2 is not None)
                 # If one is a struct and the other is a pure nil value
                 elif type1 or type2:
+                    return (op1 is None and op2 is None) if arg_type == '==' else (op1 is not None or op2 is not None)
+                elif src_type1 or src_type2:
                     return (op1 is None and op2 is None) if arg_type == '==' else (op1 is not None or op2 is not None)
 
                 # Both are allocated structs, ensure they have the same type
@@ -716,68 +728,41 @@ class Interpreter(InterpreterBase):
 
 # def main():  # COMMENT THIS ONCE FINISH TESTING
 #     program = """
-# struct node {
-#     value: int;
-#     next: node;
-# }
-
-# struct list {
-#     head: node;
-# }
-
-# func create_list(): list {
-#     var l: list;
-#     l = new list;
-#     l.head = nil;
-#     return l;
-# }
-
-# func append(l: list, val: int): void {
-#     var new_node: node;
-#     new_node = new node;
-#     new_node.value = val;
-#     new_node.next = nil;
-
-#     if (l.head == nil) {
-#         l.head = new_node;
-#     } else {
-#         var current: node;
-#         for (current = l.head; current.next != nil; current = current.next) {
-#             /* It doesn't work in Barista if it's empty, so this is just a useless line */
-#             print("placeholder");
-#         }
-#         current.next = new_node;
-#     }
-#     return;
-# }
-
-# func print_list(l: list): void {
-#     var current: node;
-
-#     if (l.head == nil) {
-#         print("List is empty.");
-#         return;
-#     }
-
-#     for (current = l.head; current != nil; current = current.next) {
-#         print(current.value);
-#     }
-#     return;
-# }
+# struct A {x: int;}
+# struct B {x: int;}
 
 # func main(): void {
-#     var l: list;
-#     l = create_list();
-
-#     append(l, 10);
-#     append(l, 20);
-#     append(l, 30);
-
-#     print("Printing the list:");
-#     print_list(l);
-
-#     return;
+#   var a: A;
+#   var b: B;
+#   a = getAnil();
+#   b = getBnil();
+#   print(a);
+#   print(b);
+#   print("fine so far");
+#   getB();
+#   return;
 # }
+
+# func getA() : A {
+#   var b: B;
+#   b = nil;
+#   return b;
+# }
+
+# func getB() : B {
+#   var a: A;
+#   a = nil;
+#   return a;
+# }
+
+# func getAnil() : A {
+#   return nil;
+# }
+
+# func getBnil() : B {
+#   return nil;
+# }
+
 #             """
 
 #     interpreter = Interpreter()

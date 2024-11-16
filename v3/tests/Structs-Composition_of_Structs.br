@@ -1,0 +1,34 @@
+struct woo {
+  main: int;
+}
+
+struct foo {
+  bar: woo;
+}
+
+func main() : void {
+  var foo: woo;
+  print(foo != nil);
+  print(nil != foo);
+  foo = new woo;
+  var bar: foo;
+  bar = new foo;
+  print(bar.bar == nil);
+  print(nil == bar.bar);
+  bar.bar = foo;
+  bar.bar.main = 13;
+  print(bar.bar.main);
+  print("all good!");
+  return;
+}
+
+/*
+*OUT*
+false
+false
+true
+true
+13
+all good!
+*OUT*
+*/

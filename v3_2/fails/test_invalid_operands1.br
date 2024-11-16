@@ -1,0 +1,14 @@
+func main(): void {
+  var a: int;
+  var b: string;
+  var c: int;
+  a = 5;
+  b = "foo";
+  c = a + b;
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

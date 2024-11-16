@@ -1,0 +1,23 @@
+struct A {a:int;}
+struct B {b:int;}
+
+func main() : void {
+  var a1: A;
+  var a2: A;
+  print(a1 != a2);
+  a1 = new A;
+  print(a1 != a2);
+  a2 = a1;
+  a1.a = 42;
+  print(a1 == a2);
+	print(a2.a);
+}
+
+/*
+*OUT*
+false
+true
+true
+42
+*OUT*
+*/

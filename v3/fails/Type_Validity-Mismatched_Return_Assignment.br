@@ -1,0 +1,15 @@
+func main() : void {
+  var a: int;
+  a = five();
+  print("should not print");
+}
+
+func five(): string {
+  return "five";
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

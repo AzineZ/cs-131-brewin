@@ -1,0 +1,11 @@
+func main() : void {
+  return;
+}
+
+func foo(a: Glados) {return nil;}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

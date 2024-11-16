@@ -1,0 +1,24 @@
+struct circle {
+  r: int;
+}
+
+struct square {
+  s: int;
+}
+
+
+func main(): void {
+  var c: circle;
+  var s: square;
+
+  print(c == s);
+
+  s = new square;
+  print(c == s);
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

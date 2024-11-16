@@ -1,0 +1,11 @@
+func main(): void {
+  if (5) {
+    print("wow");
+  }
+}
+
+/*
+*OUT*
+wow
+*OUT*
+*/

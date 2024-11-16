@@ -1,0 +1,72 @@
+struct node {
+  value: int;
+  next: node;
+}
+
+struct list {
+  head: node;
+}
+
+func create_list(): list {
+  var l: list;
+  l = new list;
+  l.head = nil;
+  return l;
+}
+
+func append(l: list, val: int): void {
+  var new_node: node;
+  new_node = new node;
+  new_node.value = val;
+  new_node.next = nil;
+
+  if (l.head == nil) {
+    l.head = new_node;
+  } else {
+    var current: node;
+    for (current = l.head; current.next != nil; current = current.next) {
+      /* It doesn't work in Barista if it's empty, so this is just a useless line */
+      print("placeholder");
+    }
+    current.next = new_node;
+  }
+  return;
+}
+
+func print_list(l: list): void {
+  var current: node;
+
+  if (l.head == nil) {
+    print("List is empty.");
+    return;
+  }
+
+  for (current = l.head; current != nil; current = current.next) {
+    print(current.value);
+  }
+  return;
+}
+
+func main(): void {
+  var l: list;
+  l = create_list();
+
+  append(l, 10);
+  append(l, 20);
+  append(l, 30);
+
+  print("Printing the list:");
+  print_list(l);
+
+  return;
+}
+
+/*
+*OUT*
+placeholder
+Printing the list:
+10
+20
+30
+*OUT*
+*/

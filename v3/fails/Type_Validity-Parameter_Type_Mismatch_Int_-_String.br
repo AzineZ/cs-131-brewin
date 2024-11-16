@@ -1,0 +1,15 @@
+func main() : void {
+  var a: int;
+  foo(a);
+  print("not fine");
+}
+
+func foo(a: string) : void {
+  print(a);
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

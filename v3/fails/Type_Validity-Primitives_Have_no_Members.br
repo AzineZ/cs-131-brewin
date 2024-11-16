@@ -1,0 +1,10 @@
+func main() : void {
+  var a : int;
+  print(a.b);
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/
