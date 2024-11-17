@@ -1,0 +1,21 @@
+func main() : void {
+  var x: int;
+  x = 10 + 5 * 2;
+  print("Result of expression:", x);
+
+  var y: string;
+  y = "foo" + "bar";
+  print("Concatenated string:", y);
+
+  var z: bool;
+  z = (x > 10) && (y == "foobar");
+  print("Boolean result:", z);
+}
+
+/*
+*OUT*
+Result of expression:20
+Concatenated string:foobar
+Boolean result:true
+*OUT*
+*/

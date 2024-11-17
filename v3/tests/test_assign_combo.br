@@ -1,0 +1,103 @@
+func main() : void {
+
+var a1: int; a1 = 1; print(a1);
+  var a2: int; a2 = 100; print(a2);
+  var a3: int; a3 = -5; print(a3);
+  var a4: int; a4 = 0; print(a4);
+  var a5: int; a5 = 123456; print(a5);  
+  var b1: string; b1 = "hello"; print(b1);
+  var b2: string; b2 = "world"; print(b2);
+  var b3: string; b3 = ""; print("|", b3, "|");
+  var b4: string; b4 = "foo"; print("|", b4, "|");
+  var b5: string; b5 = "bar"; print("|", b5, "|");
+  
+   var c1: bool; c1 = true; print(c1);
+  var c2: bool; c2 = false; print(c2);
+  var c3: bool; c3 = true && false; print(c3);
+  var c4: bool; c4 = false || true; print(c4);
+  var c5: bool; c5 = !false; print(c5);
+  
+  var a6: int; a6 = 5 + 3; print(a6);
+  var a7: int; a7 = 10 - 7; print(a7);
+  var a8: int; a8 = 2 * 6; print(a8);
+  var a9: int; a9 = 15 / 3; print(a9);
+  
+  var b6: string; b6 = "foo" + "bar"; print(b6);
+  var b7: string; b7 = "baz" + "qux"; print(b7);
+  var b8: string; b8 = "1" + "2"; print(b8);
+  var b9: string; b9 = "3" + "4"; print(b9);
+  var b10: string; b10 = "hello " + "world"; print(b10);
+  
+   var c6: bool; c6 = 5 > 3; print(c6);
+  var c7: bool; c7 = 10 < 7; print(c7);
+  var c8: bool; c8 = 5 >= 5; print(c8);
+  var c9: bool; c9 = 6 <= 6; print(c9);
+  var c10: bool; c10 = 3 != 4; print(c10);
+
+  var a11: int; a11 = 100 + 200; print(a11);
+  var a12: int; a12 = 300 - 150; print(a12);
+  var a13: int; a13 = 50 * 2; print(a13);
+  var a14: int; a14 = 40 / 5; print(a14);
+  
+  var b11: string; b11 = "x" + "y"; print(b11);
+  var b12: string; b12 = "1" + "0"; print(b12);
+  var b13: string; b13 = "concat" + "enate"; print(b13);
+  var b14: string; b14 = "join" + "ed"; print(b14);
+  var b15: string; b15 = "string" + "test"; print(b15);
+
+  var c11: bool; c11 = 100 == 100; print(c11);
+  var c12: bool; c12 = 200 != 300; print(c12);
+  var c13: bool; c13 = 5 + 3 > 7; print(c13);
+  var c14: bool; c14 = 6 * 2 < 20; print(c14);
+  var c15: bool; c15 = !true; print(c15);
+  
+}
+
+
+/*
+*OUT*
+1
+100
+-5
+0
+123456
+hello
+world
+||
+|foo|
+|bar|
+true
+false
+false
+true
+true
+8
+3
+12
+5
+foobar
+bazqux
+12
+34
+hello world
+true
+false
+true
+true
+true
+300
+150
+100
+8
+xy
+10
+concatenate
+joined
+stringtest
+true
+true
+true
+true
+false
+*OUT*
+*/

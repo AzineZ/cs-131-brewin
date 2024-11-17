@@ -1,0 +1,18 @@
+struct a {
+  name : string;
+}
+
+func main() : void {
+  foo(nil);
+}
+
+func foo(a : a) : void {
+  print("hi");
+}
+
+
+/*
+*OUT*
+hi
+*OUT*
+*/

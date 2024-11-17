@@ -1,0 +1,25 @@
+struct dog {
+  name: string;
+  vaccinated: bool;  
+}
+
+func main() : void {
+  var d: dog;
+  d = new dog;
+  d.name = "First";
+  steal_dog(d);
+  print(d.name);
+  }
+
+func steal_dog(d : dog) : void {
+  var d2 : dog;
+  d2 = new dog;
+  d2.name = "Ken";
+  d = d2;
+}
+
+/*
+*OUT*
+First
+*OUT*
+*/

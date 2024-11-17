@@ -1,0 +1,19 @@
+struct foo {
+  a:int;
+  b:bool;
+  c:string;
+}
+
+func main() : void {
+  var s1 : foo;
+  var s2 : foo;
+  s1 = new foo;
+  s2 = s1;
+  s2.c = "haha";
+  print(s1.c);
+}
+/*
+*OUT*
+haha
+*OUT*
+*/

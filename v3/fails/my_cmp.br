@@ -1,0 +1,13 @@
+func main() : void {
+    var x : int;
+    var y : bool;
+    var z: string;
+    print(y == nil);
+}
+
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

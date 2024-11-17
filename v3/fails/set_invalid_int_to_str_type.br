@@ -1,0 +1,16 @@
+func main() : void {
+	var my_int: int;
+    print("my_int default is: ");
+    print(my_int);
+    my_int = 5;
+    print("Success, my_int set to: ");
+    print(my_int);
+    my_int = "hello";
+    print("WE SHOULD NOT SEE THIS PRINT");
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

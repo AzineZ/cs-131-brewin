@@ -1,0 +1,17 @@
+func create() : undefined_struct {
+    var p: undefined_struct;
+    return p;
+}
+
+func main() : void {
+    var x: undefined_struct;
+    x = create();
+}
+
+
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

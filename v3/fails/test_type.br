@@ -1,0 +1,16 @@
+func main() : void {
+  var x : int;
+  
+  foo(true);
+  foo(false);
+}
+
+func foo(x: int) : void {
+  print("Coerced result:", x);
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

@@ -1,0 +1,59 @@
+func main() : void {
+  var a : int;
+  var b : bool;
+
+  b = a == 0;
+  print(b);
+  b = a != 0;
+  print(b);
+  b = a && 1;
+  print(b);
+  b = a && 0;
+  print(b);
+  b = a || 1;
+  print(b);
+  b = a || 0;
+  print(b);
+  b = a < 1;
+  print(b);
+  b = a > -1;
+  print(b);
+  b = a + 1 && a - 1;
+  print(b);
+  b = a - 1 || a + 1;
+  print(b);
+  b = (a + 1) > (a - 1);
+  print(b);
+  b = (a - 1) < (a + 1);
+  print(b);
+  b = (a && 1) || (a || 0);
+  print(b);
+  b = (a || 1) && (a && 0);
+  print(b);
+  b = (a + 1) <= 0;
+  print(b);
+  b = (a - 1) >= 0;
+  print(b);
+}
+
+
+/*
+*OUT*
+true
+false
+false
+false
+true
+false
+true
+true
+true
+true
+true
+true
+false
+false
+false
+false
+*OUT*
+*/

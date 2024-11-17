@@ -1,0 +1,20 @@
+func check_flag(flag: bool) : void {
+    print(flag);
+}
+
+func main() : void {
+    var n: int;
+
+    n = 10;
+    check_flag(n);
+
+    n = 0;
+    check_flag(n);
+}
+
+/*
+*OUT*
+true
+false
+*OUT*
+*/

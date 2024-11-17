@@ -1,0 +1,22 @@
+func main() : void {
+  var a: int;
+  var b: int;
+  var result: bool;
+  
+  a = 7;
+  b = 3;
+  print("a:", a, "b:", b);
+
+  result = (a + b == 10) && (a > b);
+  print("Result of complex expression:", result);
+
+  var s: string;
+  s = "Value of a is " + a;
+  print(s);
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

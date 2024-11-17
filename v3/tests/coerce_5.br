@@ -1,0 +1,17 @@
+func main() : void {
+    var a:int;
+    var b:int;
+    var c:int;
+    a = 0;
+    b = 5;
+    c = -1;
+    if (a || b && c) {
+        print("Yay");
+    }
+}
+
+/*
+*OUT*
+Yay
+*OUT*
+*/

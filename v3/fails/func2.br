@@ -1,0 +1,13 @@
+func invalid_return() : void {
+    return 42;
+}
+
+func main() : void {
+    invalid_return();
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

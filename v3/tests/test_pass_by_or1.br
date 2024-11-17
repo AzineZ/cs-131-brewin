@@ -1,0 +1,25 @@
+struct foo {
+  a:int;
+}
+
+func main() : int {
+  var f: foo; 
+  f = new foo;
+  var ten: int;
+  ten = 10;
+  f.a = ten;
+  foo(f);
+  print(f.a);
+  print(ten);
+}
+
+func foo(x:foo) : void {
+  x.a = 20;
+}
+
+/*
+*OUT*
+20
+10
+*OUT*
+*/

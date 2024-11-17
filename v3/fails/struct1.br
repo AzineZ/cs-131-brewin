@@ -1,0 +1,10 @@
+func main() : void {
+    var x: undefined_struct;
+    x = new undefined_struct;
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

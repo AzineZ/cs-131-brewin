@@ -1,0 +1,16 @@
+func main () : void {
+  var a : int;
+  a = fooa();
+  print(a);
+}
+
+func fooa() : int {
+  return;
+}
+
+
+/*
+*OUT*
+0
+*OUT*
+*/

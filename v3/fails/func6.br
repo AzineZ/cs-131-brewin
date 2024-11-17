@@ -1,0 +1,14 @@
+func return_string() : int {
+    return "Hello";
+}
+
+func main() : void {
+    var x: int;
+    x = return_string();
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

@@ -1,0 +1,9 @@
+func main () : void {
+  print(!5);
+}
+
+/*
+*OUT*
+false
+*OUT*
+*/

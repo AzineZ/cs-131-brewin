@@ -1,0 +1,15 @@
+func return_bool_instead_of_int() : int {
+    return true;
+}
+
+func main() : void {
+    var x: int;
+    x = return_bool_instead_of_int();
+}
+
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

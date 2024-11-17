@@ -1,0 +1,14 @@
+func main(): void {
+  var b: int;
+  b = 10;
+  print(b);  
+}
+
+/*
+*IN*
+10
+*IN*
+*OUT*
+10
+*OUT*
+*/

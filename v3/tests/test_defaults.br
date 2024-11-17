@@ -1,0 +1,18 @@
+func main() : void {
+	var default_int: int;
+    print(default_int);
+    var default_bool: bool;
+    print(default_bool);
+    var default_str: string;
+    print(default_str);
+    print("default_str printed above is empty");
+}
+
+/*
+*OUT*
+0
+false
+
+default_str printed above is empty
+*OUT*
+*/

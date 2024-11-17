@@ -1,0 +1,13 @@
+func main(): void {
+  foo(5,"bar",false);
+}
+
+func foo(a: int,b: string,c: bool): void {
+  print(a,b,c);
+}
+
+/*
+*OUT*
+5barfalse
+*OUT*
+*/

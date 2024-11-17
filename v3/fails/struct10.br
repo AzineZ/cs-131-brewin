@@ -1,0 +1,22 @@
+struct contact {
+    phone: int;
+    email: string;
+}
+
+struct user {
+    id: int;
+    contact_info: contact;
+}
+
+func main() : void {
+    var u: user;
+    u = new user;
+    u.contact_info.phone = "not_an_int"; 
+    print(u.contact_info.non_existent);
+}
+
+/*
+*OUT*
+ErrorType.FAULT_ERROR
+*OUT*
+*/

@@ -1,0 +1,17 @@
+func foo(x: int): void {
+  var y: int;
+  y = 5;
+  print(x);
+}
+
+func main(): void {
+  var y: int;
+  y = 10;
+  foo(y);
+}
+
+/*
+*OUT*
+10
+*OUT*
+*/

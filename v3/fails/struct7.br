@@ -1,0 +1,22 @@
+struct address {
+    street: string;
+    zipcode: int;
+}
+
+struct person {
+    name: string;
+    address: address;
+}
+
+func main() : void {
+    var p: person;
+    p = new person;
+    p.address.street = 12345;
+    p.address.non_existent_field = "test";
+}
+
+/*
+*OUT*
+ErrorType.FAULT_ERROR
+*OUT*
+*/

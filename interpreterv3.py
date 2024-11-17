@@ -79,7 +79,8 @@ class Interpreter(InterpreterBase):
             "var_not_defined": (ErrorType.NAME_ERROR, f"Variable {item} does not exist or is out of scope!"),
             "func_not_defined": (ErrorType.NAME_ERROR, f"Function {item} not defined or wrong number of arguments!"),
             "invalid_func_call": (ErrorType.NAME_ERROR, f"Function {item} called invalidly!"),
-            "invalid_params_to_inputi": (ErrorType.NAME_ERROR, "No inputi() function found that takes > 1 parameter")
+            "invalid_params_to_inputi": (ErrorType.NAME_ERROR, "No inputi() function found that takes > 1 parameter"),
+            "invalid_field_type": (ErrorType.TYPE_ERROR, "Invalid field type in struct {item}!")
         }
         
         error_type, message = error_map.get(error_type, (ErrorType.NAME_ERROR, f"Unknown error: {error_type}"))
@@ -422,8 +423,6 @@ class Interpreter(InterpreterBase):
             # result is a dict if it references an allocated struct (for new operator)
             if target_type is not None and target_type != struct_type or isinstance(result, dict) and result.get('type') != struct_type:
                 self.report_error(var_name, "invalid_type_assignment")
-            # if self.match_type(result, struct_type) is False:                       #rhs is a value
-            #     self.report_error(var_name, "invalid_type_assignment")
         
         # Type check for regular variable assignment
         elif self.do_type_comp(existing_value, result) is False:
@@ -728,41 +727,24 @@ class Interpreter(InterpreterBase):
 
 # def main():  # COMMENT THIS ONCE FINISH TESTING
 #     program = """
-# struct A {x: int;}
-# struct B {x: int;}
-
-# func main(): void {
-#   var a: A;
-#   var b: B;
-#   a = getAnil();
-#   b = getBnil();
-#   print(a);
-#   print(b);
-#   print("fine so far");
-#   getB();
-#   return;
+# struct movie {
+#     title: string;
+#     rating: float;
 # }
 
-# func getA() : A {
-#   var b: B;
-#   b = nil;
-#   return b;
+# func incorrect_return_in_conditional(flag: bool) : movie {
+#     var m: movie;
+#     if (flag) {
+#         return m;
+#     } else {
+#         return 5;
+#     }
 # }
 
-# func getB() : B {
-#   var a: A;
-#   a = nil;
-#   return a;
+# func main() : void {
+#     var film: movie;
+#     film = incorrect_return_in_conditional(false);
 # }
-
-# func getAnil() : A {
-#   return nil;
-# }
-
-# func getBnil() : B {
-#   return nil;
-# }
-
 #             """
 
 #     interpreter = Interpreter()

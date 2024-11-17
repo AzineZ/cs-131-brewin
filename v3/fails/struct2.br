@@ -1,0 +1,16 @@
+struct person {
+    name: string;
+}
+
+func main() : void {
+    var p: person;
+    p = new person;
+    print(p.age);
+}
+
+
+/*
+*OUT*
+ErrorType.NAME_ERROR
+*OUT*
+*/

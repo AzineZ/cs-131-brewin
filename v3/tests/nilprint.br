@@ -1,0 +1,19 @@
+struct person {
+  name : string;
+  alive : bool;
+  age: int; 
+}
+
+func main() : void {
+  var a : person;
+  a = new person;
+  a = nil;
+  print(a);
+}
+
+
+/*
+*OUT*
+nil
+*OUT*
+*/

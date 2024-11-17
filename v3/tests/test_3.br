@@ -1,0 +1,21 @@
+func main() : void {
+  print(5 || false);
+  var a:int;
+  a = 1;
+  if (a) {
+    print("if works on integers now!");
+  }
+  foo(a-1);
+}
+
+func foo(b : bool) : void {
+  print(b);
+}
+
+/*
+*OUT*
+true
+if works on integers now!
+false
+*OUT*
+*/

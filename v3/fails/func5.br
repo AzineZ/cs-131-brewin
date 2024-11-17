@@ -1,0 +1,15 @@
+func nothing() : void {
+    print("X");
+}
+
+func main() : void {
+    if (nothing()) {
+        print("This should not print");
+    }
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

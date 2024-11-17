@@ -1,0 +1,40 @@
+struct flea {
+  age: int;
+  infected : bool;
+}
+
+struct dog {
+  name: string;
+  vaccinated: bool;  
+  companion: flea;
+}
+
+func main() : void {
+  var d: dog;     
+  d = new dog;   /* sets d object reference to point to a dog structure */
+
+  print(d.vaccinated); /* prints false - default bool value */
+  print(d.companion); /* prints nil - default struct object reference */
+
+  /* we may now set d's fields */
+  d.name = "Koda";
+  d.vaccinated = true;
+  d.companion = new flea;
+  d.companion.age = 3; 
+    
+  print(d.name);
+  print(d.vaccinated);
+  print(d.companion.age);
+  print(d.companion.infected);
+}
+
+/*
+*OUT*
+false
+nil
+Koda
+true
+3
+false
+*OUT*
+*/

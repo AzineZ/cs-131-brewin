@@ -1,0 +1,54 @@
+struct Dog {
+  name: string;
+  age: int;
+  vaccinated: bool;
+}
+
+func main() : void {
+  var d1: Dog;
+  var d2: Dog;
+
+  /* Initialize struct objects */
+  d1 = new Dog;
+  d1.name = "Buddy";
+  d1.age = 5;
+  d1.vaccinated = true;
+
+  d2 = new Dog;
+  d2.name = "Buddy";
+  d2.age = 5;
+  d2.vaccinated = true;
+
+  var d3: Dog;
+  d3 = new Dog;
+  d3.name = "Rex";
+  d3.age = 3;
+  d3.vaccinated = false;
+
+  /* Comparison Tests */
+  print(d1 == d2);  /* Should print false, as they are different instances */
+  print(d1 != d2);  /* Should print true, as they are different instances */
+
+  print(d1 == d1);  /* Should print true, as it compares the same instance */
+  print(d1 != d3);  /* Should print true, as the structs have different values */
+
+  var d4: Dog; /* d4 is nil */
+  print(d4 == nil);  /* Should print true, d4 is nil */
+  print(d4 != nil);  /* Should print false, d4 is nil */
+
+  print(d1 == nil);  /* Should print false, d1 is not nil */
+  print(d1 != nil);  /* Should print true, d1 is not nil */
+}
+
+/*
+*OUT*
+false
+true
+true
+true
+true
+false
+false
+true
+*OUT*
+*/

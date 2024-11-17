@@ -1,0 +1,13 @@
+func return_int_instead_of_void() : void {
+    return 10;
+}
+
+func main() : void {
+    return_int_instead_of_void();
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

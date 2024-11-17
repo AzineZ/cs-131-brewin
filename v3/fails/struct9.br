@@ -1,0 +1,22 @@
+struct coordinates {
+    x: int;
+    y: int;
+}
+
+func get_coordinates() : coordinates {
+    var coord: coordinates;
+    coord = new coordinates;
+    coord.z = 10; 
+    return coord;
+}
+
+func main() : void {
+    var c: coordinates;
+    c = get_coordinates();
+}
+
+/*
+*OUT*
+ErrorType.NAME_ERROR
+*OUT*
+*/

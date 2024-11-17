@@ -1,0 +1,21 @@
+func main() : void {
+  var x: int;
+  x = 42;
+  print("Integer value:", x);
+
+  var y: string;
+  y = "hello";
+  print("String value:", "|", y, "|");
+
+  var z: bool;
+  z = false;
+  print("Boolean value:", z);
+}
+
+/*
+*OUT*
+Integer value:42
+String value:|hello|
+Boolean value:false
+*OUT*
+*/

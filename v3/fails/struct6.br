@@ -1,0 +1,16 @@
+struct outer {
+    inner_struct: undefined_struct;
+}
+
+func main() : void {
+    var o: outer;
+    o = new outer;
+    print(o.inner_struct.non_existent_field);
+}
+
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

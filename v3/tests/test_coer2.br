@@ -1,0 +1,21 @@
+func main() : void {
+    var x: int;
+    x = 0;
+    if (x) {
+        print("This should not print.");
+    } else {
+        print("Implicit int to bool conversion works for 0 as false.");
+    }
+
+    x = 1;
+    if (x) {
+        print("Implicit int to bool conversion works for non-zero as true.");
+    }
+}
+
+/*
+*OUT*
+Implicit int to bool conversion works for 0 as false.
+Implicit int to bool conversion works for non-zero as true.
+*OUT*
+*/

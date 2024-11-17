@@ -1,0 +1,17 @@
+func foo(a:int) : int {
+  return a+1;
+}
+
+func foo(a:string) : string {
+  return a + " hi";
+}
+
+func main(): void {
+   foo("hi");  /* not supported */
+}
+
+
+/*
+*OUT*
+*OUT*
+*/

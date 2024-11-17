@@ -1,0 +1,17 @@
+struct point {
+    x: int;
+    y: int;
+}
+
+func main() : void {
+    var p: point;
+    p = new point;
+    p.x = "string_value";
+}
+
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

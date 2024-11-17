@@ -1,0 +1,22 @@
+struct list {
+    val: int;
+}
+
+func foo(a: list) : list {
+    a.val = 1;
+    return a;
+}
+
+func main() : void {
+    var x : list;
+    x = new list;
+    x = foo(x);
+    print(x.val);
+}
+
+
+/*
+*OUT*
+1
+*OUT*
+*/

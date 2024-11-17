@@ -1,0 +1,12 @@
+func main() : void {
+    var x : bool;
+    x = !5;
+    print(x);
+}
+
+/* This test case is related to challenge3. */
+/*
+*OUT*
+false
+*OUT*
+*/

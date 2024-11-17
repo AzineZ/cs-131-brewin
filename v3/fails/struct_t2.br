@@ -1,0 +1,26 @@
+struct movie {
+    title: string;
+    rating: int;
+}
+
+func incorrect_return_in_conditional(flag: bool) : movie {
+    var m: movie;
+    m = new movie;
+    if (flag) {
+        return m;
+    } else {
+        return 5;
+    }
+}
+
+func main() : void {
+    var film: movie;
+    film = incorrect_return_in_conditional(false);
+}
+
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

@@ -1,0 +1,16 @@
+func main() : void {
+  var a: bool; 
+  a = true;
+  foo(a);
+  foo(false);
+}
+
+func foo(x:int) : void {
+  print(x);
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

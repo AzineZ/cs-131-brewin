@@ -1,0 +1,18 @@
+func main() : void {
+    var x: int;
+    var flag: bool;
+
+    x = 1;
+    flag = true;
+    
+    print(x == flag);  
+    print(x != flag);  
+}
+
+
+/*
+*OUT*
+true
+false
+*OUT*
+*/

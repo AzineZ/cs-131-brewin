@@ -1,0 +1,30 @@
+func main() : void {
+  var x: int;
+  x = 100;
+  print("Initial x:", x);
+  x = x - 50;
+  print("Updated x:", x);
+
+  var y: string;
+  y = "start";
+  print("Initial y:", y);
+  y = y + " end";
+  print("Updated y:", y);
+
+  var z: bool;
+  z = true;
+  print("Initial z:", z);
+  z = false;
+  print("Updated z:", z);
+}
+
+/*
+*OUT*
+Initial x:100
+Updated x:50
+Initial y:start
+Updated y:start end
+Initial z:true
+Updated z:false
+*OUT*
+*/

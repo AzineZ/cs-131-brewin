@@ -1,0 +1,13 @@
+func main() : int {
+  print(foo());
+}
+
+func foo() : int {
+  return 1;
+}
+
+/*
+*OUT*
+1
+*OUT*
+*/

@@ -1,0 +1,14 @@
+func compare_nil(value: int) : bool {
+    return value == nil;
+}
+
+func main() : void {
+    var result: bool;
+    result = compare_nil(0);
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

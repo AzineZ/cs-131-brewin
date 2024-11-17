@@ -1,0 +1,16 @@
+func main() : void {
+	var my_str: string;
+    print("my_str default is: ");
+    print(my_str);
+    my_str = "hello";
+    print("Success, my_str set to: ");
+    print(my_str);
+    my_str = 5;
+    print("WE SHOULD NOT SEE THIS PRINT");
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

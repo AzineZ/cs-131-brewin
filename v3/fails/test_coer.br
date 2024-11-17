@@ -1,0 +1,19 @@
+func main() : void {
+    var result: bool;
+    result = is_positive(10);  
+    print(result); 
+
+    result = is_positive(-5); 
+    print(result); 
+}
+
+func is_positive(n: int) : int {
+    return n > 0; 
+}
+
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

@@ -1,0 +1,15 @@
+func main() : void {
+    var count: int;
+
+    for (count = 3; count; count = count - 1) {
+        print("Looping");
+    }
+}
+
+/*
+*OUT*
+Looping
+Looping
+Looping
+*OUT*
+*/

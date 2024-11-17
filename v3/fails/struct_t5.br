@@ -1,0 +1,20 @@
+struct x {
+    val:int;
+}
+
+struct y {
+    val:int;
+}
+
+func main() : void {
+    var a: x;
+    var b: y;
+    a = new y;
+}
+
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

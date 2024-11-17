@@ -1,0 +1,19 @@
+func main(): void {
+  var a: string;
+  var b: string;
+  var c: string;
+  var d: string;
+  a = "abc" + "def";
+  b = "abc";
+  c = "def";
+  d = b + c;
+  print(a);
+  print(d);
+}
+
+/*
+*OUT*
+abcdef
+abcdef
+*OUT*
+*/

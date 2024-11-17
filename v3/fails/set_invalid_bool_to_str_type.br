@@ -1,0 +1,16 @@
+func main() : void {
+	var my_bool: bool;
+    print("my_bool default is: ");
+    print(my_bool);
+    my_bool = true;
+    print("Success, my_bool set to: ");
+    print(my_bool);
+    my_bool = "hello";
+    print("WE SHOULD NOT SEE THIS PRINT");
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

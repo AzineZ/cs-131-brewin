@@ -1,0 +1,18 @@
+struct node {
+    next: node;
+}
+
+func main() : void {
+    var n: node;
+    if (n.next < nil) {
+        print("no print");
+    }
+}
+
+/*
+*OUT*
+ErrorType.FAULT_ERROR
+*OUT*
+*/
+
+

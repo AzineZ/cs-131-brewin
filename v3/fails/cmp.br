@@ -1,0 +1,10 @@
+func main() : void {
+    var result: bool;
+    result = nil == 5;
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

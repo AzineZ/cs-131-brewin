@@ -1,0 +1,15 @@
+func main(): void {
+  var a: int;
+  a = foo();
+  print(a);
+}
+
+func foo(): int {
+ return 5;
+}
+
+/*
+*OUT*
+5
+*OUT*
+*/

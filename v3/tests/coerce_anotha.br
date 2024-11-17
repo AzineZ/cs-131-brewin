@@ -1,0 +1,18 @@
+func main() : void {
+	/*coercion and then use it later*/
+	var my_int : int;
+	my_int = 5;
+    if (my_int || false) {
+      print("this should print");
+    }
+    print("what is my_int?");
+    print(my_int);
+}
+
+/*
+*OUT*
+this should print
+what is my_int?
+5
+*OUT*
+*/

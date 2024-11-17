@@ -1,0 +1,17 @@
+func main() : void {
+  returns_string();
+}
+
+func returns_string() : string {
+  return returns_int();
+}
+
+func returns_int() : int {
+  return;
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

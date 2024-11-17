@@ -1,0 +1,27 @@
+func main() : void {
+	var my_bool: bool;
+    print("my_bool default is: ");
+    print(my_bool);
+    my_bool = true;
+    print("Success, my_bool set to: ");
+    print(my_bool);
+    my_bool = 0;
+    print("Successful coercion. After setting bool to 0, my_bool is: ");
+    print(my_bool);
+    my_bool = 6;
+    print("Successful coercion. After setting bool to 6, my_bool is: ");
+    print(my_bool);
+}
+
+/*
+*OUT*
+my_bool default is: 
+false
+Success, my_bool set to: 
+true
+Successful coercion. After setting bool to 0, my_bool is: 
+false
+Successful coercion. After setting bool to 6, my_bool is: 
+true
+*OUT*
+*/

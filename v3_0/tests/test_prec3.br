@@ -1,0 +1,9 @@
+func main(): void {
+  print(-5 + 10*3);
+}
+
+/*
+*OUT*
+25
+*OUT*
+*/

@@ -1,0 +1,16 @@
+func main() : void {
+  var t: bool;
+  var f: bool;
+  var combined: bool;
+
+  t = true;
+  f = false;
+  combined = t && f || !f;
+  print("Combined boolean result:", combined);
+}
+
+/*
+*OUT*
+Combined boolean result:true
+*OUT*
+*/
