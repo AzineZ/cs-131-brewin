@@ -152,6 +152,7 @@ class Interpreter(InterpreterBase):
         self.func_table = {}
         self.struct_table = {}
         self.var_to_struct_type = {}
+        self.var_to_prims = {}
     
     # this is where we execute the body of a {} scope
     def run_func(self, func_node, args=None):
@@ -241,8 +242,6 @@ class Interpreter(InterpreterBase):
             return True
         elif expected_type == 'bool' and isinstance(value, bool) or expected_type == 'bool' and isinstance(value, int):
             return True
-        # elif expected_type == 'nil' and value is None:
-        #     return True
         elif expected_type == 'void' and value is None:
             return True
         return False
@@ -338,7 +337,6 @@ class Interpreter(InterpreterBase):
 
         if not isinstance(condition, bool):
             self.report_error(None, "invalid_if_condition")
-            #return
 
         self.create_env()
         if condition:
@@ -461,7 +459,7 @@ class Interpreter(InterpreterBase):
                     evaluated_args.append(self.copy_value(eval_arg))
                 else:
                     # Pass by object reference for structs
-                    if arg_type is not None and eval_arg is None:       #Thi 
+                    if arg_type is not None and eval_arg is None:       
                         evaluated_args.append((eval_arg, arg_type))
                     else:
                         evaluated_args.append(eval_arg)
@@ -474,8 +472,6 @@ class Interpreter(InterpreterBase):
             if origin == 'expression':
                 self.report_error(None, "print_in_expr")
             self.do_print(func_args)
-            # if origin == 'expression':
-            #     return None  # Return nil if print is called from an expression
         elif func_name == 'inputi':
             return self.do_inputi(func_args)
         elif func_name == 'inputs':
@@ -727,23 +723,14 @@ class Interpreter(InterpreterBase):
 
 # def main():  # COMMENT THIS ONCE FINISH TESTING
 #     program = """
-# struct movie {
-#     title: string;
-#     rating: float;
-# }
-
-# func incorrect_return_in_conditional(flag: bool) : movie {
-#     var m: movie;
-#     if (flag) {
-#         return m;
-#     } else {
-#         return 5;
-#     }
+# struct dog {
+#     name: string;
+#     vaccinated: bool;
 # }
 
 # func main() : void {
-#     var film: movie;
-#     film = incorrect_return_in_conditional(false);
+#     var d: cat;
+#     print("I should not be printed");
 # }
 #             """
 
