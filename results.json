@@ -1,43 +1,7 @@
 {
     "tests": [
         {
-            "name": "Correctness | test_assign2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | coer_comb",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | uninit_struct",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_coer2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Correctness | test_input1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | ref_obj",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | obj_ref3",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -49,25 +13,7 @@
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_assign6",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_nested_ret2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Correctness | test_and",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_inputi_arg",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -79,37 +25,7 @@
             "visibility": "visible"
         },
         {
-            "name": "Correctness | obj_ref2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_cmp2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Correctness | test_overload",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_print_inputi",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | default_returns_no_struct",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | self_ref_struct2",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -121,31 +37,7 @@
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_assign_combo",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | print_nil_obj_ref",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | coercion",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_assign3",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_inputi_no_arg",
+            "name": "Correctness | test_nil1",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -157,25 +49,7 @@
             "visibility": "visible"
         },
         {
-            "name": "Correctness | simple_coercion",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_8",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_coerce1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | return_a",
+            "name": "Correctness | test_nil_cmp",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -199,19 +73,7 @@
             "visibility": "visible"
         },
         {
-            "name": "Correctness | structs1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Correctness | test_strict_and_or",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_3",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -223,109 +85,13 @@
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_add_string",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | functions1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Correctness | test_cmp",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_math",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_defaults",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test9",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | coerce_anotha",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | nil_ret",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | or3",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | structs12",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_struct2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_7",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_if_copy",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | default_ret2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | default_returns1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | chall2_maybe",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Correctness | test_expr",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_6",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -361,30 +127,6 @@
             "visibility": "visible"
         },
         {
-            "name": "Correctness | nilprint",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_12",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_new_func",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | structs33",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Correctness | test_call1",
             "score": 1,
             "max_score": 1,
@@ -397,43 +139,7 @@
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_new_expr",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_add1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Correctness | test_concat_str",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | coer2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_5",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | coerce_struct",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -445,55 +151,13 @@
             "visibility": "visible"
         },
         {
-            "name": "Correctness | default_ret_1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | coer6",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_coer",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_11",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Correctness | test_legacy1",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_print_var",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Correctness | test_call2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_ret0",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_cond1",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -511,25 +175,7 @@
             "visibility": "visible"
         },
         {
-            "name": "Correctness | coer7",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Correctness | test_recur1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_10",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | functions",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -547,37 +193,7 @@
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_evil_scoping",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Correctness | test_static_scoping2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | param_passing",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | chall1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_objref",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_4",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -595,61 +211,13 @@
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_struct1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | structs35",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | default_returns2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | coer_2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | coerce_5",
+            "name": "Correctness | test_ret5",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | test_str_cmp",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_multi_dot",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | obj_ref1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_assign4",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_fact",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -667,7 +235,7 @@
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_print_const",
+            "name": "Correctness | test_nil2",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -680,24 +248,6 @@
         },
         {
             "name": "Correctness | test_int_cmp",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | corer5",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_if_return",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_pass_by_or1",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -721,49 +271,7 @@
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_assign1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | coerce4_confirm",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_assign_take_input",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_new_func3",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Correctness | test_concat_cmp",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | coercion_1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | nil_ret2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_operations",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -781,49 +289,7 @@
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_print_mult_args",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | structs_cmp",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Correctness | test_copy",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_bad_cmp",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | invalid_param_pass",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | struct9",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | cmp",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | set_invalid_int_to_str_type",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -841,37 +307,7 @@
             "visibility": "visible"
         },
         {
-            "name": "Incorrectness | my_cmp",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_bad_var1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | cmp2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Incorrectness | test_bad_expr4",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_cmp_void3",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_assign_nil",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -883,19 +319,7 @@
             "visibility": "visible"
         },
         {
-            "name": "Incorrectness | set_invalid_bool_to_str_type",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Incorrectness | test_case_sens1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_bad_compare",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -913,163 +337,13 @@
             "visibility": "visible"
         },
         {
-            "name": "Incorrectness | test_coerce1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | return4",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | return",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | void_ret",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Incorrectness | test_static_scoping1",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Incorrectness | struct3",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_bad_compare3",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | struct7",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_bad_compare2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | struct_t5",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | struct10",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | struct6",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | func6",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | func2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | struct2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | dup_definition",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | set_invalid_str_to_int_type",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | inconsistent_returns",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | struct5",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_bad_arith3",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | func5",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_bad_static_scoping4",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | struct_t2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_coer",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | struct_5_maybe",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_unknown_func_call",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_no_main",
+            "name": "Incorrectness | test_bad_expr8",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -1081,19 +355,7 @@
             "visibility": "visible"
         },
         {
-            "name": "Incorrectness | struct1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Incorrectness | test_dup_def",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | struct_t",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -1105,43 +367,7 @@
             "visibility": "visible"
         },
         {
-            "name": "Incorrectness | deref",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | return3",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_struct1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_bad_arith2",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Incorrectness | test_bad_expr6",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | set_invalid_str_to_bool_type",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_pass2",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -1153,37 +379,13 @@
             "visibility": "visible"
         },
         {
-            "name": "Incorrectness | test_invalid_operands1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
             "name": "Incorrectness | test_bad_expr2",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Incorrectness | test_bad_arith",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_assign1",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_type",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | test_bad_logical",
+            "name": "Incorrectness | test_bad_expr3",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
@@ -1195,7 +397,13 @@
             "visibility": "visible"
         },
         {
-            "name": "Incorrectness | test_assign5",
+            "name": "Incorrectness | test_bad_cond1",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | test_bad_expr7",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
