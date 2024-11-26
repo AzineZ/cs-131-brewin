@@ -1,0 +1,11 @@
+func main() {
+  var r;
+  r = 10;
+  raise r;
+}
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/
+

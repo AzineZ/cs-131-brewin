@@ -1,0 +1,17 @@
+func main() {
+ var a;
+ var b;
+ a = 10;
+ b = a + 1;
+ a = a + 10;
+ b = b + a;
+ print(a);
+ print(b);
+}
+
+/*
+*OUT*
+20
+31
+*OUT*
+*/

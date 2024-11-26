@@ -220,36 +220,13 @@ class Interpreter(InterpreterBase):
 
         return None
 
-def main():  # COMMENT THIS ONCE FINISH TESTING
-    program = """
-              func complex() {
-    var i;
-    for (i = 0; i < 5; i = i + 1) {
-        print("Outer loop: ", i);
-        if (i == 2) {
-            var j;
-            for (j = 0; j < 3; j = j + 1) {
-                print("  Inner loop: ", j);
-                if (j == 1) {
-                    return i * 10 + j;  
-                }
-                print("  This should print once for j = 0"); 
-            }
-            print("This should not print"); 
-        }
-        print("This should print for i = 0 and i = 1 only"); 
-    }
-    return 0; 
-}
-
-func main() {
-    var result;
-    result = complex();
-    print("Result is: ", result); 
-}
-            """
-
+def main():
     interpreter = Interpreter()
+
+    with open('./test.br', 'r') as f:
+        program = f.read()
+
     interpreter.run(program)
 
-main()
+if __name__ == '__main__':
+    main()

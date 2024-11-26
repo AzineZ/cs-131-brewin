@@ -14,7 +14,6 @@ from harness import (
     run_all_tests,
     get_score,
     write_gradescope_output,
-    write_gradescope_output_failure,
 )
 
 
@@ -55,7 +54,7 @@ class TestScaffold(AbstractTestScaffold):
             if expect_failure:
 
                 error_type, _ = interpreter.get_error_type_and_line()
-                received = [f"{error_type}"]
+                received = interpreter.get_output() + [f"{error_type}"]
 
                 if received == expected:
                     return 1
@@ -178,24 +177,8 @@ async def main():
         raise ValueError("Error: Missing version number argument")
     version = sys.argv[1]
     zero_credit = len(sys.argv) > 2 and sys.argv[2] == '--zero-credit'
-    is_prod = environ.get("PROD", False)
     module_name = f"interpreterv{version}"
-    try:
-        interpreter = importlib.import_module(module_name)
-        print(f"Module '{module_name}' imported successfully.")
-    except SyntaxError as e:
-        print(f"Syntax error in module '{module_name}': {e}")
-        write_gradescope_output_failure("Syntax error in submission. Test cases cannot run.", is_prod)
-        return
-    except ModuleNotFoundError as e:
-        print(f"ModuleNotFound error in module '{module_name}': {e}")
-        write_gradescope_output_failure(f"MissingModuleError ({e}) when loading submission. Possibly caused by"
-                                         "missing code file or incorrect file naming. Test cases cannot run.", is_prod)
-        return
-    except Exception as e:
-        print(f"Exception in module '{module_name}': {e}")
-        write_gradescope_output_failure("Failed to load submission module. Test cases cannot run.", is_prod)
-        return
+    interpreter = importlib.import_module(module_name)
 
     scaffold = TestScaffold(interpreter)
 
@@ -207,7 +190,7 @@ async def main():
         case "3":
             tests = generate_test_suite_v3()
         case "4":
-            tests = generate_test_suite_v4()    
+            tests = generate_test_suite_v4()
         case _:
             raise ValueError("Unsupported version; expect one of {1, 2, 3, 4}")
 
@@ -216,7 +199,7 @@ async def main():
     print(f"Total Score: {total_score:9.2f}%")
 
     # flag that toggles write path for results.json
-    write_gradescope_output(results, is_prod)
+    write_gradescope_output(results, environ.get("PROD", False))
 
 
 if __name__ == "__main__":

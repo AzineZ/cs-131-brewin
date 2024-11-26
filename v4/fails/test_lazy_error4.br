@@ -1,0 +1,13 @@
+func main() {
+ var a;
+ a = "a" <= "b";
+ print("---");
+ print(a);
+}
+
+/*
+*OUT*
+---
+ErrorType.TYPE_ERROR
+*OUT*
+*/

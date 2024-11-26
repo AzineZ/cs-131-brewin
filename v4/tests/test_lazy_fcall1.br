@@ -1,0 +1,23 @@
+func foo() {
+  print("foo");
+  return 4;
+}
+
+func main() {
+  foo();
+  print("---");
+  var x;
+  x = foo();
+  print("---");
+  print(x); 
+}
+
+/*
+*OUT*
+foo
+---
+---
+foo
+4
+*OUT*
+*/
