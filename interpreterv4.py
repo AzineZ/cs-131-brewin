@@ -1,6 +1,36 @@
 from intbase import InterpreterBase, ErrorType
 from brewparse import parse_program
 
+class LazyValue:
+    def __init__(self, expression, interpreter, environment):
+        """
+        Initialize a LazyValue with the expression, interpreter, and environment snapshot.
+        :param expression: AST node for the expression.
+        :param interpreter: Reference to the interpreter instance for evaluation.
+        :param environment: A copy of the current environment (variables).
+        """
+        self.expression = expression
+        self.interpreter = interpreter
+        self.saved_environment = environment.copy()
+        self.value = None
+        self.is_evaluated = False
+
+    def evaluate(self):
+        """
+        Evaluate the stored expression if not already evaluated.
+        Use the saved environment during evaluation.
+        :return: The evaluated value.
+        """
+        if not self.is_evaluated:
+            # Push saved environment onto the interpreter's stack
+            self.interpreter.vars.append((self.saved_environment, False))
+            # Evaluate the expression within the saved environment
+            self.value = self.interpreter.run_expr(self.expression)
+            self.is_evaluated = True
+            # Pop the environment stack
+            self.interpreter.vars.pop()
+        return self.value
+
 class Interpreter(InterpreterBase):
     def __init__(self, console_output=True, inp=None, trace_output=False):
         super().__init__(console_output, inp)
@@ -37,10 +67,17 @@ class Interpreter(InterpreterBase):
 
     def run_assign(self, statement):
         name = statement.get('name')
-
+        expression = statement.get('expression')
+        print(self.vars)
         for scope_vars, is_func in self.vars[::-1]:
             if name in scope_vars:
-                scope_vars[name] = self.run_expr(statement.get('expression'))
+                #scope_vars[name] = self.run_expr(statement.get('expression'))
+                type = expression.elem_type
+                if expression.elem_type in ['fcall', 'var', 'neg', '!'] or expression.elem_type in self.bops:
+                    scope_vars[name] = LazyValue(expression, self, self.vars[-1][0])
+                # else:
+                #     scope_vars[name] = self.run_expr(expression)
+                print(self.vars)
                 return
 
             if is_func: break
@@ -79,12 +116,13 @@ class Interpreter(InterpreterBase):
             super().error(ErrorType.NAME_ERROR, '')
 
         func_def = self.funcs[(fcall_name, len(args))]
-
         template_args = [a.get('name') for a in func_def.get('args')]
         passed_args = [self.run_expr(a) for a in args]
+        #passed_args = [LazyValue(a, self, self.vars[-1][0]) for a in args]
 
         self.vars.append(({k:v for k,v in zip(template_args, passed_args)}, True))
         res, _ = self.run_statements(func_def.get('statements'))
+        #print(self.vars)
         self.vars.pop()
 
         return res
@@ -162,7 +200,6 @@ class Interpreter(InterpreterBase):
 
     def run_expr(self, expr):
         kind = expr.elem_type
-
         if kind == 'int' or kind == 'string' or kind == 'bool':
             return expr.get('val')
 
@@ -170,8 +207,13 @@ class Interpreter(InterpreterBase):
             var_name = expr.get('name')
 
             for scope_vars, is_func in self.vars[::-1]:
+                #print(scope_vars)
                 if var_name in scope_vars:
-                    return scope_vars[var_name]
+                    #return scope_vars[var_name]
+                    val = scope_vars[var_name]
+                    if isinstance(val, LazyValue):
+                        val = val.evaluate()
+                    return val
 
                 if is_func: break
 
@@ -222,30 +264,12 @@ class Interpreter(InterpreterBase):
 
 def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """
-              func complex() {
-    var i;
-    for (i = 0; i < 5; i = i + 1) {
-        print("Outer loop: ", i);
-        if (i == 2) {
-            var j;
-            for (j = 0; j < 3; j = j + 1) {
-                print("  Inner loop: ", j);
-                if (j == 1) {
-                    return i * 10 + j;  
-                }
-                print("  This should print once for j = 0"); 
-            }
-            print("This should not print"); 
-        }
-        print("This should print for i = 0 and i = 1 only"); 
-    }
-    return 0; 
-}
-
 func main() {
-    var result;
-    result = complex();
-    print("Result is: ", result); 
+ var a;
+ var b;
+ a = 10;
+ a = a + 10;
+ print(a);
 }
             """
 
