@@ -1,0 +1,12 @@
+func main() {
+  var a;
+  a = print();
+  print(a == nil);
+}
+
+/*
+*OUT*
+
+true
+*OUT*
+*/

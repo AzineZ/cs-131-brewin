@@ -1,0 +1,22 @@
+func foo(a) {
+  raise a;
+  print("must not print");
+  return "404: return value not found";
+}
+
+func main() {
+  var x;
+  x = "lazy error";
+  print(x);
+  x = foo(x);
+  print("omae wa...");
+  print(x);
+}
+
+/*
+*OUT*
+lazy error
+omae wa...
+ErrorType.FAULT_ERROR
+*OUT*
+*/

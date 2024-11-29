@@ -1,0 +1,27 @@
+func foo() {
+  print("foo");
+  raise "foo";
+  print("must not print");
+  return 1;
+}
+
+func main() {
+  try {
+    print("before error");
+    foo();
+    print("after error");
+  }
+  catch "foo" {
+    print("error from foo");
+  }
+  print("normal exit");
+}
+
+/*
+*OUT*
+before error
+foo
+error from foo
+normal exit
+*OUT*
+*/

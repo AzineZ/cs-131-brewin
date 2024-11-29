@@ -1,0 +1,19 @@
+func main() {
+  var a;
+  var b;
+  print("entry");
+  a = inputi(1, 2, 3);
+  b = inputs("a", "b", "c");
+  print("all good, error was lazy");
+}
+
+/*
+*IN*
+123
+abc
+*IN*
+*OUT*
+entry
+all good, error was lazy
+*OUT*
+*/

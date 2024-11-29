@@ -1,0 +1,13 @@
+func main() {
+  x = foo();  /* generates NAME_ERROR immediately since x is undefined */
+              /* and x is not part of expression */
+  print("OK");
+  print(x);
+}
+
+
+/*
+*OUT*
+ErrorType.NAME_ERROR
+*OUT*
+*/

@@ -1,0 +1,29 @@
+func foo() {
+  print("first");
+  return 1;
+}
+
+func bar() {
+  print("second");
+  return 2;
+}
+
+func baz() {
+  print("third");
+  return 3;
+}
+
+func main() {
+  var x;
+  x = foo() + bar() * baz();
+  print(x);
+}
+
+/*
+*OUT*
+first
+second
+third
+7
+*OUT*
+*/

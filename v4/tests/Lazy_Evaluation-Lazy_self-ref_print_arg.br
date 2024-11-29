@@ -1,0 +1,22 @@
+func foo(a) {
+  print("in foo");
+  print(print("-") == a);
+}
+
+func main() {
+  var x;
+  x = 42;
+  x = print(x);
+  print("mark");
+  foo(x);
+}
+
+/*
+*OUT*
+mark
+in foo
+-
+42
+true
+*OUT*
+*/

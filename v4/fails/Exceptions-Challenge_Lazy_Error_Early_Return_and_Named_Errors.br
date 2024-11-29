@@ -1,0 +1,70 @@
+func main() {
+  var cz; cz = catchzy();
+  print("no error yet");
+  print(cz);
+}
+
+func catchzy() {
+  var r1;
+  var r2;
+  var r4;
+
+  r4 = lazy_fn(4, "");
+  r2 = lazy_fn(2, "");
+  r1 = lazy_fn(1, "");
+  try {
+    print(r2);
+  }
+  catch "AB" {
+    try {
+      print(r1);
+    }
+    catch "A" {
+      try {
+        return print(r4);
+      }
+      catch "ABCD" {
+        print("unreachable");
+      }
+      print("unreachable");
+    }
+    print("unreachable");
+  }
+
+  print("unreachable");
+}
+
+func lazy_fn(n, s) {
+  if (n == 0) {
+    raise s;
+    print("unreachable");
+  }
+  print(n);
+  return lazy_fn(n - 1, letter(n) + s);
+  print("unreachable");
+}
+
+func letter(n) {
+  if (n == 0) { return "0"; }
+  if (n == 1) { return "A"; }
+  if (n == 2) { return "B"; }
+  if (n == 3) { return "C"; }
+  if (n == 4) { return "D"; }
+  if (n == 5) { return "E"; }
+  if (n == 6) { return "F"; }
+  return X;
+}
+
+/*
+*OUT*
+no error yet
+2
+1
+1
+4
+3
+2
+1
+ErrorType.FAULT_ERROR
+*OUT*
+*/

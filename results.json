@@ -1,73 +1,679 @@
 {
     "tests": [
         {
-            "name": "Correctness | test_lazy_upd1",
+            "name": "Correctness | Exceptions-Challenge_Branching_Exceptions",
             "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_lazy_fcall1",
+            "name": "Correctness | Correctness_Autograder_Cases-test_exception_argument_1",
             "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_lazy_basic1",
-            "score": 0,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_except_basic2",
-            "score": 0,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | test_lazy_mutation1",
+            "name": "Correctness | Eager-Like_Behavior-nil_comparison",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_except_cond1",
+            "name": "Correctness | Legacy_V2_-_Operators-Boolean_Correctness",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Legacy_V2_-_Functions-Simple_Recursion_-_factorial",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Spec_Examples-Div0_Demo",
             "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_except_fcall1",
+            "name": "Correctness | Exceptions-Raise_to_Return_to_Catch",
             "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_short1",
+            "name": "Correctness | Lazy_Evaluation-Lazy_argument_correctness",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Lazy_Evaluation-Test_cached_eval",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Exceptions-Simple_Try_Catch_Hit",
             "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_lazy_cache1",
+            "name": "Correctness | Lazy_Evaluation-Deeply_Nested_Lazy_Evaluation_and_Cache",
             "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Correctness | test_except_arg1",
+            "name": "Correctness | Lazy_Evaluation-Override_Lazy_Input",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Lazy_Evaluation-Phantom_Print",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Correctness_Autograder_Cases-test_exception_condtion_1",
             "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Incorrectness | test_except2",
+            "name": "Correctness | Lazy_Evaluation-Phantom_Input",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Exceptions-Return_inside_Try_Catch_2",
             "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Incorrectness | test_lazy_error4",
+            "name": "Correctness | Eager-Like_Behavior-For-Return_Termination",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Correctness_Autograder_Cases-test_lazy_eval_mutation_1",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Spec_Examples-Except_Handling_Simple_Prog",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Exceptions-Try_Catch_Shadowing_Validity",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Lazy_Evaluation-Lazy_Invalid_Call_to_input",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Spec_Examples-Lazy_Error_Handling_example",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Legacy_V2_-_Functions-Simple_Call",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Legacy_V2_-_Input_and_Output-Input_Return_Type",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Spec_Examples-Shortcircuit_Eval_Example",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Lazy_Evaluation-Eager_for-stmt_header",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Lazy_Evaluation-Lazy_eval_outside_scope",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Exceptions-Try_Catch_Fallthrough",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Legacy_V2_-_Control_Flow-If-Statement_Shadowing",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Spec_Examples-Try_Catch_Example",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Lazy_Evaluation-Function_Order_of_Eval",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Spec_Examples-Lazy_Eval_Demo",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Exceptions-Eager_Try-Catch_FSM",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Exceptions-Short_Circuits_Avoid_Errors",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Legacy_V2_-_Input_and_Output-Print_Returns_nil",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Lazy_Evaluation-Lazy_self-ref_print_arg",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Eager-Like_Behavior-For-header_local_scope_access",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Exceptions-Except_within_expression",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Legacy_V2_-_Operators-Arithmetic_Correctness",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Legacy_V2_-_Functions-Early_Return",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Spec_Examples-Short_Circuiting_Example",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Exceptions-Try_Catch_Error_Unwinding",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Lazy_Evaluation-Lazy_self-ref_input_arg",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Legacy_V2_-_Control_Flow-For-Statement_Shadowing",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Legacy_V2_-_Functions-Call_Chain",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Legacy_V2_-_Functions-Pass_By_Value",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Lazy_Evaluation-Eager_input_func_call",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Correctness_Autograder_Cases-test_bool_shortcircuit_1",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Legacy_V2_-_Input_and_Output-Simple_User_Input",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Exceptions-Try_Catch_Scope_Unwinding",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Correctness_Autograder_Cases-test_lazy_eval_cache_1",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Lazy_Evaluation-Lazy_input_func_call",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Exceptions-Lazy_Try-Catch_FSM",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Eager-Like_Behavior-If-Return_Termination",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Legacy_V2_-_Control_Flow-Simple_For_Loop",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Lazy_Evaluation-Lazy_self-ref_fcall_arg",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Correctness_Autograder_Cases-test_exception_basic_2",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Correctness_Autograder_Cases-test_lazy_eval_basic_1",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Legacy_V2_-_Functions-Mutual_Recursion",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Exceptions-Return_inside_Try_Catch_1",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Eager-Like_Behavior-Sequential_Prints",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Lazy_Evaluation-Lazy_as_non-eval_param",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Legacy_V2_-_Operators-Mixed_Comparison",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Correctness_Autograder_Cases-test_lazy_eval_update_1",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Exceptions-Test_nested_try-catch",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Exceptions-Except_in_for-header",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Exceptions-Empty_String_is_a_valid_catch",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Exceptions-Indirect_Except_Catch",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Correctness_Autograder_Cases-test_exception_func_call_1",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Spec_Examples-Need_Semantics_Simple_Prog",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Correctness_Autograder_Cases-test_lazy_eval_func_call_1",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Legacy_V2_-_Control_Flow-Mixed_If-For",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Incorrectness_Autograder_Cases-text_exception_2",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Legacy_V2_-_Variables-Double_Declaration_Inside_If-Scope",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Legacy_V2_-_Operators-Type_Compat_-_Cond_Int",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Exceptions-Ill_formed_raise_statement_int",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Legacy_V2_-_Operators-Type_Compat_-_Arith_Bool",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Lazy_Evaluation-Eager_Invalid_Call_to_inputs",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Exceptions-Lazy_Uncaught_Division_by_Zero",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Exceptions-Name_Error_always_Falls_through",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Legacy_V2_-_Functions-No_Declaration_in_Function",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Legacy_V2_-_Operators-Type_Compat_-_Int_Bool",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Exceptions-Uncaught_Division_by_Zero",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Spec_Examples-Lazy_Error_Example",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Legacy_V2_-_Control_Flow-If-Statement_Condition_is_Boolean",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Exceptions-Deeply_Nested_Division_by_Zero",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Exceptions-Except_in_if-condition",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Exceptions-Ill_formed_raise_statement_nil",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Legacy_V2_-_Functions-Double_Declaration_in_Function",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Exceptions-Challenge_Lazy_Error_Early_Return_and_Named_Errors",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Exceptions-Lazy_Uncaught_Raised_Error",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Spec_Examples-Eager_error_example",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Exceptions-Uncaught_Raised_Error",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Incorrectness_Autograder_Cases-test_lazy_eval_error_4",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Legacy_V2_-_Control_Flow-If-Statement_Scope_Lifetime",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Lazy_Evaluation-Lazy_Undef_Func_Error",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Exceptions-Try_Catch_Shadowing",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Lazy_Evaluation-Lazy_Undef_Func_and_Vars_Error",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Legacy_V2_-_Control_Flow-For-Statement_Condition_is_Boolean",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Spec_Examples-Lazy_Eval_Example",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Legacy_V2_-_Variables-Double_Declaration",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Exceptions-Bad_variable_value_for_raise_(lazy)",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Spec_Examples-Lazy_Raise_in_Function_Example",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Legacy_V2_-_Variables-Declaration_and_Assignment",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Exceptions-Simple_Try_Catch_Miss",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Legacy_V2_-_Functions-Invalid_Parameter_Shadow",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Lazy_Evaluation-Lazy_Undef_Var_Error",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Exceptions-Deeply_Nested_Lazy_Error",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Lazy_Evaluation-Eager_Invalid_Call_to_inputi",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Legacy_V2_-_Variables-Double_Declaration_Inside_For-Scope",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Exceptions-Ill_formed_raise_statement_bool",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Legacy_V2_-_Operators-Type_Compat_-_Unary_Bool",
+            "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Exceptions-Type_Error_always_Falls_through",
             "score": 0,
             "max_score": 1,
             "visibility": "visible"

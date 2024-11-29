@@ -1,0 +1,48 @@
+func main() {
+  var X;
+  var A;
+  var B;
+  var C;
+  var D;
+  var E;
+
+  A = true;
+  B = 5 < 3;
+  C = nil != nil;
+  D = false;
+  E = 0 >= 0;
+
+  print(A);
+  print(B);
+  print(C);
+  print(D);
+  print(E);
+
+  X = ((A || !B) && (C || D)) || (!(A && C) && (B || !E));
+  if (X) {
+    print("X = True");
+  } else {
+    print("X = False");
+  }
+
+  if (inputi("...") < -5) {
+    C = true;
+    print("X = ", ((A || !B) && (C || D)) || (!(A && C) && (B || !E)));
+  }
+}
+
+/*
+*IN*
+-100
+*IN*
+*OUT*
+true
+false
+false
+false
+true
+X = False
+...
+X = true
+*OUT*
+*/

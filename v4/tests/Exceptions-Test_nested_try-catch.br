@@ -1,0 +1,32 @@
+func ferr() {
+  raise "ferr";
+}
+
+func main() {
+  try {
+    print(5, "asd", nil == nil, false, ferr());
+  }
+  catch "ferr" {
+    print("first catch");
+    try {
+      inputs(ferr());
+    }
+    catch "ferr" {
+      print("second catch");
+      try {
+        inputi(ferr());
+      }
+      catch "ferr" {
+        print("last catch");
+      }
+    }
+  }
+}
+
+/*
+*OUT*
+first catch
+second catch
+last catch
+*OUT*
+*/

@@ -1,0 +1,23 @@
+func error_function() {
+  raise "error";
+  return 0;
+}
+
+func main() {
+  var x;
+  x = error_function() + 10;  /* Exception occurs when x is evaluated */
+  print("Before x is evaluated");
+  try {
+    print(x);  /* Evaluation of x happens here */
+  }
+  catch "error" {
+    print("Caught an error during evaluation of x");
+  }
+}
+
+/*
+*OUT*
+Before x is evaluated
+Caught an error during evaluation of x
+*OUT*
+*/

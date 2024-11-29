@@ -1,0 +1,14 @@
+func main() {
+  var i;
+  for (i = 8; i > 0; i = i - 3) {
+    print(i);
+  }
+}
+
+/*
+*OUT*
+8
+5
+2
+*OUT*
+*/

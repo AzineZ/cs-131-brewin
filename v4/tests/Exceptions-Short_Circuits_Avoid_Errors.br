@@ -1,0 +1,51 @@
+func dyn_err(b, e) {
+  print(b, ":", e);
+  if (b) {
+    raise e;
+  }
+  return e;
+}
+
+func main() {
+  var x1; var x2; var x3; var x4;
+  var x5; var x6; var x7; var x8;
+  x1 = (dyn_err(false, true) || dyn_err(false, "avoid1")) && (dyn_err(false, false) && dyn_err(false, "avoid2"));
+  x2 = (dyn_err(false, true) || 0) && (dyn_err(false, false) && 0);
+  x3 = (dyn_err(false, true) || "0") && (dyn_err(false, false) && "0");
+  x4 = (dyn_err(false, true) || nil) && (dyn_err(false, false) && nil);
+  x5 = (dyn_err(false, true) || no_var) && (dyn_err(false, false) && no_var);
+  x6 = (dyn_err(false, true) || no_func()) && (dyn_err(false, false) && no_func());
+  x7 = (dyn_err(false, true) || inputi(1,2)) && (dyn_err(false, false) && inputi(1,2));
+  x8 = (dyn_err(false, true) || inputs(1,2)) && (dyn_err(false, false) && inputs(1,2));
+  print(x1); print(x2); print(x3); print(x4);
+  print(x5); print(x6); print(x7); print(x8);
+}
+
+/*
+*OUT*
+false:true
+false:false
+false
+false:true
+false:false
+false
+false:true
+false:false
+false
+false:true
+false:false
+false
+false:true
+false:false
+false
+false:true
+false:false
+false
+false:true
+false:false
+false
+false:true
+false:false
+false
+*OUT*
+*/

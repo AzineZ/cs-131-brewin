@@ -1,0 +1,15 @@
+func main() {
+  var a;
+  if (true) {
+    var a;
+    print("no error yet");
+    var a;
+  }
+}
+
+/*
+*OUT*
+no error yet
+ErrorType.NAME_ERROR
+*OUT*
+*/

@@ -1,0 +1,13 @@
+func main() {
+  var a;
+  print("entry");
+  inputs("a", "b", "c");
+  print("eager error was not raised");
+}
+
+/*
+*OUT*
+entry
+ErrorType.NAME_ERROR
+*OUT*
+*/

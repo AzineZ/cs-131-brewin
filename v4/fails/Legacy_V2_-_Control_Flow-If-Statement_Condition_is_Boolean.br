@@ -1,0 +1,11 @@
+func main() {
+  if (1) {
+    print("Condition MUST be boolean. This is int.");
+  }
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

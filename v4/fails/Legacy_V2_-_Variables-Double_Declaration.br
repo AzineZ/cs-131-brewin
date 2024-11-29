@@ -1,0 +1,10 @@
+func main() {
+  var a;
+  var a;
+}
+
+/*
+*OUT*
+ErrorType.NAME_ERROR
+*OUT*
+*/

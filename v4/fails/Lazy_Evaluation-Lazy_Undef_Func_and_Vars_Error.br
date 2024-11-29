@@ -1,0 +1,13 @@
+func main() {
+  var a;
+  a = foo(a ,b, c, d, e);
+  print("should not crash yet");
+  print(x);
+}
+
+/*
+*OUT*
+should not crash yet
+ErrorType.NAME_ERROR
+*OUT*
+*/

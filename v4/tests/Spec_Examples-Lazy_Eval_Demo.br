@@ -1,0 +1,40 @@
+func foo() {
+  print("eager call");
+  return 96;
+}
+
+func bar() {
+  print("must never be seen");
+  raise "foobar";
+  return 1 / 0;
+}
+
+func pcall() {
+  print("x");
+  foo();
+  inputi("Enter a number");
+  var a;
+  var n;
+  a = bar();
+  n = inputi("Enter a number");
+  return (print(n) == nil);
+}
+
+func main() {
+  print(pcall());
+}
+
+/*
+*IN*
+5
+42
+*IN*
+*OUT*
+x
+eager call
+Enter a number
+Enter a number
+42
+true
+*OUT*
+*/

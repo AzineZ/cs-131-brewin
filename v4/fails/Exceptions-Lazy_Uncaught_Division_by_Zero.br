@@ -1,0 +1,20 @@
+func foo(a) {
+  return a / 0;
+}
+
+func main() {
+  var x;
+  x = 123;
+  print(x);
+  x = foo(x);
+  print("omae wa...");
+  print(x);
+}
+
+/*
+*OUT*
+123
+omae wa...
+ErrorType.FAULT_ERROR
+*OUT*
+*/

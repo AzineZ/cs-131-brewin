@@ -1,0 +1,13 @@
+func get_42() {
+  return 42;
+}
+
+func main() {
+  print(get_42());
+}
+
+/*
+*OUT*
+42
+*OUT*
+*/

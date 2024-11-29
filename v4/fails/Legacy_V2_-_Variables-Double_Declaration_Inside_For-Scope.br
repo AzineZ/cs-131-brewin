@@ -1,0 +1,20 @@
+func main() {
+  var a;
+  for (a = 0; false; a = a) {
+    var a;
+    print("never happens");
+    var a;
+  }
+  for (a = 0; true; a = a) {
+    var a;
+    print("no error yet");
+    var a;
+  }
+}
+
+/*
+*OUT*
+no error yet
+ErrorType.NAME_ERROR
+*OUT*
+*/

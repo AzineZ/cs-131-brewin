@@ -1,0 +1,51 @@
+func foo() {
+  var x;
+}
+
+func bar() {
+  return;
+}
+
+func baz() {
+  return nil;
+}
+
+func main() {
+  var a;
+  var b;
+  var c;
+  c = foo();
+  print(a == b);
+  print(a == 0);
+  print(a == false);
+  print(nil == b);
+  print(nil == 0);
+  print(nil == false);
+  print(c == b);
+  print(c == 0);
+  print(c == false);
+  print(foo() != bar());
+  print(bar() != baz());
+  print(baz() != foo());
+  c = print(baz() != foo());
+  print(c == nil);
+}
+
+/*
+*OUT*
+true
+false
+false
+true
+false
+false
+true
+false
+false
+false
+false
+false
+false
+true
+*OUT*
+*/

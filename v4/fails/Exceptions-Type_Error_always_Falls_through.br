@@ -1,0 +1,17 @@
+func main() {
+  try {
+    var a;
+    a = 1 + "1";
+    print(a);
+  }
+  catch "no match" {
+    print("must not print");
+  }
+  print("must not print");
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

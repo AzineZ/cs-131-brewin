@@ -1,26 +1,16 @@
 from intbase import InterpreterBase, ErrorType
 from brewparse import parse_program
+import copy
 
 class LazyValue:
     def __init__(self, expression, interpreter, environment):
-        """
-        Initialize a LazyValue with the expression, interpreter, and environment snapshot.
-        :param expression: AST node for the expression.
-        :param interpreter: Reference to the interpreter instance for evaluation.
-        :param environment: A copy of the current environment (variables).
-        """
         self.expression = expression
         self.interpreter = interpreter
-        self.saved_environment = environment.copy()
+        self.saved_environment = copy.deepcopy(environment)
         self.value = None
         self.is_evaluated = False
 
     def evaluate(self):
-        """
-        Evaluate the stored expression if not already evaluated.
-        Use the saved environment during evaluation.
-        :return: The evaluated value.
-        """
         if not self.is_evaluated:
             # Push saved environment onto the interpreter's stack
             self.interpreter.vars.append((self.saved_environment, False))
@@ -56,6 +46,8 @@ class Interpreter(InterpreterBase):
             super().error(ErrorType.NAME_ERROR, '')
 
         self.run_fcall(self.funcs[main_key])
+        self.funcs = {}
+        self.vars = []
 
     def run_vardef(self, statement):
         name = statement.get('name')
@@ -68,16 +60,16 @@ class Interpreter(InterpreterBase):
     def run_assign(self, statement):
         name = statement.get('name')
         expression = statement.get('expression')
-        print(self.vars)
+        # print(self.vars)
         for scope_vars, is_func in self.vars[::-1]:
             if name in scope_vars:
                 #scope_vars[name] = self.run_expr(statement.get('expression'))
                 type = expression.elem_type
                 if expression.elem_type in ['fcall', 'var', 'neg', '!'] or expression.elem_type in self.bops:
                     scope_vars[name] = LazyValue(expression, self, self.vars[-1][0])
-                # else:
-                #     scope_vars[name] = self.run_expr(expression)
-                print(self.vars)
+                else:
+                    scope_vars[name] = self.run_expr(expression)
+                #print(self.vars)
                 return
 
             if is_func: break
@@ -117,8 +109,8 @@ class Interpreter(InterpreterBase):
 
         func_def = self.funcs[(fcall_name, len(args))]
         template_args = [a.get('name') for a in func_def.get('args')]
-        passed_args = [self.run_expr(a) for a in args]
-        #passed_args = [LazyValue(a, self, self.vars[-1][0]) for a in args]
+        # passed_args = [self.run_expr(a) for a in args]
+        passed_args = [LazyValue(a, self, self.vars[-1][0]) for a in args]
 
         self.vars.append(({k:v for k,v in zip(template_args, passed_args)}, True))
         res, _ = self.run_statements(func_def.get('statements'))
@@ -175,7 +167,6 @@ class Interpreter(InterpreterBase):
 
     def run_statements(self, statements):
         res, ret = None, False
-
         for statement in statements:
             kind = statement.elem_type
 
@@ -262,18 +253,27 @@ class Interpreter(InterpreterBase):
 
         return None
 
-def main():  # COMMENT THIS ONCE FINISH TESTING
-    program = """
-func main() {
- var a;
- var b;
- a = 10;
- a = a + 10;
- print(a);
-}
-            """
+# def main():  # COMMENT THIS ONCE FINISH TESTING
+#     program = """
+# func bar(x) {
+#  print("bar: ", x);
+#  return x;
+# }
 
-    interpreter = Interpreter()
-    interpreter.run(program)
+# func main() {
+#  var a;
+#  a = bar(0);
+#  a = a + bar(1);
+#  a = a + bar(2);
+#  a = a + bar(3);
+#  print("---");
+#  print(a);
+#  print("---");
+#  print(a);
+# }
+#             """
 
-main()
+#     interpreter = Interpreter()
+#     interpreter.run(program)
+
+# main()

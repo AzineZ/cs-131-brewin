@@ -1,0 +1,24 @@
+func foo(a) {
+  print("in foo");
+  print(a);
+}
+
+func main() {
+  var x;
+  x = "prompt";
+  x = inputi(x);
+  print("mark");
+  foo(x);
+}
+
+/*
+*IN*
+-53
+*IN*
+*OUT*
+mark
+in foo
+prompt
+-53
+*OUT*
+*/

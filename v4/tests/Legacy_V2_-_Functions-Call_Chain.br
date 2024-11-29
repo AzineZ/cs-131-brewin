@@ -1,0 +1,40 @@
+func main() {
+  var str;
+  str = chain4("0");
+  print(str);
+}
+
+func chain1(a) {
+  print("chain1: ",a);
+  return a;
+}
+
+func chain2(a) {
+  a = a + a;
+  print("chain2: ", a);
+  return chain1(a + "3");
+}
+
+func chain3(a) {
+  print("chain3: ", a);
+  var newstr;
+  newstr = chain2(a + "22");
+  print("chain3: ", a);
+  return newstr;
+}
+
+func chain4(a) {
+  print("chain4: ", a);
+  return chain3(a + "1");
+}
+
+/*
+*OUT*
+chain4: 0
+chain3: 01
+chain3: 01
+chain2: 01220122
+chain1: 012201223
+012201223
+*OUT*
+*/

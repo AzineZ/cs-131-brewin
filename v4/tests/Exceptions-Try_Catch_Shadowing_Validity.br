@@ -1,0 +1,27 @@
+func main() {
+  var a;
+  a = 45;
+  try {
+    print(a);
+    a = 12;
+    var a;
+    a = "abc";
+    print("a has been shadowed and modified");
+    print(a);
+    raise "raid shadow legends";
+  }
+  catch "raid shadow legends" {
+    print(a);
+  }
+  print(a);
+}
+
+/*
+*OUT*
+45
+a has been shadowed and modified
+abc
+12
+12
+*OUT*
+*/

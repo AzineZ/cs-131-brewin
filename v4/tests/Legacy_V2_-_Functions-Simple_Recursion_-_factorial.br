@@ -1,0 +1,20 @@
+func main() {
+  print(fact(5));
+  print(fact(inputi("Enter a number")));
+}
+
+func fact(n) {
+  if (n <= 1) { return 1; }
+  return n * fact(n-1);
+}
+
+/*
+*IN*
+8
+*IN*
+*OUT*
+120
+Enter a number
+40320
+*OUT*
+*/

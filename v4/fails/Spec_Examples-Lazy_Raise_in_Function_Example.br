@@ -1,0 +1,19 @@
+func functionThatRaises() {
+  raise "some_exception";  /* Exception occurs here when func is called */
+  return 0;
+}
+
+func main() {
+  var result;
+  result = functionThatRaises();
+  print("Assigned result!");
+  /* Exception will occur when result is evaluated */
+  print(result, " was what we got!");
+}
+
+/*
+*OUT*
+Assigned result!
+ErrorType.FAULT_ERROR
+*OUT*
+*/

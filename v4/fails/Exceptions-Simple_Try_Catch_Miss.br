@@ -1,0 +1,20 @@
+func main() {
+  print("start");
+  try {
+    print("enter try");
+    raise "name";
+    print("MUST NOT PRINT - try");
+  }
+  catch "not name" {
+    print("MUST NOT PRINT - catch");
+  }
+  print("MUST NOT PRINT - main");
+}
+
+/*
+*OUT*
+start
+enter try
+ErrorType.FAULT_ERROR
+*OUT*
+*/

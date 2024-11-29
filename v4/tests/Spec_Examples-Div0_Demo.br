@@ -1,0 +1,20 @@
+func divide(a, b) {
+  return a / b;
+}
+
+func main() {
+  try {
+    var result;
+    result = divide(10, 0);  /* evaluation deferred due to laziness */
+    print("Result: ", result); /* evaluation occurs here */
+  }
+  catch "div0" {
+    print("Caught division by zero!");
+  }
+}
+
+/*
+*OUT*
+Caught division by zero!
+*OUT*
+*/

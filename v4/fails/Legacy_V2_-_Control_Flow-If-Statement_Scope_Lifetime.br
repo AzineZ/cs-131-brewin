@@ -1,0 +1,12 @@
+func main() {
+  if (true) {
+    var x;
+  }
+  x = 5;
+}
+
+/*
+*OUT*
+ErrorType.NAME_ERROR
+*OUT*
+*/

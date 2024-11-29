@@ -1,0 +1,18 @@
+func faultyFunction() {
+  print(undefinedVar); /* Name error occurs here when evaluated */
+}
+
+func main() {
+  var result;
+  result = faultyFunction();
+  print("Assigned result!");
+
+  print(result);      /* Error will occur when result is evaluated */
+}
+
+/*
+*OUT*
+Assigned result!
+ErrorType.NAME_ERROR
+*OUT*
+*/

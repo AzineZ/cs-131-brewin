@@ -1,0 +1,20 @@
+func foo() {
+  raise "foo";
+}
+
+func main() {
+  try {
+    print("a",foo(),"c");
+  }
+  catch "foo" {
+    print("X");
+  }
+  print("Y");
+}
+
+/*
+*OUT*
+X
+Y
+*OUT*
+*/

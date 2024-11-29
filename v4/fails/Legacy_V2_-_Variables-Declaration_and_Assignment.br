@@ -1,0 +1,35 @@
+func main() {
+  var a;
+  a = 5;
+  print(a);
+  a = 8;
+  print(a);
+  a = -2;
+  print(a);
+  a = "random text";
+  print(a);
+  a = false;
+  print(a);
+  a = true;
+  print(a);
+  var b;
+  b = a;
+  b = "new text";
+  print(b);
+  print(a);
+  var a;
+}
+
+/*
+*OUT*
+5
+8
+-2
+random text
+false
+true
+new text
+true
+ErrorType.NAME_ERROR
+*OUT*
+*/

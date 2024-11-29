@@ -1,0 +1,21 @@
+func fake_modify(a) {
+  a = "should not be modified";
+}
+
+func main() {
+  var a;
+  a = 42;
+  fake_modify(a);
+  print(a);
+  var m;
+  m = 31415;
+  fake_modify(m);
+  print(m);
+}
+
+/*
+*OUT*
+42
+31415
+*OUT*
+*/

@@ -1,0 +1,13 @@
+func main() {
+  var x;
+  for (x = 0; x == 1; x = x) {
+    print("should not print");
+  }
+  print("asd");
+}
+
+/*
+*OUT*
+asd
+*OUT*
+*/

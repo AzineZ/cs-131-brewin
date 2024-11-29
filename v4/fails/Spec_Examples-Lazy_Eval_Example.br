@@ -1,0 +1,40 @@
+func main() {
+  var result;
+  result = f(3) + 10;
+  print("first line");
+  if (-result > 5) {
+    print(result, " greater than 5");
+  }
+
+  var i;
+  for (i = 0; i < 10; i = i + 1) {
+    print(i);
+  }
+
+  result = "except" + "9";
+  raise result;
+}
+
+func f(x) {
+  print("f has been evaluated");
+  return x * -8;
+}
+
+/*
+*OUT*
+first line
+f has been evaluated
+-14 greater than 5
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+ErrorType.FAULT_ERROR
+*OUT*
+*/

@@ -1,0 +1,41 @@
+func main() {
+  var fsmr;
+  try {
+    /* start the FSM at "state1" */
+    fsmr = fsm_lazy("state1");
+  }
+  catch "lazy_final_state" {
+    print("this should not be caught");
+  }
+  catch "final_state" {
+    print("Caught final_state in main");
+  }
+
+  print("normal exit");
+}
+
+func fsm_lazy(state) {
+  try {
+    print("In ", state);
+    raise state;
+  }
+  catch "state1" {
+    print("Caught state1, transitioning...");
+    return fsm_lazy("state2");
+  }
+  catch "state2" {
+    print("Caught state2, transitioning...");
+    return fsm_lazy("state3");
+  }
+  catch "state3" {
+    print("Caught state3, transitioning...");
+    return fsm_lazy("final_state");
+  }
+  print("this point should not be reached");
+}
+
+/*
+*OUT*
+normal exit
+*OUT*
+*/

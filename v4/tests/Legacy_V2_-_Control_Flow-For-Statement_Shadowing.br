@@ -1,0 +1,37 @@
+func main() {
+  var varra;
+  varra = 42;
+  var i;
+  for (i = -5; i <= 5; i = i + 1) {
+    var B;
+    B = varra + i;
+    if (B == varra) {
+      var B;
+      B = " to the universe";
+      print("The answer" + B);
+    } else {
+      print(B);
+    }
+
+    var varra;
+    varra = i;
+  }
+  print(varra, " outer A");
+}
+
+/*
+*OUT*
+37
+38
+39
+40
+41
+The answer to the universe
+43
+44
+45
+46
+47
+42 outer A
+*OUT*
+*/

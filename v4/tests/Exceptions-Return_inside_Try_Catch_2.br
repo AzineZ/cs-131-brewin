@@ -1,0 +1,46 @@
+func try_ret(a) {
+  print("t_ret");
+  try {
+    return a * 2;
+  }
+  catch "A" {
+    raise "B";
+  }
+  print("must not print");
+}
+
+func catch_ret(a) {
+  print("c_ret");
+  try {
+    raise "A";
+  }
+  catch "A" {
+    return a + "_is_bestagon";
+    raise "B";
+  }
+  print("must not print");
+}
+
+func main() {
+  var x;
+  var y;
+  x = try_ret(3);
+  y = catch_ret("_hexagon");
+  print("---");
+  print(x, y);
+  print(try_ret(3), catch_ret("_hexagon"));
+  print(x, y);
+}
+
+/*
+*OUT*
+---
+t_ret
+c_ret
+6_hexagon_is_bestagon
+t_ret
+c_ret
+6_hexagon_is_bestagon
+6_hexagon_is_bestagon
+*OUT*
+*/

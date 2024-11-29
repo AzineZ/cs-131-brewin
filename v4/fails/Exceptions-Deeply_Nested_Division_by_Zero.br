@@ -1,0 +1,40 @@
+func mult3(n) {
+  print(1000 / (n + 868));
+  var res;
+  res = div5shift(n * 3);
+  return res;
+}
+
+func div5shift(n) {
+  if (n == -1161) {
+    print(n);
+  } else {
+    print(1000 / (n + 400));
+  }
+  var res;
+  res = mult3(n / 5 - 400);
+  return res;
+}
+
+func main() {
+  var x;
+  x = mult3(23);
+  print("no error yet");
+  print(x);
+  print("must not print");
+}
+
+/*
+*OUT*
+no error yet
+1
+2
+2
+-1161
+4
+-1
+11
+-1
+ErrorType.FAULT_ERROR
+*OUT*
+*/

@@ -1,0 +1,15 @@
+func main() {
+  var i;
+  for (i = 0; i < 5; i = i + 1) {
+    print("entry");
+    return;
+    print("for-loop failed to stop on return");
+  }
+  print("for-loop failed to exit parent function");
+}
+
+/*
+*OUT*
+entry
+*OUT*
+*/

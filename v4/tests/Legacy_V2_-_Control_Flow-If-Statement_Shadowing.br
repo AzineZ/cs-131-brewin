@@ -1,0 +1,31 @@
+func main() {
+  var A;
+  A = 5;
+  if (true) {
+    print(A);
+    var A;
+    A = "foo";
+    print(A);
+    if (false) {
+      var A;
+    } else {
+      print(A);
+      var A;
+      A = "bar";
+      print(A);
+    }
+    print(A);
+  }
+  print(A);
+}
+
+/*
+*OUT*
+5
+foo
+foo
+bar
+foo
+5
+*OUT*
+*/

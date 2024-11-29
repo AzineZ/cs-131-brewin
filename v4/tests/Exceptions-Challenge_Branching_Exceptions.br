@@ -1,0 +1,76 @@
+func main() {
+  var i;
+  try {
+    for (i = ""; true; i = i) {
+      try {
+        try {
+          print("A1");
+          raise "A1";
+          print("raise A1 failed");
+        }
+        catch "A1" {
+          try {
+            print("B1");
+            raise "B1";
+            print("raise B1 failed");
+          }
+          catch "B1" {
+            try {
+              try {
+                print("D1");
+                raise "D1";
+                print("raise D1 failed");
+              }
+              catch "D1" {
+                print("C1");
+                raise "C1";
+                print("raise C1 failed");
+              }
+            }
+            catch "C1" {
+              if (i == "") {
+                print("root1");
+                raise "root1";
+                print("raise root1 failed");
+              } else {
+                print("root2");
+                raise "root2";
+                print("raise root2 failed");
+              }
+            }
+          }
+        }
+      }
+      catch "root1" {
+        print("'",i,"'");
+        i = "not empty";
+      }
+      catch "root2" {
+        print("err");
+        raise "err";
+        print("raise err failed");
+      }
+    }
+  }
+  catch "err" {
+    print(i);
+  }
+}
+
+/*
+*OUT*
+A1
+B1
+D1
+C1
+root1
+''
+A1
+B1
+D1
+C1
+root2
+err
+not empty
+*OUT*
+*/

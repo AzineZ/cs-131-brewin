@@ -1,0 +1,41 @@
+func main() {
+  var vd;
+  vd = false;
+  if (inputs() == "I'm in") {
+    var i;
+    for (i = 0; i < 10; i = i + 1) {
+      var x;
+      x = i * i - 7 * i + 10 > 0;
+      if (x) {
+        vd = x;
+        print("above zero");
+      } else {
+        print("below zero");
+      }
+      var i;
+      i = x;
+    }
+    print(i);
+    print(x);
+  }
+}
+
+/*
+*IN*
+I'm in
+*IN*
+*OUT*
+above zero
+above zero
+below zero
+below zero
+below zero
+below zero
+above zero
+above zero
+above zero
+above zero
+10
+ErrorType.NAME_ERROR
+*OUT*
+*/

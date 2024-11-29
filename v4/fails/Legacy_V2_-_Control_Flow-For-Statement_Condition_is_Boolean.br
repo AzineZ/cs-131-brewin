@@ -1,0 +1,12 @@
+func main() {
+  var i;
+  for (i = "a"; 0; i = i) {
+    print("Condition MUST be boolean. This is int.");
+  }
+}
+
+/*
+*OUT*
+ErrorType.TYPE_ERROR
+*OUT*
+*/

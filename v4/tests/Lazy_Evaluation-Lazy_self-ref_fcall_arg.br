@@ -1,0 +1,18 @@
+func foo(a) {
+  print("a: ", a);
+  return a - a / 3;
+}
+
+func main() {
+  var x;
+  x = 42;
+  x = foo(x);
+  print(x);
+}
+
+/*
+*OUT*
+a: 42
+28
+*OUT*
+*/

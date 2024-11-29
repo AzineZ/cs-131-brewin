@@ -1,0 +1,10 @@
+func main() {
+  raise "foobar";
+  print("must not print");
+}
+
+/*
+*OUT*
+ErrorType.FAULT_ERROR
+*OUT*
+*/

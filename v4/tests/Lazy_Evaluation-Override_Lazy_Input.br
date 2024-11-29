@@ -1,0 +1,21 @@
+func main() {
+  var x;
+  x = inputi(x);
+  var y;
+  y = inputs(x);
+  x = "asd";
+  y = 42;
+  print(x + "f");
+  print(y / 2);
+}
+
+/*
+*IN*
+1984
+literally
+*IN*
+*OUT*
+asdf
+21
+*OUT*
+*/

@@ -1,0 +1,14 @@
+func main() {
+  if (true) {
+    print("entry");
+    return;
+    print("if-statement failed to stop on return");
+  }
+  print("if-statement failed to exit parent function");
+}
+
+/*
+*OUT*
+entry
+*OUT*
+*/

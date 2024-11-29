@@ -1,0 +1,41 @@
+func main() {
+  try {
+    try {
+      try {
+        if (true) {
+          var a;
+          for (a = ""; a != "00000"; a = a + "0") {
+            print(a);
+            if (a == "000") {
+              raise "inception";
+              print("if did not unwind");
+            }
+          }
+          print("for and/or if did not unwind");
+        }
+        print("try did not catch");
+      }
+      catch "noop" {
+        print("noop is not meant to match inception");
+      }
+    }
+    catch "noop" {
+      print("noop is not meant to match inception");
+    }
+  }
+  catch "inception" {
+    print("inception was caught");
+  }
+  print("normal exit");
+}
+
+/*
+*OUT*
+
+0
+00
+000
+inception was caught
+normal exit
+*OUT*
+*/

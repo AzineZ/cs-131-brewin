@@ -1,0 +1,94 @@
+func ferr() {
+  raise "ferr";
+}
+
+func div0() {
+  print(0 / 0);
+}
+
+func main() {
+  var i;
+  i = 5;
+
+  print("test assignment");
+  try {
+    var i;
+    for (i = ferr(); i < 5; i = i + 1) {
+      print("noop");
+    }
+  }
+  catch "div0" {
+    print("must not print");
+    raise "div0";
+  }
+  catch "ferr" {
+    print("ferr: i -> ", i);
+    i = i + 5;
+  }
+
+  print("test condition");
+  try {
+    var i;
+    for (i = 0; ferr(); i = i + 1) {
+      print("noop");
+    }
+  }
+  catch "div0" {
+    print("must not print");
+    raise "div0";
+  }
+  catch "ferr" {
+    print("ferr: i -> ", i);
+    i = i + 5;
+  }
+
+  print("test update");
+  try {
+    var i;
+    for (i = 0; i < 5; i = ferr()) {
+      print("noop");
+    }
+  }
+  catch "div0" {
+    print("must not print");
+    raise "div0";
+  }
+  catch "ferr" {
+    print("ferr: i -> ", i);
+    i = i + 5;
+  }
+
+  print("test body");
+  try {
+    var i;
+    for (i = 0; i < 5; i = i + 1) {
+      div0();
+      print("noop");
+    }
+  }
+  catch "div0" {
+    print("caught last div0");
+  }
+  catch "ferr" {
+    print("ferr: i -> ", i);
+    i = i + 5;
+    raise "ferr";
+  }
+
+  print("final i = ", i);
+}
+
+/*
+*OUT*
+test assignment
+ferr: i -> 5
+test condition
+ferr: i -> 10
+test update
+noop
+ferr: i -> 15
+test body
+caught last div0
+final i = 20
+*OUT*
+*/

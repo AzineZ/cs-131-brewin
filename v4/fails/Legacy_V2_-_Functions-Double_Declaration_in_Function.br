@@ -1,0 +1,18 @@
+func main() {
+  var a;
+  foo();
+}
+
+func foo() {
+  var a;
+  a = "all good";
+  print(a);
+  var a;
+}
+
+/*
+*OUT*
+all good
+ErrorType.NAME_ERROR
+*OUT*
+*/

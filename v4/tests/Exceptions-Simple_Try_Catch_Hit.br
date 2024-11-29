@@ -1,0 +1,21 @@
+func main() {
+  print("start");
+  try {
+    print("enter try");
+    raise "name";
+    print("MUST NOT PRINT");
+  }
+  catch "name" {
+    print("caught");
+  }
+  print("continue");
+}
+
+/*
+*OUT*
+start
+enter try
+caught
+continue
+*OUT*
+*/

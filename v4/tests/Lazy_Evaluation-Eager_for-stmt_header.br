@@ -1,0 +1,25 @@
+func foo(a) {
+  print("a: ", a);
+  return a + 1;
+}
+
+func main() {
+  var x;
+  for (x = 0; x < 3; x = foo(x)) {
+    print("x: ", x);
+    var q;
+  }
+  print("end");
+}
+
+/*
+*OUT*
+x: 0
+a: 0
+x: 1
+a: 1
+x: 2
+a: 2
+end
+*OUT*
+*/

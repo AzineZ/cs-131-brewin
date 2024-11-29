@@ -1,0 +1,20 @@
+func foo() {
+  print("lazy int");
+  return 24;
+}
+
+func main() {
+  var x;
+  x = foo();
+  print("entry");
+  raise x;
+  print("exit");
+}
+
+/*
+*OUT*
+entry
+lazy int
+ErrorType.TYPE_ERROR
+*OUT*
+*/

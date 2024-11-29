@@ -1,0 +1,18 @@
+func main() {
+  var x;
+  x = 5;
+  inputi("foo");
+  print("bar");
+  print(x);
+}
+
+/*
+*IN*
+0
+*IN*
+*OUT*
+foo
+bar
+5
+*OUT*
+*/

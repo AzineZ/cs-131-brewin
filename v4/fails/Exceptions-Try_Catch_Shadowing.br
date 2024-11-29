@@ -1,0 +1,19 @@
+func main() {
+  var a;
+  try {
+    var a;
+    print("a has been shadowed");
+    var a;
+  }
+  catch "miss" {
+    print("MUST NOT PRINT - catch");
+  }
+  print("MUST NOT PRINT - main");
+}
+
+/*
+*OUT*
+a has been shadowed
+ErrorType.NAME_ERROR
+*OUT*
+*/

@@ -1,0 +1,22 @@
+func foo() {
+  print("foo");
+  return true;
+}
+
+func bar() {
+  print("bar");
+  return false;
+}
+
+func main() {
+  print(foo() || bar() || foo() || bar());
+  print("done");
+}
+
+/*
+*OUT*
+foo
+true
+done
+*OUT*
+*/

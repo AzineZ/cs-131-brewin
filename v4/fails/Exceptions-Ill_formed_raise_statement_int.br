@@ -1,0 +1,12 @@
+func main() {
+  print("entry");
+  raise 5;
+  print("exit");
+}
+
+/*
+*OUT*
+entry
+ErrorType.TYPE_ERROR
+*OUT*
+*/

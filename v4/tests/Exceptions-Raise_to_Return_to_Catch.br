@@ -1,0 +1,47 @@
+func lzy_err(a, b) {
+  print("lzy_err entry");
+  print(a);
+  try {
+    print(b);
+    print("after return (unreachable)");
+  }
+  catch "lazy ret" {
+    print("lazy ret caught");
+    raise "other err";
+  }
+  print("lzy_err normal exit");
+}
+
+func exp_raise(a) {
+  raise a;
+}
+
+func call_proxy() {
+  print("call_proxy entry");
+  return lzy_err(42, exp_raise("lazy ret"));
+  print("call_proxy normal exit");
+}
+
+func main() {
+  print("main entry");
+  try {
+    print(call_proxy());
+    print("after return (unreachable)");
+  }
+  catch "other err" {
+    print("other err caught");
+  }
+  print("main normal exit");
+}
+
+/*
+*OUT*
+main entry
+call_proxy entry
+lzy_err entry
+42
+lazy ret caught
+other err caught
+main normal exit
+*OUT*
+*/

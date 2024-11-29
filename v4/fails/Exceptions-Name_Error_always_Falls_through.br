@@ -1,0 +1,16 @@
+func main() {
+  try {
+    var a;
+    var a;
+  }
+  catch "no match" {
+    print("must not print");
+  }
+  print("must not print");
+}
+
+/*
+*OUT*
+ErrorType.NAME_ERROR
+*OUT*
+*/

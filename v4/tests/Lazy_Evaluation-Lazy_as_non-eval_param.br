@@ -1,0 +1,51 @@
+func foo() {
+  print("first");
+  return 1;
+}
+
+func bar() {
+  print("second");
+  return 2;
+}
+
+func baz() {
+  print("third");
+  return 3;
+}
+
+func noop(a) {
+  return nil;
+}
+
+func eval(a) {
+  return nil == noop(a);
+}
+
+func eval_direct(a) {
+  return nil == a;
+}
+
+func main() {
+  var x;
+  x = foo() + bar() * baz();
+  print("nothing");
+  noop(x);
+  print("still nothing");
+  noop(x);
+  print("still nothing");
+  print(eval(x));
+  print(eval_direct(x));
+}
+
+/*
+*OUT*
+nothing
+still nothing
+still nothing
+true
+first
+second
+third
+false
+*OUT*
+*/

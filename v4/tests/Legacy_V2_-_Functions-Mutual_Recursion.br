@@ -1,0 +1,27 @@
+func main() {
+  print(no_ab(4));
+  print(no_ab(inputi("Enter a number")));
+}
+
+func no_ab(n) {
+  if (n == 0) { return 1; }
+  if (n == 1) { return 4; }
+  return 3 * no_ab(n - 1) + no_ab_helper(n);
+}
+
+func no_ab_helper(n) {
+  if (n == 0) { return 0; }
+  if (n == 1) { return 1; }
+  return 2 * no_ab(n - 2) + no_ab_helper(n - 1);
+}
+
+/*
+*IN*
+9
+*IN*
+*OUT*
+209
+Enter a number
+151316
+*OUT*
+*/

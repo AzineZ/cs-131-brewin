@@ -1,0 +1,41 @@
+func main() {
+  try {
+    try {
+      try {
+        if (true) {
+          var a;
+          for (a = ""; a != "00000"; a = a + "0") {
+            print(a);
+            if (a == "000") {
+              raise "E1";
+              print("if failed to unwind");
+            }
+          }
+          print("for failed to propagate error");
+        }
+        print("if failed to propagate error");
+      }
+      catch "E1" {
+        raise "E2";
+        print("catch E1 failed to unwind");
+      }
+    }
+    catch "E2" {
+      raise "E3";
+      print("catch E2 failed to unwind");
+    }
+  }
+  catch "E3" {
+    print("E1 E2 and E3 were caught");
+  }
+}
+
+/*
+*OUT*
+
+0
+00
+000
+E1 E2 and E3 were caught
+*OUT*
+*/

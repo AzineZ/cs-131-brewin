@@ -1,0 +1,49 @@
+func seppuku(err) {
+  raise err;
+}
+
+func bar(s, n) {
+  var res;
+  print("bar -> ", s, ":", n);
+  if (n < 20) {
+    res = "y" + foo("b", n - 1) + s;
+  } else {
+    res = "|";
+  }
+  return res;
+}
+
+func foo(s, n) {
+  var res;
+  print("foo -> ", s, ":", n);
+  if (n < 7) {
+    res = s + bar("x", n * 2) + "a";
+  } else {
+    res = "&";
+  }
+  if (n == 3) {
+    seppuku(res);
+  }
+  return res;
+}
+
+func main() {
+  var x;
+  x = foo("-", 2);
+  print(x);
+  print("this should not print");
+  print(x);
+}
+
+/*
+*OUT*
+foo -> -:2
+bar -> x:4
+foo -> b:3
+bar -> x:6
+foo -> b:5
+bar -> x:10
+foo -> b:9
+ErrorType.FAULT_ERROR
+*OUT*
+*/

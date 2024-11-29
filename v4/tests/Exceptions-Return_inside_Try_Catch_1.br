@@ -1,0 +1,24 @@
+func catch_ret() {
+  print("catch_ret entry");
+  try {
+    print("in try");
+    raise "err";
+  }
+  catch "err" {
+    return "ret from catch";
+    print("after return in catch (unreachable)");
+  }
+  print("catch_ret normal exit");
+}
+
+func main() {
+  print(catch_ret());
+}
+
+/*
+*OUT*
+catch_ret entry
+in try
+ret from catch
+*OUT*
+*/

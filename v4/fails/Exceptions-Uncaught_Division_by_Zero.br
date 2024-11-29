@@ -1,0 +1,10 @@
+func main() {
+  print(1 / 0);
+  print("must not print");
+}
+
+/*
+*OUT*
+ErrorType.FAULT_ERROR
+*OUT*
+*/

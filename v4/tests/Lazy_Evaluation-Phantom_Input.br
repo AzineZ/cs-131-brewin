@@ -1,0 +1,11 @@
+func main() {
+  var x;
+  x = inputi(x);
+  var y;
+  y = inputs(x);
+}
+
+/*
+*OUT*
+*OUT*
+*/
