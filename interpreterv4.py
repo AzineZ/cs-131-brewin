@@ -214,8 +214,15 @@ class Interpreter(InterpreterBase):
 
         elif kind in self.bops:
             l = self.run_expr(expr.get('op1'))
+            tl = type(l)
+            # Short circuit if left side is bool and op is logical AND or OR
+            if tl == bool and (kind == '&&' or kind == '||'):
+                if l is True and kind == '||' or l is False and kind == '&&':
+                    return l
+            
+
             r = self.run_expr(expr.get('op2'))
-            tl, tr = type(l), type(r)
+            tr = type(r)
 
             if kind == '==': return tl == tr and l == r
             if kind == '!=': return not (tl == tr and l == r)
@@ -258,25 +265,25 @@ class Interpreter(InterpreterBase):
 
         return None
 
-def main():  # COMMENT THIS ONCE FINISH TESTING
-    program = """
-func divide(a, b) {
-  return a / b;
-}
+# def main():  # COMMENT THIS ONCE FINISH TESTING
+#     program = """
+# func t() {
+#  print("t");
+#  return 5;
+# }
 
-func main() {
-  try {
-    var result;
-    result = divide(10, 0);  /* evaluation deferred due to laziness */
-    print("Result: ", result); /* evaluation occurs here */
-  }
-  catch "div0" {
-    print("Caught division by zero!");
-  }
-}
-            """
+# func f() {
+#  print("f");
+#  return false;
+# }
 
-    interpreter = Interpreter()
-    interpreter.run(program)
+# func main() {
+#   print(f() && t());
+  
+# }
+#             """
 
-main()
+#     interpreter = Interpreter()
+#     interpreter.run(program)
+
+# main()
