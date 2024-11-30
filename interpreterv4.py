@@ -88,9 +88,17 @@ class Interpreter(InterpreterBase):
         template_args = [a.get('name') for a in func_def.get('args')]
         passed_args = [self.run_expr(a) for a in args]
 
-        self.vars.append(({k:v for k,v in zip(template_args, passed_args)}, True))
-        res, _ = self.run_statements(func_def.get('statements'))
-        self.vars.pop()
+        # self.vars.append(({k:v for k,v in zip(template_args, passed_args)}, True))
+        # res, _ = self.run_statements(func_def.get('statements'))
+        # self.vars.pop()
+        try:
+            self.vars.append(({k: v for k, v in zip(template_args, passed_args)}, True))
+            res, _ = self.run_statements(func_def.get('statements'))
+            self.vars.pop()
+            return res
+        except RuntimeError as e:
+            self.vars.pop()  # Ensure the function's scope is cleaned up
+            raise  # Propagate exception
 
         return res
 
@@ -165,7 +173,12 @@ class Interpreter(InterpreterBase):
             elif kind == 'raise':
                 self.run_raise(statement)
             elif kind == 'try':
-                self.run_try(statement)
+                # self.run_try(statement)
+                try:
+                    res, ret = self.run_try(statement)
+                    if ret: break
+                except RuntimeError as e:
+                    raise
 
         return res, ret
     
@@ -178,19 +191,22 @@ class Interpreter(InterpreterBase):
     def run_try(self, statement):
         try:
             self.vars.append(({}, False))  # Create a new variable scope for the try block
-            self.run_statements(statement.get('statements'))
+            res, ret = self.run_statements(statement.get('statements'))
             self.vars.pop()
+            if ret:
+                return res, True  # Exit try/catch on return
         except RuntimeError as e:
             self.vars.pop()  # Pop the try block scope
             exception_type = str(e)
             for catcher in statement.get('catchers'):
                 if catcher.get('exception_type') == exception_type:
                     self.vars.append(({}, False))  # New scope for the catch block
-                    self.run_statements(catcher.get('statements'))
+                    res, ret = self.run_statements(catcher.get('statements'))
                     self.vars.pop()
-                    return
+                    return res, ret
             # No matching catch block; propagate exception
             raise
+        return None, False
 
     def run_expr(self, expr):
         kind = expr.elem_type
@@ -265,25 +281,35 @@ class Interpreter(InterpreterBase):
 
         return None
 
-# def main():  # COMMENT THIS ONCE FINISH TESTING
-#     program = """
-# func t() {
-#  print("t");
-#  return 5;
-# }
+def main():  # COMMENT THIS ONCE FINISH TESTING
+    program = """
+func recursive_nested(level) {
+  try {
+    if (level == 0) {
+      raise "nested_exception";
+    }
+    print("Before recursion at level: ", level);
+    recursive_nested(level - 1); /* Recursive call */
+    print("After recursion at level: ", level); /* Should not print */
+  }
+  catch "nested_exception" {
+    print("Caught nested_exception at level: ", level);
+    raise "propagate_up"; /* Propagate a different exception */
+  }
+}
 
-# func f() {
-#  print("f");
-#  return false;
-# }
+func main() {
+  try {
+    recursive_nested(4); /* Start recursive calls */
+  }
+    catch "propagate_up" {
+    print("Caught propagate_up in main");
+  }
+  print("End of main");
+}
+            """
 
-# func main() {
-#   print(f() && t());
-  
-# }
-#             """
+    interpreter = Interpreter()
+    interpreter.run(program)
 
-#     interpreter = Interpreter()
-#     interpreter.run(program)
-
-# main()
+main()

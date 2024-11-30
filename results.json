@@ -356,7 +356,7 @@
         },
         {
             "name": "Correctness | Exceptions-Return_inside_Try_Catch_1",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
