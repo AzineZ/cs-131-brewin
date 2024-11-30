@@ -2,7 +2,7 @@
     "tests": [
         {
             "name": "Correctness | Exceptions-Challenge_Branching_Exceptions",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -62,19 +62,19 @@
         },
         {
             "name": "Correctness | Lazy_Evaluation-Deeply_Nested_Lazy_Evaluation_and_Cache",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Lazy_Evaluation-Override_Lazy_Input",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Lazy_Evaluation-Phantom_Print",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -86,25 +86,25 @@
         },
         {
             "name": "Correctness | Lazy_Evaluation-Phantom_Input",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Exceptions-Return_inside_Try_Catch_2",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Eager-Like_Behavior-For-Return_Termination",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Correctness_Autograder_Cases-test_lazy_eval_mutation_1",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -122,13 +122,13 @@
         },
         {
             "name": "Correctness | Lazy_Evaluation-Lazy_Invalid_Call_to_input",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Spec_Examples-Lazy_Error_Handling_example",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -152,7 +152,7 @@
         },
         {
             "name": "Correctness | Lazy_Evaluation-Eager_for-stmt_header",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -164,7 +164,7 @@
         },
         {
             "name": "Correctness | Exceptions-Try_Catch_Fallthrough",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -188,7 +188,7 @@
         },
         {
             "name": "Correctness | Spec_Examples-Lazy_Eval_Demo",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -200,7 +200,7 @@
         },
         {
             "name": "Correctness | Exceptions-Short_Circuits_Avoid_Errors",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -224,7 +224,7 @@
         },
         {
             "name": "Correctness | Exceptions-Except_within_expression",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -248,7 +248,7 @@
         },
         {
             "name": "Correctness | Exceptions-Try_Catch_Error_Unwinding",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -260,7 +260,7 @@
         },
         {
             "name": "Correctness | Legacy_V2_-_Control_Flow-For-Statement_Shadowing",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -308,13 +308,13 @@
         },
         {
             "name": "Correctness | Lazy_Evaluation-Lazy_input_func_call",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Exceptions-Lazy_Try-Catch_FSM",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -326,13 +326,13 @@
         },
         {
             "name": "Correctness | Legacy_V2_-_Control_Flow-Simple_For_Loop",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Lazy_Evaluation-Lazy_self-ref_fcall_arg",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -344,7 +344,7 @@
         },
         {
             "name": "Correctness | Correctness_Autograder_Cases-test_lazy_eval_basic_1",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -416,19 +416,19 @@
         },
         {
             "name": "Correctness | Spec_Examples-Need_Semantics_Simple_Prog",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Correctness_Autograder_Cases-test_lazy_eval_func_call_1",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Incorrectness | Legacy_V2_-_Control_Flow-Mixed_If-For",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -470,7 +470,7 @@
         },
         {
             "name": "Incorrectness | Exceptions-Lazy_Uncaught_Division_by_Zero",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -500,7 +500,7 @@
         },
         {
             "name": "Incorrectness | Spec_Examples-Lazy_Error_Example",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -512,7 +512,7 @@
         },
         {
             "name": "Incorrectness | Exceptions-Deeply_Nested_Division_by_Zero",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -542,7 +542,7 @@
         },
         {
             "name": "Incorrectness | Exceptions-Lazy_Uncaught_Raised_Error",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -560,7 +560,7 @@
         },
         {
             "name": "Incorrectness | Incorrectness_Autograder_Cases-test_lazy_eval_error_4",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -572,7 +572,7 @@
         },
         {
             "name": "Incorrectness | Lazy_Evaluation-Lazy_Undef_Func_Error",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -584,7 +584,7 @@
         },
         {
             "name": "Incorrectness | Lazy_Evaluation-Lazy_Undef_Func_and_Vars_Error",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -608,13 +608,13 @@
         },
         {
             "name": "Incorrectness | Exceptions-Bad_variable_value_for_raise_(lazy)",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Incorrectness | Spec_Examples-Lazy_Raise_in_Function_Example",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -638,7 +638,7 @@
         },
         {
             "name": "Incorrectness | Lazy_Evaluation-Lazy_Undef_Var_Error",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },

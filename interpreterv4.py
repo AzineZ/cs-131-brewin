@@ -1,6 +1,24 @@
 from intbase import InterpreterBase, ErrorType
 from brewparse import parse_program
 
+class LazyWrapper:
+    def __init__(self, expr, evaluator):
+        """
+        Initialize with the expression and a function that evaluates it.
+        :param expr: The expression to evaluate lazily.
+        :param evaluator: A function that performs the evaluation.
+        """
+        self.expr = expr
+        self.evaluator = evaluator
+        self.value = None
+        self.evaluated = False
+
+    def get_value(self):
+        if not self.evaluated:
+            self.value = self.evaluator(self.expr)
+            self.evaluated = True
+        return self.value
+
 class Interpreter(InterpreterBase):
     def __init__(self, console_output=True, inp=None, trace_output=False):
         super().__init__(console_output, inp)
@@ -42,10 +60,15 @@ class Interpreter(InterpreterBase):
 
     def run_assign(self, statement):
         name = statement.get('name')
-
+        expr = statement.get('expression')
+        
         for scope_vars, is_func in self.vars[::-1]:
             if name in scope_vars:
-                scope_vars[name] = self.run_expr(statement.get('expression'))
+                # scope_vars[name] = self.run_expr(statement.get('expression'))
+                if expr.elem_type in {'fcall', 'var', 'neg', '!'} or expr.elem_type in self.bops:
+                    scope_vars[name] = LazyWrapper(expr, self.run_expr)
+                else:
+                    scope_vars[name] = self.run_expr(statement.get('expression'))
                 return
 
             if is_func: break
@@ -219,7 +242,13 @@ class Interpreter(InterpreterBase):
 
             for scope_vars, is_func in self.vars[::-1]:
                 if var_name in scope_vars:
-                    return scope_vars[var_name]
+                    # return scope_vars[var_name]
+                    var_value = scope_vars[var_name]
+
+                    # If the variable is a LazyWrapper, evaluate and return its value
+                    if isinstance(var_value, LazyWrapper):
+                        return var_value.get_value()
+                    return var_value
 
                 if is_func: break
 
@@ -281,35 +310,17 @@ class Interpreter(InterpreterBase):
 
         return None
 
-def main():  # COMMENT THIS ONCE FINISH TESTING
-    program = """
-func recursive_nested(level) {
-  try {
-    if (level == 0) {
-      raise "nested_exception";
-    }
-    print("Before recursion at level: ", level);
-    recursive_nested(level - 1); /* Recursive call */
-    print("After recursion at level: ", level); /* Should not print */
-  }
-  catch "nested_exception" {
-    print("Caught nested_exception at level: ", level);
-    raise "propagate_up"; /* Propagate a different exception */
-  }
-}
+# def main():  # COMMENT THIS ONCE FINISH TESTING
+#     program = """
+# func main() {
+#     var a;
+#     a = 10;
+#     a = a + 2;
+#     print(a);      
+# }
+#             """
 
-func main() {
-  try {
-    recursive_nested(4); /* Start recursive calls */
-  }
-    catch "propagate_up" {
-    print("Caught propagate_up in main");
-  }
-  print("End of main");
-}
-            """
+#     interpreter = Interpreter()
+#     interpreter.run(program)
 
-    interpreter = Interpreter()
-    interpreter.run(program)
-
-main()
+# main()
