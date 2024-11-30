@@ -1,25 +1,5 @@
 from intbase import InterpreterBase, ErrorType
 from brewparse import parse_program
-import copy
-
-class LazyValue:
-    def __init__(self, expression, interpreter, environment):
-        self.expression = expression
-        self.interpreter = interpreter
-        self.saved_environment = copy.deepcopy(environment)
-        self.value = None
-        self.is_evaluated = False
-
-    def evaluate(self):
-        if not self.is_evaluated:
-            # Push saved environment onto the interpreter's stack
-            self.interpreter.vars.append((self.saved_environment, False))
-            # Evaluate the expression within the saved environment
-            self.value = self.interpreter.run_expr(self.expression)
-            self.is_evaluated = True
-            # Pop the environment stack
-            self.interpreter.vars.pop()
-        return self.value
 
 class Interpreter(InterpreterBase):
     def __init__(self, console_output=True, inp=None, trace_output=False):
@@ -44,10 +24,13 @@ class Interpreter(InterpreterBase):
 
         if main_key is None:
             super().error(ErrorType.NAME_ERROR, '')
+        
+        try:
+            self.run_fcall(self.funcs[main_key])
+        except RuntimeError as e:
+            super().error(ErrorType.FAULT_ERROR, f"Uncaught exception: {e}")
 
-        self.run_fcall(self.funcs[main_key])
-        self.funcs = {}
-        self.vars = []
+        #self.run_fcall(self.funcs[main_key])
 
     def run_vardef(self, statement):
         name = statement.get('name')
@@ -59,17 +42,10 @@ class Interpreter(InterpreterBase):
 
     def run_assign(self, statement):
         name = statement.get('name')
-        expression = statement.get('expression')
-        # print(self.vars)
+
         for scope_vars, is_func in self.vars[::-1]:
             if name in scope_vars:
-                #scope_vars[name] = self.run_expr(statement.get('expression'))
-                type = expression.elem_type
-                if expression.elem_type in ['fcall', 'var', 'neg', '!'] or expression.elem_type in self.bops:
-                    scope_vars[name] = LazyValue(expression, self, self.vars[-1][0])
-                else:
-                    scope_vars[name] = self.run_expr(expression)
-                #print(self.vars)
+                scope_vars[name] = self.run_expr(statement.get('expression'))
                 return
 
             if is_func: break
@@ -108,13 +84,12 @@ class Interpreter(InterpreterBase):
             super().error(ErrorType.NAME_ERROR, '')
 
         func_def = self.funcs[(fcall_name, len(args))]
+
         template_args = [a.get('name') for a in func_def.get('args')]
-        # passed_args = [self.run_expr(a) for a in args]
-        passed_args = [LazyValue(a, self, self.vars[-1][0]) for a in args]
+        passed_args = [self.run_expr(a) for a in args]
 
         self.vars.append(({k:v for k,v in zip(template_args, passed_args)}, True))
         res, _ = self.run_statements(func_def.get('statements'))
-        #print(self.vars)
         self.vars.pop()
 
         return res
@@ -167,6 +142,7 @@ class Interpreter(InterpreterBase):
 
     def run_statements(self, statements):
         res, ret = None, False
+
         for statement in statements:
             kind = statement.elem_type
 
@@ -186,11 +162,39 @@ class Interpreter(InterpreterBase):
                 res = self.run_return(statement)
                 ret = True
                 break
+            elif kind == 'raise':
+                self.run_raise(statement)
+            elif kind == 'try':
+                self.run_try(statement)
 
         return res, ret
+    
+    def run_raise(self, statement):
+        exception_type = self.run_expr(statement.get('exception_type'))
+        if not isinstance(exception_type, str):
+            super().error(ErrorType.TYPE_ERROR, "Raised exception must be a string.")
+        raise RuntimeError(exception_type)
+    
+    def run_try(self, statement):
+        try:
+            self.vars.append(({}, False))  # Create a new variable scope for the try block
+            self.run_statements(statement.get('statements'))
+            self.vars.pop()
+        except RuntimeError as e:
+            self.vars.pop()  # Pop the try block scope
+            exception_type = str(e)
+            for catcher in statement.get('catchers'):
+                if catcher.get('exception_type') == exception_type:
+                    self.vars.append(({}, False))  # New scope for the catch block
+                    self.run_statements(catcher.get('statements'))
+                    self.vars.pop()
+                    return
+            # No matching catch block; propagate exception
+            raise
 
     def run_expr(self, expr):
         kind = expr.elem_type
+
         if kind == 'int' or kind == 'string' or kind == 'bool':
             return expr.get('val')
 
@@ -198,13 +202,8 @@ class Interpreter(InterpreterBase):
             var_name = expr.get('name')
 
             for scope_vars, is_func in self.vars[::-1]:
-                #print(scope_vars)
                 if var_name in scope_vars:
-                    #return scope_vars[var_name]
-                    val = scope_vars[var_name]
-                    if isinstance(val, LazyValue):
-                        val = val.evaluate()
-                    return val
+                    return scope_vars[var_name]
 
                 if is_func: break
 
@@ -214,7 +213,8 @@ class Interpreter(InterpreterBase):
             return self.run_fcall(expr)
 
         elif kind in self.bops:
-            l, r = self.run_expr(expr.get('op1')), self.run_expr(expr.get('op2'))
+            l = self.run_expr(expr.get('op1'))
+            r = self.run_expr(expr.get('op2'))
             tl, tr = type(l), type(r)
 
             if kind == '==': return tl == tr and l == r
@@ -227,11 +227,16 @@ class Interpreter(InterpreterBase):
                 if kind == '+': return l + r
                 if kind == '-': return l - r
                 if kind == '*': return l * r
-                if kind == '/': return l // r
+                #if kind == '/': return l // r
                 if kind == '<': return l < r
                 if kind == '<=': return l <= r
                 if kind == '>': return l > r
                 if kind == '>=': return l >= r
+                # add division, checks for 0 in denominator
+                if kind == '/':
+                    if r == 0:
+                        raise RuntimeError("div0")
+                    return l // r
             
             if tl == bool and tr == bool:
                 if kind == '&&': return l and r
@@ -253,27 +258,25 @@ class Interpreter(InterpreterBase):
 
         return None
 
-# def main():  # COMMENT THIS ONCE FINISH TESTING
-#     program = """
-# func bar(x) {
-#  print("bar: ", x);
-#  return x;
-# }
+def main():  # COMMENT THIS ONCE FINISH TESTING
+    program = """
+func divide(a, b) {
+  return a / b;
+}
 
-# func main() {
-#  var a;
-#  a = bar(0);
-#  a = a + bar(1);
-#  a = a + bar(2);
-#  a = a + bar(3);
-#  print("---");
-#  print(a);
-#  print("---");
-#  print(a);
-# }
-#             """
+func main() {
+  try {
+    var result;
+    result = divide(10, 0);  /* evaluation deferred due to laziness */
+    print("Result: ", result); /* evaluation occurs here */
+  }
+  catch "div0" {
+    print("Caught division by zero!");
+  }
+}
+            """
 
-#     interpreter = Interpreter()
-#     interpreter.run(program)
+    interpreter = Interpreter()
+    interpreter.run(program)
 
-# main()
+main()

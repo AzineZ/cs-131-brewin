@@ -2,13 +2,13 @@
     "tests": [
         {
             "name": "Correctness | Exceptions-Challenge_Branching_Exceptions",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Correctness_Autograder_Cases-test_exception_argument_1",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -32,7 +32,7 @@
         },
         {
             "name": "Correctness | Spec_Examples-Div0_Demo",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -44,7 +44,7 @@
         },
         {
             "name": "Correctness | Lazy_Evaluation-Lazy_argument_correctness",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -56,7 +56,7 @@
         },
         {
             "name": "Correctness | Exceptions-Simple_Try_Catch_Hit",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -68,25 +68,25 @@
         },
         {
             "name": "Correctness | Lazy_Evaluation-Override_Lazy_Input",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | Lazy_Evaluation-Phantom_Print",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | Correctness_Autograder_Cases-test_exception_condtion_1",
             "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Correctness | Lazy_Evaluation-Phantom_Input",
+            "name": "Correctness | Lazy_Evaluation-Phantom_Print",
+            "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Correctness_Autograder_Cases-test_exception_condtion_1",
             "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Lazy_Evaluation-Phantom_Input",
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -110,19 +110,19 @@
         },
         {
             "name": "Correctness | Spec_Examples-Except_Handling_Simple_Prog",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Exceptions-Try_Catch_Shadowing_Validity",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Lazy_Evaluation-Lazy_Invalid_Call_to_input",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -158,13 +158,13 @@
         },
         {
             "name": "Correctness | Lazy_Evaluation-Lazy_eval_outside_scope",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Exceptions-Try_Catch_Fallthrough",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -176,7 +176,7 @@
         },
         {
             "name": "Correctness | Spec_Examples-Try_Catch_Example",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -188,13 +188,13 @@
         },
         {
             "name": "Correctness | Spec_Examples-Lazy_Eval_Demo",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Exceptions-Eager_Try-Catch_FSM",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -248,7 +248,7 @@
         },
         {
             "name": "Correctness | Exceptions-Try_Catch_Error_Unwinding",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -266,7 +266,7 @@
         },
         {
             "name": "Correctness | Legacy_V2_-_Functions-Call_Chain",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -308,13 +308,13 @@
         },
         {
             "name": "Correctness | Lazy_Evaluation-Lazy_input_func_call",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Exceptions-Lazy_Try-Catch_FSM",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -338,19 +338,19 @@
         },
         {
             "name": "Correctness | Correctness_Autograder_Cases-test_exception_basic_2",
-            "score": 0,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Correctness | Correctness_Autograder_Cases-test_lazy_eval_basic_1",
             "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Correctness | Legacy_V2_-_Functions-Mutual_Recursion",
+            "name": "Correctness | Correctness_Autograder_Cases-test_lazy_eval_basic_1",
             "score": 0,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Correctness | Legacy_V2_-_Functions-Mutual_Recursion",
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -380,13 +380,13 @@
         },
         {
             "name": "Correctness | Correctness_Autograder_Cases-test_lazy_eval_update_1",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Exceptions-Test_nested_try-catch",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -398,31 +398,31 @@
         },
         {
             "name": "Correctness | Exceptions-Empty_String_is_a_valid_catch",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Exceptions-Indirect_Except_Catch",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Correctness_Autograder_Cases-test_exception_func_call_1",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Spec_Examples-Need_Semantics_Simple_Prog",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Correctness | Correctness_Autograder_Cases-test_lazy_eval_func_call_1",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -434,7 +434,7 @@
         },
         {
             "name": "Incorrectness | Incorrectness_Autograder_Cases-text_exception_2",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -452,7 +452,7 @@
         },
         {
             "name": "Incorrectness | Exceptions-Ill_formed_raise_statement_int",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -476,7 +476,7 @@
         },
         {
             "name": "Incorrectness | Exceptions-Name_Error_always_Falls_through",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -494,13 +494,13 @@
         },
         {
             "name": "Incorrectness | Exceptions-Uncaught_Division_by_Zero",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Incorrectness | Spec_Examples-Lazy_Error_Example",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -518,13 +518,13 @@
         },
         {
             "name": "Incorrectness | Exceptions-Except_in_if-condition",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Incorrectness | Exceptions-Ill_formed_raise_statement_nil",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -554,13 +554,13 @@
         },
         {
             "name": "Incorrectness | Exceptions-Uncaught_Raised_Error",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Incorrectness | Incorrectness_Autograder_Cases-test_lazy_eval_error_4",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -572,19 +572,19 @@
         },
         {
             "name": "Incorrectness | Lazy_Evaluation-Lazy_Undef_Func_Error",
-            "score": 1,
-            "max_score": 1,
-            "visibility": "visible"
-        },
-        {
-            "name": "Incorrectness | Exceptions-Try_Catch_Shadowing",
             "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
         {
-            "name": "Incorrectness | Lazy_Evaluation-Lazy_Undef_Func_and_Vars_Error",
+            "name": "Incorrectness | Exceptions-Try_Catch_Shadowing",
             "score": 1,
+            "max_score": 1,
+            "visibility": "visible"
+        },
+        {
+            "name": "Incorrectness | Lazy_Evaluation-Lazy_Undef_Func_and_Vars_Error",
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -626,7 +626,7 @@
         },
         {
             "name": "Incorrectness | Exceptions-Simple_Try_Catch_Miss",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -638,13 +638,13 @@
         },
         {
             "name": "Incorrectness | Lazy_Evaluation-Lazy_Undef_Var_Error",
-            "score": 1,
+            "score": 0,
             "max_score": 1,
             "visibility": "visible"
         },
         {
             "name": "Incorrectness | Exceptions-Deeply_Nested_Lazy_Error",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -662,7 +662,7 @@
         },
         {
             "name": "Incorrectness | Exceptions-Ill_formed_raise_statement_bool",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         },
@@ -674,7 +674,7 @@
         },
         {
             "name": "Incorrectness | Exceptions-Type_Error_always_Falls_through",
-            "score": 0,
+            "score": 1,
             "max_score": 1,
             "visibility": "visible"
         }
