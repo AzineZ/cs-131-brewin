@@ -100,7 +100,7 @@ class Interpreter(InterpreterBase):
             self.vars.pop()  # Ensure the function's scope is cleaned up
             raise  # Propagate exception
 
-        return res
+        # return res
 
     def run_if(self, statement):
         cond = self.run_expr(statement.get('condition'))
