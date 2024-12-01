@@ -1,2 +1,3 @@
-Right now, the program fails the Incorrectness test_struct4 test case. During my attempt to fix this, I have discovered several
-independent errors in my program that was tested on Gradescope. They are all accounted for, beside the mentioned test case.
+Right now, the interpreter is failing Correctness | test_lazy_mutation3 (0/1). It's also failing a shadowing issue when in a function foo,
+declaring variable named a with a parameter named leads to the variable defined error to be incorrectly raised. Not sure if the test case 
+relates to the shadowing error. 

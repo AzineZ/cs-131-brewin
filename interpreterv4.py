@@ -48,8 +48,6 @@ class Interpreter(InterpreterBase):
         except RuntimeError as e:
             super().error(ErrorType.FAULT_ERROR, f"Uncaught exception: {e}")
 
-        #self.run_fcall(self.funcs[main_key])
-
     def run_vardef(self, statement):
         name = statement.get('name')
 
@@ -118,9 +116,6 @@ class Interpreter(InterpreterBase):
 
         captured_scope = {k: v for scope_vars, _ in self.vars for k, v in scope_vars.items()}
         passed_args = [LazyWrapper(arg, lambda e: self.run_expr_with_scope(e, captured_scope)) for arg in args]
-
-        # passed_args = [self.run_expr(a) for a in args]
-        # self.vars.append(({k: v for k, v in zip(template_args, passed_args)}, True))
 
         try:
             self.vars.append(({k: v for k, v in zip(template_args, passed_args)}, True))
@@ -322,7 +317,7 @@ class Interpreter(InterpreterBase):
 
         return None
 
-# def main():  # COMMENT THIS ONCE FINISH TESTING
+# def main():  # COMMENT THIS ONCE FINISH TESTINGd
 #     program = """
 # func main() {
 #   var a;
