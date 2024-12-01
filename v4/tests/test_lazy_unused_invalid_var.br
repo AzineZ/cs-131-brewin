@@ -1,0 +1,15 @@
+func main() {
+  var a;
+  foo("entered function");
+}
+
+func foo(a) {
+  print(a);
+  var a;
+}
+
+/*
+*OUT*
+entered function
+*OUT*
+*/

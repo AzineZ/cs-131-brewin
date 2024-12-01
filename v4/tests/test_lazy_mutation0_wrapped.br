@@ -1,0 +1,21 @@
+func evaluate(aq) {
+  return aq;
+}
+
+func main() {
+ var a;
+ var b;
+ a = 10;
+ b = (a*1) + 1;
+ a = evaluate(a) + 10;
+ b = (b+0) + a;
+ print(a);
+ print(b);
+}
+
+/*
+*OUT*
+20
+31
+*OUT*
+*/

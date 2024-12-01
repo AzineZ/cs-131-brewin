@@ -1,0 +1,24 @@
+func foo(n) {
+  var yahoo;
+  yahoo = 0+0;
+  return -n + yahoo;
+}
+
+func main() {
+  var x;
+  var y;
+  x = 0;
+
+  x = foo(x+3);
+  y = x+10;
+  print(y);
+  print(x);
+
+}
+
+/*
+*OUT*
+7
+-3
+*OUT*
+*/

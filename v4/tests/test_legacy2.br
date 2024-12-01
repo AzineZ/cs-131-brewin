@@ -1,0 +1,20 @@
+func main() {
+    var a;
+    var b;
+    a = inputi();
+    b = inputi();
+    a = a + b;
+    b = a - b;
+    a = a - b;
+    print(a, b);
+}
+
+/*
+*IN*
+2
+4
+*IN*
+*OUT*
+42
+*OUT*
+*/

@@ -1,0 +1,26 @@
+func divide(a, b) {
+  return foo() + (a / b) - 3;
+}
+
+func foo() {
+  print("foo");
+  return 1;
+}
+
+func main() {
+  try {
+    var result;
+    result = divide(10, 0);  /* evaluation deferred due to laziness */
+    print("Result: ", result); /* evaluation occurs here */
+  }
+  catch "div0" {
+    print("Caught division by zero!");
+  }
+}
+
+/*
+*OUT*
+foo
+Caught division by zero!
+*OUT*
+*/

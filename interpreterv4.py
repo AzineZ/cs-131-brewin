@@ -310,17 +310,17 @@ class Interpreter(InterpreterBase):
 
         return None
 
-# def main():  # COMMENT THIS ONCE FINISH TESTING
-#     program = """
-# func main() {
-#     var a;
-#     a = 10;
-#     a = a + 2;
-#     print(a);      
-# }
-#             """
+def main():  # COMMENT THIS ONCE FINISH TESTING
+    program = """
+func main() {
+ var a;
+ a = 10;
+ a = a + 5;
+ print(a);
+}
+            """
 
-#     interpreter = Interpreter()
-#     interpreter.run(program)
+    interpreter = Interpreter()
+    interpreter.run(program)
 
-# main()
+main()

@@ -1,0 +1,35 @@
+func foo() {
+  print("ah");
+  raise "a";
+}
+
+func bar() {
+  print("wow");
+  return 1;
+}
+
+func main() {
+  try {
+    print(foo() + bar());
+  }
+  catch "a" {
+    print("caught");
+  }
+  
+  try {
+    print(bar() + foo());
+  }
+  catch "a" {
+    print("caught");
+  }
+}
+
+/*
+*OUT*
+ah
+caught
+wow
+ah
+caught
+*OUT*
+*/

@@ -1,0 +1,14 @@
+func main() {
+  var x;
+  x = foo(y);
+  print("OK");
+  print(x);  /* NAME_ERROR due to undefined y is deferred to this line */
+}
+
+
+/*
+*OUT*
+OK
+ErrorType.NAME_ERROR
+*OUT*
+*/

@@ -1,0 +1,27 @@
+func foo() {
+  print("food");
+  return 10;
+}
+
+func main() {
+  var a;
+  var b;
+  var c;
+  
+  a = foo();
+  b = a*10;
+  c = a*3;
+
+  print(b);
+  print(c);
+  print(a);
+}
+
+/*
+*OUT*
+food
+100
+30
+10
+*OUT*
+*/

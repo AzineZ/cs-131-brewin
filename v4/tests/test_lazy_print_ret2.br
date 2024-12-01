@@ -1,0 +1,19 @@
+func p(x) {
+  print(x);
+  return 1;
+}
+
+func main() {
+	var x;
+	x = 0;
+	x = print(p(x));
+	print(x == nil);
+}
+
+/*
+*OUT*
+0
+1
+true
+*OUT*
+*/

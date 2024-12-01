@@ -1,0 +1,35 @@
+func foo() {
+  print("F0");
+  raise "a";
+  print("F1");
+}
+
+
+func main() {
+ print("0");
+ try {
+   print("1");
+   foo();
+   print("2");
+ }
+ catch "b" {
+   print("5");
+ }
+ catch "a" {
+   print("3");
+ }
+ catch "c" {
+   print("6");
+ }
+ print("4");
+}
+
+/*
+*OUT*
+0
+1
+F0
+3
+4
+*OUT*
+*/

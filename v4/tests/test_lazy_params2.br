@@ -1,0 +1,28 @@
+func foo(n) {
+  print("foo ", n);
+  return -n;
+}
+
+func f(x) {
+  print("f ", x);
+  return x+1;
+}
+
+func main() {
+  var x;
+  var y;
+  y = foo(0);
+  x = f(y);
+  y = -9;
+  
+  print(x);
+}
+
+
+/*
+*OUT*
+foo 0
+f 0
+1
+*OUT*
+*/

@@ -1,0 +1,60 @@
+func foo() {
+  foob();
+  print("a");
+  raise "a";
+}
+
+func foob() {
+  print(food());
+  print("b");
+  raise "b";
+}
+
+func food() {
+  inputi(foot());
+  print("c");
+  raise "c";
+}
+
+func foot() {
+  return bar();
+  print("d");
+  raise "d";
+}
+
+func fool() {
+  print(1 + bar());
+  print("e");
+  raise "e";
+}
+
+func foop() {
+  print(!foom());
+  print("f");
+  raise "f";
+}
+
+func foom() {
+  print(-bar());
+  print("g");
+  raise "g";
+}
+
+func bar() {
+  raise "x";
+}
+
+func main() {
+  try {
+    foo();
+  }
+  catch "x" {
+    print("x");
+  }
+}
+
+/*
+*OUT*
+x
+*OUT*
+*/

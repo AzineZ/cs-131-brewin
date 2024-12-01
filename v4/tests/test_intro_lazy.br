@@ -1,0 +1,26 @@
+func main() {
+  var result;
+  result = f(3) + 10;
+  print("done with call!");
+  print(result);  /* evaluation of result happens here */
+  print("about to print result again");
+  print(result);
+}
+
+func f(x) {
+  print("f is running");
+  var y;
+  y = 2 * x;
+  return y;
+}
+
+
+/*
+*OUT*
+done with call!
+f is running
+16
+about to print result again
+16
+*OUT*
+*/

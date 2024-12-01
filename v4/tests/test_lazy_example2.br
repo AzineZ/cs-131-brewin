@@ -1,0 +1,31 @@
+func f(x) {
+  print("f is evaluated here!");
+  return x;
+}
+
+func main() {
+  var x;
+  var y;
+  x = 10;
+
+  print("Before");
+  x = x + f(5);
+  y = x;
+  print("Middle");
+  x = x + f(6);
+  print("After");
+  print(x);
+  print(y);
+}
+
+/*
+*OUT*
+Before
+Middle
+After
+f is evaluated here!
+f is evaluated here!
+21
+15
+*OUT*
+*/

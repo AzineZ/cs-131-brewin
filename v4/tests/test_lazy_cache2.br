@@ -1,0 +1,20 @@
+func create() {
+  print("called");
+  return 5;
+}
+
+func main() {
+ var x;
+ x = create();
+ print(x);
+ x = x+1;
+ print(x);
+}
+
+/*
+*OUT*
+called
+5
+6
+*OUT*
+*/

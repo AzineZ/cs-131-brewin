@@ -1,0 +1,21 @@
+func foo(i) {
+  return i;
+}
+
+func main() {
+  var ans;
+  var i;
+
+  ans = 0;
+  for (i=0; foo(i) < 4; i = i + 1) {
+    ans = ans + foo(i);
+  }
+  print(ans);
+}
+
+
+/*
+*OUT*
+6
+*OUT*
+*/
