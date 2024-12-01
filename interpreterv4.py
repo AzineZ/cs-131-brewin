@@ -44,7 +44,7 @@ class Interpreter(InterpreterBase):
             super().error(ErrorType.NAME_ERROR, '')
         
         try:
-            self.run_fcall(self.funcs[main_key])
+            self.run_fcall(self.funcs[main_key], standalone=True)
         except RuntimeError as e:
             super().error(ErrorType.FAULT_ERROR, f"Uncaught exception: {e}")
 
@@ -54,7 +54,7 @@ class Interpreter(InterpreterBase):
         name = statement.get('name')
 
         if name in self.vars[-1][0]:
-            super().error(ErrorType.NAME_ERROR, '')
+            super().error(ErrorType.NAME_ERROR, f"Variable {name} is already defined")
 
         self.vars[-1][0][name] = None
 
@@ -64,18 +64,24 @@ class Interpreter(InterpreterBase):
         
         for scope_vars, is_func in self.vars[::-1]:
             if name in scope_vars:
-                # scope_vars[name] = self.run_expr(statement.get('expression'))
-                if expr.elem_type in {'fcall', 'var', 'neg', '!'} or expr.elem_type in self.bops:
-                    scope_vars[name] = LazyWrapper(expr, self.run_expr)
-                else:
-                    scope_vars[name] = self.run_expr(statement.get('expression'))
+                captured_vars = {k: v for k, v in scope_vars.items()}  
+                scope_vars[name] = LazyWrapper(expr, lambda e: self.run_expr_with_scope(e, captured_vars))
                 return
 
             if is_func: break
 
         super().error(ErrorType.NAME_ERROR, '')
+    
+    def run_expr_with_scope(self, expr, captured_vars):
+        # Temporarily replace self.vars with the captured scope
+        original_vars = self.vars
+        self.vars = [(captured_vars, False)]
+        try:
+            return self.run_expr(expr)
+        finally:
+            self.vars = original_vars
 
-    def run_fcall(self, statement):
+    def run_fcall(self, statement, standalone=False):
         fcall_name, args = statement.get('name'), statement.get('args')
 
         if fcall_name == 'inputi' or fcall_name == 'inputs':
@@ -109,21 +115,26 @@ class Interpreter(InterpreterBase):
         func_def = self.funcs[(fcall_name, len(args))]
 
         template_args = [a.get('name') for a in func_def.get('args')]
-        passed_args = [self.run_expr(a) for a in args]
 
-        # self.vars.append(({k:v for k,v in zip(template_args, passed_args)}, True))
-        # res, _ = self.run_statements(func_def.get('statements'))
-        # self.vars.pop()
+        captured_scope = {k: v for scope_vars, _ in self.vars for k, v in scope_vars.items()}
+        # passed_args = [LazyWrapper(arg, lambda e: self.run_expr_with_scope(e, captured_scope)) for arg in args]
+
+        passed_args = [self.run_expr(a) for a in args]
+        # self.vars.append(({k: v for k, v in zip(template_args, passed_args)}, True))
+
         try:
             self.vars.append(({k: v for k, v in zip(template_args, passed_args)}, True))
             res, _ = self.run_statements(func_def.get('statements'))
-            self.vars.pop()
-            return res
+            if standalone == False:
+                return res.get_value() if isinstance(res, LazyWrapper) else res
+            return
         except RuntimeError as e:
-            self.vars.pop()  # Ensure the function's scope is cleaned up
             raise  # Propagate exception
 
-        # return res
+        finally:
+            # Ensure scope is cleaned up
+            self.vars.pop()
+
 
     def run_if(self, statement):
         cond = self.run_expr(statement.get('condition'))
@@ -168,7 +179,9 @@ class Interpreter(InterpreterBase):
     def run_return(self, statement):
         expr = statement.get('expression')
         if expr:
-            return self.run_expr(expr)
+            # return self.run_expr(expr)
+            captured_scope = {k: v for scope_vars, _ in self.vars for k, v in scope_vars.items()}  # Flatten the current scope
+            return LazyWrapper(expr, lambda e: self.run_expr_with_scope(e, captured_scope))
         return None
 
     def run_statements(self, statements):
@@ -182,7 +195,7 @@ class Interpreter(InterpreterBase):
             elif kind == '=':
                 self.run_assign(statement)
             elif kind == 'fcall':
-                self.run_fcall(statement)
+                self.run_fcall(statement, standalone=True)
             elif kind == 'if':
                 res, ret = self.run_if(statement)
                 if ret: break
@@ -196,7 +209,6 @@ class Interpreter(InterpreterBase):
             elif kind == 'raise':
                 self.run_raise(statement)
             elif kind == 'try':
-                # self.run_try(statement)
                 try:
                     res, ret = self.run_try(statement)
                     if ret: break
@@ -313,10 +325,13 @@ class Interpreter(InterpreterBase):
 def main():  # COMMENT THIS ONCE FINISH TESTING
     program = """
 func main() {
- var a;
- a = 10;
- a = a + 5;
- print(a);
+  var a;
+  foo("entered function");
+}
+
+func foo(a) {
+  print(a);
+  var a;
 }
             """
 
