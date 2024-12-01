@@ -117,9 +117,9 @@ class Interpreter(InterpreterBase):
         template_args = [a.get('name') for a in func_def.get('args')]
 
         captured_scope = {k: v for scope_vars, _ in self.vars for k, v in scope_vars.items()}
-        # passed_args = [LazyWrapper(arg, lambda e: self.run_expr_with_scope(e, captured_scope)) for arg in args]
+        passed_args = [LazyWrapper(arg, lambda e: self.run_expr_with_scope(e, captured_scope)) for arg in args]
 
-        passed_args = [self.run_expr(a) for a in args]
+        # passed_args = [self.run_expr(a) for a in args]
         # self.vars.append(({k: v for k, v in zip(template_args, passed_args)}, True))
 
         try:
@@ -322,20 +322,20 @@ class Interpreter(InterpreterBase):
 
         return None
 
-def main():  # COMMENT THIS ONCE FINISH TESTING
-    program = """
-func main() {
-  var a;
-  foo("entered function");
-}
+# def main():  # COMMENT THIS ONCE FINISH TESTING
+#     program = """
+# func main() {
+#   var a;
+#   foo("entered function");
+# }
 
-func foo(a) {
-  print(a);
-  var a;
-}
-            """
+# func foo(a) {
+#   print(a);
+#   var a;
+# }
+#             """
 
-    interpreter = Interpreter()
-    interpreter.run(program)
+#     interpreter = Interpreter()
+#     interpreter.run(program)
 
-main()
+# main()
