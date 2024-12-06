@@ -1,0 +1,18 @@
+func main() {
+	var x;
+	x = print("nix");
+	x = x;
+	print("middle");
+	print(x == nil);
+}
+
+/*
+*IN*
+1
+*IN*
+*OUT*
+middle
+nix
+true
+*OUT*
+*/

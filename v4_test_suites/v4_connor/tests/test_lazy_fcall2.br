@@ -1,0 +1,27 @@
+func foo(a,b, c) {
+  print(a + b);
+}
+
+func funny() {
+  print("funny");
+  return "funny";
+}
+
+func joke() {
+  print("joke");
+  return "joke";
+}
+
+
+func main() {
+  foo(funny(), joke(), x);
+
+}
+
+/*
+*OUT*
+funny
+joke
+funnyjoke
+*OUT*
+*/

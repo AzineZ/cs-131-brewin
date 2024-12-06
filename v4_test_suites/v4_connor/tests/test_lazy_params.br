@@ -1,0 +1,20 @@
+func foo(n) {
+  print(n);
+  return -n;
+}
+
+func main() {
+  var x;
+  var y;
+  x = 1;
+
+  foo(foo(-x) + x+3);
+
+}
+
+/*
+*OUT*
+-1
+5
+*OUT*
+*/

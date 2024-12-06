@@ -1,0 +1,13 @@
+func bad() {
+  print(oop);
+}
+
+func main() {
+  var a;
+  a = bad();
+}
+
+/*
+*OUT*
+*OUT*
+*/

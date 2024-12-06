@@ -1,0 +1,21 @@
+func main() {
+ print("0");
+ try {
+   print("1");
+   raise "a";
+   print("2");
+ }
+ catch "a" {
+   print("3");
+ }
+ print("4");
+}
+
+/*
+*OUT*
+0
+1
+3
+4
+*OUT*
+*/

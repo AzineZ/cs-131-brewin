@@ -1,0 +1,27 @@
+func main() {
+  var x;
+  x = 1;
+  try {
+	var x;
+	x = 10;
+	raise "a";
+  }
+  catch "a" {
+    print(x);
+  }
+  
+  try {
+	x = 10;
+	raise "a";
+  }
+  catch "a" {
+    print(x);
+  }
+}
+
+/*
+*OUT*
+1
+10
+*OUT*
+*/

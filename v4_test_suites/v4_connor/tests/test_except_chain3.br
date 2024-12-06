@@ -1,0 +1,69 @@
+func foo() {
+  if (foob()) {
+    print("a");
+    raise "a";
+  }
+  else {
+    print("b");
+    raise "b";
+  }
+  print("c");
+  raise "c";
+}
+
+func foob() {
+  var i;
+  for (i = foot(); i < 1; i = i+1) {
+    print("d");
+    raise "d";
+  }
+}
+
+func foot() {
+  var i;
+  for (i = 0; fool(); i = i+1) {
+    print("e");
+    raise "e";
+  }
+}
+
+func fool() {
+  var i;
+  for (i = 0; i < 1; i = food()) {
+    var d;
+  }
+  print("f");
+  raise "f";
+}
+
+func food() {
+  var i;
+  for (i = 0; i < 3; i = i+1) {
+    print("inner");
+    bar(i);
+  }
+}
+
+func bar(i) {
+  if (i == 2) {
+    raise "x";
+  }
+}
+
+func main() {
+  try {
+    foo();
+  }
+  catch "x" {
+    print("x");
+  }
+}
+
+/*
+*OUT*
+inner
+inner
+inner
+x
+*OUT*
+*/

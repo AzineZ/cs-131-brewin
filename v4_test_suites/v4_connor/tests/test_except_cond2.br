@@ -1,0 +1,23 @@
+func foo() {
+  raise "x";
+  print("foo");
+  return true;
+}
+
+func main() {
+  try {
+    var x;
+    for (x = 0; foo(); x = x + 1) {
+      print("asdf");
+    }
+  }
+  catch "x" {
+    print("x");
+  }
+}
+
+/*
+*OUT*
+x
+*OUT*
+*/

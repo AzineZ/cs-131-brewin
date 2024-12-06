@@ -1,0 +1,20 @@
+func main() {
+    var a;
+    var b;
+    a = inputi("Enter a number:");
+    b = 10 - (6 + inputi());
+    print("Answer: ", (1 - a + b) - (a - b));
+}
+
+/*
+*OUT*
+Enter a number:
+*OUT*
+*IN*
+3
+3
+*IN*
+*OUT*
+Answer: -3
+*OUT*
+*/

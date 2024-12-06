@@ -1,0 +1,22 @@
+func foo() {
+  raise "x";
+  print("foo");
+  return true;
+}
+
+func main() {
+  try {
+     if (foo()) {
+       print("true"); 
+     }
+  }
+  catch "x" {
+    print("x");
+  }
+}
+
+/*
+*OUT*
+x
+*OUT*
+*/

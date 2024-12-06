@@ -1,0 +1,33 @@
+
+func main() {
+  var x;
+  x = "one";
+  try {
+    print(x);
+
+    var x;
+    x = "two";
+    print(x);
+
+    raise x;
+  }
+  catch "one" {
+    print("uh");
+  }
+  catch "two" {
+    print("oh");
+    print(x);
+    x = "three";
+  }
+  print(x);
+}
+
+/*
+*OUT*
+one
+two
+oh
+one
+three
+*OUT*
+*/

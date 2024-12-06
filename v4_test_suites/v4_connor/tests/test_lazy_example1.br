@@ -1,0 +1,26 @@
+func foo1() {
+  print("foo1");
+  return 1;
+}
+func foo2() {
+  print("foo2");
+  return 2;
+}
+
+func main() {
+    var b;
+    var c;
+    b = foo1() + 1;
+    c = b + foo2() + 1;   /* c captures b here (b is an expression) */
+  
+    print("B: ", b);   /* b evaluated and cached here */
+    print("C: ", c);   /* c evaluated */
+}
+/*
+*OUT*
+foo1
+B: 2
+foo2
+C: 5
+*OUT*
+*/

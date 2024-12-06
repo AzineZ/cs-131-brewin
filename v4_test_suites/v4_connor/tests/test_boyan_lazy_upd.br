@@ -1,0 +1,25 @@
+func f(x) {
+  print("f is running");
+  var y;
+  y = 2 * x;
+  return y;
+}
+func main() {
+  var x;
+  var result;
+  x = f(3);
+  result = x + 10;
+  print(x);
+  x = 4;
+  print(x);
+  print(result);
+}
+
+/*
+*OUT*
+f is running
+6
+4
+16
+*OUT*
+*/

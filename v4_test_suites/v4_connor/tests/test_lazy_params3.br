@@ -1,0 +1,28 @@
+func foo(n) {
+  print("foo ", n);
+  return -n;
+}
+
+func f(x) {
+  print("f ", x);
+  return x+1;
+}
+
+func main() {
+  var x;
+  var y;
+  y = 0;
+  /* x = y + 1 works */
+  /* when x is assigned, the element's op1 and op2 are Values, not expressions */
+  x = (y+0)+1;
+  y = foo(x);
+  x = "";
+  print(y);
+}
+
+/*
+*OUT*
+foo 1
+-1
+*OUT*
+*/

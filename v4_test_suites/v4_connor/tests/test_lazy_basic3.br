@@ -1,0 +1,21 @@
+func f() {
+  print("foo");
+  return 1+1;
+}
+
+func main() {
+    var a;
+    var b;
+    a = f();
+    b = a*2;
+    print(b);
+    print(a);
+}
+
+/*
+*OUT*
+foo
+4
+2
+*OUT*
+*/

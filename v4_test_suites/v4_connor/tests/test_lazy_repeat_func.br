@@ -1,0 +1,27 @@
+func foo(i, n) {
+  var m;
+  m = i;
+  m = m + 0;
+  return i;
+}
+
+func main() {
+ var a;
+ var b;
+ var c;
+ a = 1;
+ b = 2;
+ c = 3+0;
+
+ print(foo(a, 99));
+ print(foo(b, 6+1));
+ print(foo(c, a+b));
+}
+
+/*
+*OUT*
+1
+2
+3
+*OUT*
+*/
