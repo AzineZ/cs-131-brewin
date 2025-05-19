@@ -1,5 +1,7 @@
 # CS 131 Fall 2024 - Project Autograder
 
+## Disclaimer: This repo is made public purely for demonstrating my code. I am not responsible for any student's Academic Integrity violation because of any level of copying from this code. Please don't cheat. It's an awesome class!
+
 Hi there! This is a repo that contains an open-source subset of the autograder we'll be using for [CS 131 - Fall 2024](https://ucla-cs-131.github.io/fall-24-website/)'s course-long project: making an interpreter.
 
 Using this repository / testing locally is **entirely optional**. It does not directly affect your grade. **You are free to only submit to Gradescope!**
